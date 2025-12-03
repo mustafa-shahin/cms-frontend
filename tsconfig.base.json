@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@cms/shared/api-interfaces": ["shared/api-interfaces/src/index.ts"],
+      "@cms/shared/auth/data-access": ["shared/auth/data-access/src/index.ts"],
+      "@cms/shared/auth/feature": ["shared/auth/feature/src/index.ts"],
+      "@cms/shared/ui": ["shared/ui/src/index.ts"],
+      "@cms/shared/visual-settings": ["shared/visual-settings/src/index.ts"],
+      "@cms/shared/components-registry": ["shared/components-registry/src/index.ts"],
+      "@cms/shared/utils": ["shared/utils/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
