@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   theme: {
     extend: {
       // Colors - using CSS variables for dynamic theming from Visual Settings
