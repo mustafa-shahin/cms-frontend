@@ -8,8 +8,6 @@ import { ApiResponse, PaginatedResponse } from '@cms/shared/api-interfaces';
 export interface RequestOptions {
   headers?: HttpHeaders | { [header: string]: string | string[] };
   params?: HttpParams | { [param: string]: string | string[] };
-  observe?: 'body' | 'response';
-  responseType?: 'json' | 'text' | 'blob';
 }
 
 @Injectable({
@@ -25,7 +23,10 @@ export class ApiService {
   get<T>(endpoint: string, options?: RequestOptions): Observable<T> {
     const url = this.envService.getApiUrl(endpoint);
     return this.http
-      .get<ApiResponse<T>>(url, options)
+      .get<ApiResponse<T>>(url, {
+        headers: options?.headers,
+        params: options?.params,
+      })
       .pipe(
         map((response) => response.data as T),
         catchError(this.handleError)
@@ -41,7 +42,10 @@ export class ApiService {
   ): Observable<PaginatedResponse<T>> {
     const url = this.envService.getApiUrl(endpoint);
     return this.http
-      .get<PaginatedResponse<T>>(url, options)
+      .get<PaginatedResponse<T>>(url, {
+        headers: options?.headers,
+        params: options?.params,
+      })
       .pipe(catchError(this.handleError));
   }
 
@@ -50,12 +54,15 @@ export class ApiService {
    */
   post<T>(
     endpoint: string,
-    body: any,
+    body: unknown,
     options?: RequestOptions
   ): Observable<T> {
     const url = this.envService.getApiUrl(endpoint);
     return this.http
-      .post<ApiResponse<T>>(url, body, options)
+      .post<ApiResponse<T>>(url, body, {
+        headers: options?.headers,
+        params: options?.params,
+      })
       .pipe(
         map((response) => response.data as T),
         catchError(this.handleError)
@@ -67,12 +74,15 @@ export class ApiService {
    */
   put<T>(
     endpoint: string,
-    body: any,
+    body: unknown,
     options?: RequestOptions
   ): Observable<T> {
     const url = this.envService.getApiUrl(endpoint);
     return this.http
-      .put<ApiResponse<T>>(url, body, options)
+      .put<ApiResponse<T>>(url, body, {
+        headers: options?.headers,
+        params: options?.params,
+      })
       .pipe(
         map((response) => response.data as T),
         catchError(this.handleError)
@@ -84,12 +94,15 @@ export class ApiService {
    */
   patch<T>(
     endpoint: string,
-    body: any,
+    body: unknown,
     options?: RequestOptions
   ): Observable<T> {
     const url = this.envService.getApiUrl(endpoint);
     return this.http
-      .patch<ApiResponse<T>>(url, body, options)
+      .patch<ApiResponse<T>>(url, body, {
+        headers: options?.headers,
+        params: options?.params,
+      })
       .pipe(
         map((response) => response.data as T),
         catchError(this.handleError)
@@ -102,7 +115,10 @@ export class ApiService {
   delete<T>(endpoint: string, options?: RequestOptions): Observable<T> {
     const url = this.envService.getApiUrl(endpoint);
     return this.http
-      .delete<ApiResponse<T>>(url, options)
+      .delete<ApiResponse<T>>(url, {
+        headers: options?.headers,
+        params: options?.params,
+      })
       .pipe(
         map((response) => response.data as T),
         catchError(this.handleError)
