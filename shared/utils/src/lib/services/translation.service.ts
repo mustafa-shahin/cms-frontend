@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 export type Language = 'en' | 'de' | 'ar';
 
@@ -60,8 +60,12 @@ export class TranslationService {
     );
 
     if (!translation) {
-      console.warn(`Translation not found for key: ${key} in language: ${language}`);
-      return key;
+      // Fallback to English if translation not found
+      translation = this.getNestedTranslation(this.translations['en'], key);
+      if (!translation) {
+        console.warn(`Translation not found for key: ${key} in language: ${language}`);
+        return key;
+      }
     }
 
     // Replace parameters
@@ -164,6 +168,9 @@ export class TranslationService {
         success: 'Success',
         warning: 'Warning',
         info: 'Information',
+        lightMode: 'Switch to Light Mode',
+        darkMode: 'Switch to Dark Mode',
+        language: 'Language',
       },
       auth: {
         loginTitle: 'Sign In',
@@ -184,6 +191,15 @@ export class TranslationService {
       dashboard: {
         title: 'Dashboard',
         welcome: 'Welcome back, {{name}}!',
+        description: 'This is your dashboard. Here you can manage your content and settings.',
+      },
+      configurator: {
+        title: 'Configurator',
+        description: 'Configure your CMS settings and customize the appearance.',
+      },
+      designer: {
+        title: 'Designer',
+        description: 'Design and customize your pages with our drag-and-drop editor.',
       },
       errors: {
         required: 'This field is required',
@@ -218,6 +234,9 @@ export class TranslationService {
         success: 'Erfolg',
         warning: 'Warnung',
         info: 'Information',
+        lightMode: 'Zum hellen Modus wechseln',
+        darkMode: 'Zum dunklen Modus wechseln',
+        language: 'Sprache',
       },
       auth: {
         loginTitle: 'Anmelden',
@@ -238,6 +257,15 @@ export class TranslationService {
       dashboard: {
         title: 'Dashboard',
         welcome: 'Willkommen zurück, {{name}}!',
+        description: 'Dies ist Ihr Dashboard. Hier können Sie Ihre Inhalte und Einstellungen verwalten.',
+      },
+      configurator: {
+        title: 'Konfigurator',
+        description: 'Konfigurieren Sie Ihre CMS-Einstellungen und passen Sie das Erscheinungsbild an.',
+      },
+      designer: {
+        title: 'Designer',
+        description: 'Gestalten und passen Sie Ihre Seiten mit unserem Drag-and-Drop-Editor an.',
       },
       errors: {
         required: 'Dieses Feld ist erforderlich',
@@ -272,6 +300,9 @@ export class TranslationService {
         success: 'نجاح',
         warning: 'تحذير',
         info: 'معلومات',
+        lightMode: 'التبديل إلى الوضع الفاتح',
+        darkMode: 'التبديل إلى الوضع الداكن',
+        language: 'اللغة',
       },
       auth: {
         loginTitle: 'تسجيل الدخول',
@@ -292,6 +323,15 @@ export class TranslationService {
       dashboard: {
         title: 'لوحة التحكم',
         welcome: 'مرحبًا بعودتك، {{name}}!',
+        description: 'هذه هي لوحة التحكم الخاصة بك. هنا يمكنك إدارة المحتوى والإعدادات.',
+      },
+      configurator: {
+        title: 'المُكوِّن',
+        description: 'قم بتكوين إعدادات نظام إدارة المحتوى وتخصيص المظهر.',
+      },
+      designer: {
+        title: 'المصمم',
+        description: 'صمم وخصص صفحاتك باستخدام محرر السحب والإفلات.',
       },
       errors: {
         required: 'هذا الحقل مطلوب',

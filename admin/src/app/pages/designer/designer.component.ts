@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '@cms/shared/auth/data-access';
 import { TranslationService } from '@cms/shared/utils';
+import { IconComponent, LanguageSelectorComponent } from '@cms/shared/ui';
 
 @Component({
   selector: 'cms-designer',
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent, LanguageSelectorComponent],
   templateUrl: './designer.component.html',
   styleUrl: './designer.component.css',
 })

@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '@cms/shared/auth/data-access';
 import { TranslationService, ThemeService } from '@cms/shared/utils';
+import { IconComponent, LanguageSelectorComponent } from '@cms/shared/ui';
 
 @Component({
   selector: 'cms-configurator',
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent, LanguageSelectorComponent],
   templateUrl: './configurator.component.html',
   styleUrl: './configurator.component.css',
 })

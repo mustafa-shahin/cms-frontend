@@ -4,9 +4,12 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-900">
-          Designer
+          {{ translate.instant('designer.title') }}
         </h1>
         <div class="flex items-center space-x-4">
+          <!-- Language Selector -->
+          <cms-language-selector></cms-language-selector>
+
           @if (currentUser(); as user) {
             <div class="flex items-center space-x-3">
               <div class="text-right">
@@ -15,8 +18,9 @@
               </div>
               <button
                 (click)="onLogout()"
-                class="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
+                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
               >
+                <cms-icon name="logout" size="sm"></cms-icon>
                 {{ translate.instant('common.logout') }}
               </button>
             </div>
@@ -30,10 +34,10 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="bg-white shadow rounded-lg p-6">
       <h2 class="text-xl font-semibold text-gray-900 mb-4">
-        Designer Page
+        {{ translate.instant('designer.title') }}
       </h2>
       <p class="text-gray-600">
-        This is the designer page (no dark theme). Content will be added here.
+        {{ translate.instant('designer.description') }}
       </p>
     </div>
   </main>

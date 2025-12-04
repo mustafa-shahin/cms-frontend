@@ -4,10 +4,11 @@ import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, Validati
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@cms/shared/auth/data-access';
 import { TranslationService } from '@cms/shared/utils';
+import { IconComponent } from '@cms/shared/ui';
 
 @Component({
   selector: 'cms-register',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, IconComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
