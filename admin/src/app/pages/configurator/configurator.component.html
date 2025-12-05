@@ -103,59 +103,19 @@
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Primary Color -->
-        <div class="space-y-2">
-          <label for="primaryColor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Primary Color
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="primaryColor"
-              [ngModel]="primaryColor()"
-              (ngModelChange)="primaryColor.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="primaryColor()"
-              (ngModelChange)="primaryColor.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="#3b82f6"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="primaryColor()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Primary Color"
+          placeholder="#3b82f6"
+          [(color)]="primaryColor"
+          (colorChange)="applyPreview()"
+        />
 
-        <!-- Secondary Color -->
-        <div class="space-y-2">
-          <label for="secondaryColor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Secondary Color
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="secondaryColor"
-              [ngModel]="secondaryColor()"
-              (ngModelChange)="secondaryColor.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="secondaryColor()"
-              (ngModelChange)="secondaryColor.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              placeholder="#8b5cf6"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="secondaryColor()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Secondary Color"
+          placeholder="#8b5cf6"
+          [(color)]="secondaryColor"
+          (colorChange)="applyPreview()"
+        />
       </div>
     </div>
 
@@ -169,59 +129,19 @@
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Navbar Background -->
-        <div class="space-y-2">
-          <label for="navbarBackground" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Navbar Background
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="navbarBackground"
-              [ngModel]="navbarBackground()"
-              (ngModelChange)="navbarBackground.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="navbarBackground()"
-              (ngModelChange)="navbarBackground.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="#1e40af"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="navbarBackground()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Navbar Background"
+          placeholder="#1e40af"
+          [(color)]="navbarBackground"
+          (colorChange)="applyPreview()"
+        />
 
-        <!-- Footer Background -->
-        <div class="space-y-2">
-          <label for="footerBackground" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Footer Background
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="footerBackground"
-              [ngModel]="footerBackground()"
-              (ngModelChange)="footerBackground.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="footerBackground()"
-              (ngModelChange)="footerBackground.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              placeholder="#6d28d9"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="footerBackground()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Footer Background"
+          placeholder="#6d28d9"
+          [(color)]="footerBackground"
+          (colorChange)="applyPreview()"
+        />
       </div>
     </div>
 
@@ -235,59 +155,19 @@
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Text Color -->
-        <div class="space-y-2">
-          <label for="textColor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Body Text Color
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="textColor"
-              [ngModel]="textColor()"
-              (ngModelChange)="textColor.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="textColor()"
-              (ngModelChange)="textColor.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-              placeholder="#1f2937"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="textColor()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Body Text Color"
+          placeholder="#1f2937"
+          [(color)]="textColor"
+          (colorChange)="applyPreview()"
+        />
 
-        <!-- Heading Color -->
-        <div class="space-y-2">
-          <label for="headingColor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Heading Color (H1, H2, H3...)
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="headingColor"
-              [ngModel]="headingColor()"
-              (ngModelChange)="headingColor.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="headingColor()"
-              (ngModelChange)="headingColor.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-              placeholder="#111827"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="headingColor()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Heading Color (H1, H2, H3...)"
+          placeholder="#111827"
+          [(color)]="headingColor"
+          (colorChange)="applyPreview()"
+        />
       </div>
     </div>
 
@@ -301,86 +181,26 @@
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Link Color -->
-        <div class="space-y-2">
-          <label for="linkColor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Link Color
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="linkColor"
-              [ngModel]="linkColor()"
-              (ngModelChange)="linkColor.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="linkColor()"
-              (ngModelChange)="linkColor.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="#3b82f6"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="linkColor()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Link Color"
+          placeholder="#3b82f6"
+          [(color)]="linkColor"
+          (colorChange)="applyPreview()"
+        />
 
-        <!-- Link Hover Color -->
-        <div class="space-y-2">
-          <label for="linkHoverColor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Link Hover Color
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="linkHoverColor"
-              [ngModel]="linkHoverColor()"
-              (ngModelChange)="linkHoverColor.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="linkHoverColor()"
-              (ngModelChange)="linkHoverColor.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="#2563eb"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="linkHoverColor()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Link Hover Color"
+          placeholder="#2563eb"
+          [(color)]="linkHoverColor"
+          (colorChange)="applyPreview()"
+        />
 
-        <!-- Link Visited Color -->
-        <div class="space-y-2">
-          <label for="linkVisitedColor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Visited Link Color
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="linkVisitedColor"
-              [ngModel]="linkVisitedColor()"
-              (ngModelChange)="linkVisitedColor.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="linkVisitedColor()"
-              (ngModelChange)="linkVisitedColor.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              placeholder="#7c3aed"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="linkVisitedColor()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Visited Link Color"
+          placeholder="#7c3aed"
+          [(color)]="linkVisitedColor"
+          (colorChange)="applyPreview()"
+        />
       </div>
     </div>
 
@@ -394,86 +214,26 @@
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Success Color -->
-        <div class="space-y-2">
-          <label for="successColor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Success Color
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="successColor"
-              [ngModel]="successColor()"
-              (ngModelChange)="successColor.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="successColor()"
-              (ngModelChange)="successColor.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="#10b981"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="successColor()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Success Color"
+          placeholder="#10b981"
+          [(color)]="successColor"
+          (colorChange)="applyPreview()"
+        />
 
-        <!-- Warning Color -->
-        <div class="space-y-2">
-          <label for="warningColor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Warning Color
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="warningColor"
-              [ngModel]="warningColor()"
-              (ngModelChange)="warningColor.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="warningColor()"
-              (ngModelChange)="warningColor.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-              placeholder="#f59e0b"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="warningColor()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Warning Color"
+          placeholder="#f59e0b"
+          [(color)]="warningColor"
+          (colorChange)="applyPreview()"
+        />
 
-        <!-- Error Color -->
-        <div class="space-y-2">
-          <label for="errorColor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Error Color
-          </label>
-          <div class="flex items-center gap-3">
-            <input
-              type="color"
-              id="errorColor"
-              [ngModel]="errorColor()"
-              (ngModelChange)="errorColor.set($event); applyPreview()"
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
-            />
-            <input
-              type="text"
-              [ngModel]="errorColor()"
-              (ngModelChange)="errorColor.set($event); applyPreview()"
-              class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
-              placeholder="#ef4444"
-            />
-            <div
-              class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
-              [style.background]="errorColor()"
-            ></div>
-          </div>
-        </div>
+        <cms-color-picker
+          label="Error Color"
+          placeholder="#ef4444"
+          [(color)]="errorColor"
+          (colorChange)="applyPreview()"
+        />
       </div>
     </div>
   </main>

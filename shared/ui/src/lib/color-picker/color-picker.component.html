@@ -1,0 +1,30 @@
+<div class="space-y-2">
+  <label [for]="'color-' + label()" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+    {{ label() }}
+  </label>
+  <div class="flex items-center gap-3">
+    <!-- Color Picker Input -->
+    <input
+      type="color"
+      [id]="'color-' + label()"
+      [ngModel]="color()"
+      (ngModelChange)="onColorChange($event)"
+      class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 cursor-pointer"
+    />
+
+    <!-- Text Input -->
+    <input
+      type="text"
+      [ngModel]="color()"
+      (ngModelChange)="onColorChange($event)"
+      [placeholder]="placeholder()"
+      class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+    />
+
+    <!-- Preview Box -->
+    <div
+      class="h-12 w-16 rounded border-2 border-gray-300 dark:border-gray-600 shadow-inner"
+      [style.background]="color()"
+    ></div>
+  </div>
+</div>

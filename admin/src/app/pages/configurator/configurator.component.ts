@@ -1,14 +1,13 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { AuthService } from '@cms/shared/auth/data-access';
 import { TranslationService, ThemeService, StyleService, StylesApiService, AppStyles } from '@cms/shared/utils';
-import { IconComponent, LanguageSelectorComponent } from '@cms/shared/ui';
+import { IconComponent, LanguageSelectorComponent, ColorPickerComponent } from '@cms/shared/ui';
 
 @Component({
   selector: 'cms-configurator',
-  imports: [FormsModule, IconComponent, LanguageSelectorComponent],
+  imports: [IconComponent, LanguageSelectorComponent, ColorPickerComponent],
   templateUrl: './configurator.component.html',
   styleUrl: './configurator.component.css',
 })
