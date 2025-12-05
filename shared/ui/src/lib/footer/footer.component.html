@@ -1,33 +1,41 @@
 <footer class="w-full mt-auto text-white border-t border-white/10" [style.background]="footerBackground()">
   <div class="max-w-screen-xl mx-auto px-6 py-8 pb-4">
     <!-- Footer Sections -->
-    <div *ngIf="sections.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-      <div *ngFor="let section of sections">
-        <h3 class="text-sm font-semibold uppercase tracking-wider mb-4 text-white/95">
-          {{ section.title }}
-        </h3>
-        <ul class="list-none p-0 m-0 flex flex-col gap-2">
-          <li *ngFor="let link of section.links">
-            <a
-              *ngIf="link.route"
-              [routerLink]="link.route"
-              class="text-white/70 no-underline text-sm transition-colors duration-150 hover:text-white/95"
-            >
-              {{ link.label }}
-            </a>
-            <a
-              *ngIf="link.href"
-              [href]="link.href"
-              class="text-white/70 no-underline text-sm transition-colors duration-150 hover:text-white/95"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {{ link.label }}
-            </a>
-          </li>
-        </ul>
+    @if (sections.length > 0) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        @for (section of sections; track section) {
+          <div>
+            <h3 class="text-sm font-semibold uppercase tracking-wider mb-4 text-white/95">
+              {{ section.title }}
+            </h3>
+            <ul class="list-none p-0 m-0 flex flex-col gap-2">
+              @for (link of section.links; track link) {
+                <li>
+                  @if (link.route) {
+                    <a
+                      [routerLink]="link.route"
+                      class="text-white/70 no-underline text-sm transition-colors duration-150 hover:text-white/95"
+                      >
+                      {{ link.label }}
+                    </a>
+                  }
+                  @if (link.href) {
+                    <a
+                      [href]="link.href"
+                      class="text-white/70 no-underline text-sm transition-colors duration-150 hover:text-white/95"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >
+                      {{ link.label }}
+                    </a>
+                  }
+                </li>
+              }
+            </ul>
+          </div>
+        }
       </div>
-    </div>
+    }
 
     <!-- Footer Content -->
     <div class="py-4">

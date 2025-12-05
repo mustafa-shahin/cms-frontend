@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { NxWelcome } from './nx-welcome';
 import { TranslationService } from '@cms/shared/utils';
 import {
@@ -13,14 +13,13 @@ import {
 
 @Component({
   imports: [
-    CommonModule,
     NxWelcome,
     RouterModule,
     HeaderComponent,
     NavbarComponent,
     FooterComponent,
     LanguageSelectorComponent
-  ],
+],
   selector: 'cms-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',

@@ -1,5 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '@cms/shared/auth/data-access';
@@ -8,7 +8,7 @@ import { IconComponent, LanguageSelectorComponent } from '@cms/shared/ui';
 
 @Component({
   selector: 'cms-configurator',
-  imports: [CommonModule, FormsModule, IconComponent, LanguageSelectorComponent],
+  imports: [FormsModule, IconComponent, LanguageSelectorComponent],
   templateUrl: './configurator.component.html',
   styleUrl: './configurator.component.css',
 })

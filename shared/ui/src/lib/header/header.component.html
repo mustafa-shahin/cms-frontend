@@ -1,17 +1,20 @@
 <header class="w-full bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 py-4 shadow-sm">
   <div class="max-w-screen-xl mx-auto px-6 flex items-center justify-between gap-8">
     <div class="flex-shrink-0">
-      <img
-        *ngIf="logoUrl"
-        [src]="logoUrl"
-        [alt]="logoAlt || translationService.translate('header.logoAlt')"
-        class="h-10 w-auto object-contain block"
-      />
-      <div *ngIf="!logoUrl" class="h-10 min-w-32 bg-gray-100 dark:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-md flex items-center justify-center px-4">
-        <span class="text-sm text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">
-          {{ logoPlaceholderText || translationService.translate('header.logoPlaceholder') }}
-        </span>
-      </div>
+      @if (logoUrl) {
+        <img
+          [src]="logoUrl"
+          [alt]="logoAlt || translationService.translate('header.logoAlt')"
+          class="h-10 w-auto object-contain block"
+          />
+      }
+      @if (!logoUrl) {
+        <div class="h-10 min-w-32 bg-gray-100 dark:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-md flex items-center justify-center px-4">
+          <span class="text-sm text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">
+            {{ logoPlaceholderText || translationService.translate('header.logoPlaceholder') }}
+          </span>
+        </div>
+      }
     </div>
     <div class="flex-1 flex items-center justify-end">
       <ng-content></ng-content>

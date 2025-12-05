@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IconComponent } from '../icon/icon.component';
 import { TranslationService, Language } from '@cms/shared/utils';
 
@@ -13,7 +13,7 @@ interface LanguageOption {
 @Component({
   selector: 'cms-language-selector',
   standalone: true,
-  imports: [CommonModule, IconComponent],
+  imports: [IconComponent],
   template: `
     <div class="relative">
       <button

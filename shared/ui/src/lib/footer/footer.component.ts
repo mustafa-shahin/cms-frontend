@@ -1,5 +1,5 @@
 import { Component, computed, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { StyleService, TranslationService } from '@cms/shared/utils';
 
@@ -17,7 +17,7 @@ export interface FooterSection {
 @Component({
   selector: 'cms-footer',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './footer.component.html',
 })
 export class FooterComponent {

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@cms/shared/auth/data-access';
 import { TranslationService } from '@cms/shared/utils';
@@ -15,14 +15,13 @@ import {
 @Component({
   selector: 'cms-designer',
   imports: [
-    CommonModule,
     RouterModule,
     IconComponent,
     LanguageSelectorComponent,
     HeaderComponent,
     NavbarComponent,
     FooterComponent
-  ],
+],
   templateUrl: './designer.component.html',
   styleUrl: './designer.component.css',
 })

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { AuthService } from '@cms/shared/auth/data-access';
 import { TranslationService, ThemeService } from '@cms/shared/utils';
@@ -7,7 +7,7 @@ import { IconComponent, LanguageSelectorComponent } from '@cms/shared/ui';
 
 @Component({
   selector: 'cms-dashboard',
-  imports: [CommonModule, IconComponent, LanguageSelectorComponent],
+  imports: [IconComponent, LanguageSelectorComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

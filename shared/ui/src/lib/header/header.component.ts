@@ -1,11 +1,11 @@
 import { Component, Input, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { TranslationService } from '@cms/shared/utils';
 
 @Component({
   selector: 'cms-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {

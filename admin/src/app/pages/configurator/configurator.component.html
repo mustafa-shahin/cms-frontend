@@ -74,9 +74,6 @@
 
     <!-- Action Buttons (Top) -->
     <div class="mb-6 flex items-center justify-between bg-white dark:bg-gray-800 shadow rounded-lg p-4">
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        Colors are applied in real-time. Click Save to persist changes to the database.
-      </p>
       <div class="flex items-center gap-3">
         <button
           (click)="onSaveStyles()"
@@ -99,7 +96,7 @@
     <!-- Brand Colors Section -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
       <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-        🎨 Brand Colors
+       Brand Colors
       </h2>
       <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
         Define your primary and secondary brand colors that will be used throughout the application.
@@ -165,7 +162,7 @@
     <!-- Layout Colors Section -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
       <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-        🖼️ Layout Colors
+        Layout Colors
       </h2>
       <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
         Customize the background colors for navbar and footer components.
@@ -231,7 +228,7 @@
     <!-- Text Colors Section -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
       <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-        📝 Text Colors
+         Text Colors
       </h2>
       <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
         Set colors for body text and headings.
@@ -297,7 +294,7 @@
     <!-- Link Colors Section -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
       <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-        🔗 Link Colors
+         Link Colors
       </h2>
       <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
         Customize colors for hyperlinks in different states.
@@ -390,7 +387,7 @@
     <!-- State Colors Section -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
       <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-        ⚠️ State Colors
+        State Colors
       </h2>
       <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
         Define colors for success, warning, and error states.
@@ -476,23 +473,6 @@
               [style.background]="errorColor()"
             ></div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Info Note -->
-    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-      <div class="flex items-start gap-3">
-        <div class="text-2xl">ℹ️</div>
-        <div class="flex-1">
-          <h3 class="text-sm font-medium text-blue-900 dark:text-blue-200 mb-1">
-            How to use
-          </h3>
-          <p class="text-sm text-blue-800 dark:text-blue-300">
-            1. Change any color - changes are applied <strong>immediately in real-time</strong><br>
-            2. Click <strong>"Save"</strong> to persist your changes to the database<br>
-            3. Visit the Designer page or Public app to see navbar and footer with your colors
-          </p>
         </div>
       </div>
     </div>

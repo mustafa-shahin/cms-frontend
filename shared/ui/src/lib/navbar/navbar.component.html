@@ -7,14 +7,15 @@
 
     <!-- Navigation Items -->
     <div class="flex-1 flex items-center gap-2 max-md:flex-col max-md:items-stretch max-md:gap-1">
-      <a
-        *ngFor="let item of items"
-        [routerLink]="item.route"
-        routerLinkActive="bg-white/15"
-        class="px-4 py-2 text-white/90 no-underline rounded-md font-medium text-sm transition-all duration-150 whitespace-nowrap hover:bg-white/10 hover:text-white max-md:text-center"
-      >
-        {{ item.label }}
-      </a>
+      @for (item of items; track item) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="bg-white/15"
+          class="px-4 py-2 text-white/90 no-underline rounded-md font-medium text-sm transition-all duration-150 whitespace-nowrap hover:bg-white/10 hover:text-white max-md:text-center"
+          >
+          {{ item.label }}
+        </a>
+      }
       <ng-content select="[items]"></ng-content>
     </div>
 

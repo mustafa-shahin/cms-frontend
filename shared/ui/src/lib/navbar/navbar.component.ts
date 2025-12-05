@@ -1,5 +1,5 @@
 import { Component, computed, Input, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { StyleService, TranslationService } from '@cms/shared/utils';
 
@@ -12,7 +12,7 @@ export interface NavItem {
 @Component({
   selector: 'cms-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent implements OnInit {
