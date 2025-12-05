@@ -1,0 +1,83 @@
+{
+  "common": {
+    "login": "تسجيل الدخول",
+    "register": "التسجيل",
+    "logout": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "search": "بحث",
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجاح",
+    "warning": "تحذير",
+    "info": "معلومات",
+    "lightMode": "التبديل إلى الوضع الفاتح",
+    "darkMode": "التبديل إلى الوضع الداكن",
+    "language": "اللغة"
+  },
+  "auth": {
+    "loginTitle": "تسجيل الدخول",
+    "loginSubtitle": "أدخل بيانات الاعتماد الخاصة بك",
+    "registerTitle": "إنشاء حساب",
+    "registerSubtitle": "املأ المعلومات أدناه لإنشاء حسابك",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "noAccount": "ليس لديك حساب؟",
+    "haveAccount": "هل لديك حساب بالفعل؟",
+    "signUpLink": "التسجيل",
+    "signInLink": "تسجيل الدخول",
+    "loginSuccess": "تم تسجيل الدخول بنجاح",
+    "registerSuccess": "تم إنشاء الحساب بنجاح",
+    "logoutSuccess": "تم تسجيل الخروج بنجاح",
+    "loginError": "بريد إلكتروني أو كلمة مرور غير صحيحة",
+    "registerError": "فشل التسجيل"
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "welcome": "مرحبًا بعودتك، {{name}}!",
+    "description": "هذه هي لوحة التحكم الخاصة بك. هنا يمكنك إدارة المحتوى والإعدادات."
+  },
+  "configurator": {
+    "title": "المُكوِّن",
+    "description": "قم بتكوين إعدادات نظام إدارة المحتوى وتخصيص المظهر."
+  },
+  "designer": {
+    "title": "المصمم",
+    "description": "صمم وخصص صفحاتك باستخدام محرر السحب والإفلات."
+  },
+  "header": {
+    "logoAlt": "الشعار",
+    "logoPlaceholder": "الشعار"
+  },
+  "footer": {
+    "copyright": "جميع الحقوق محفوظة"
+  },
+  "styleSettings": {
+    "title": "إعدادات النمط",
+    "description": "تخصيص لوحة الألوان للتطبيق",
+    "primaryColor": "اللون الأساسي",
+    "secondaryColor": "اللون الثانوي",
+    "successColor": "لون النجاح",
+    "warningColor": "لون التحذير",
+    "errorColor": "لون الخطأ",
+    "reset": "إعادة تعيين إلى الافتراضي",
+    "saveSuccess": "تم حفظ إعدادات النمط بنجاح",
+    "saveError": "فشل في حفظ إعدادات النمط"
+  },
+  "errors": {
+    "required": "هذا الحقل مطلوب",
+    "invalidEmail": "الرجاء إدخال عنوان بريد إلكتروني صحيح",
+    "passwordMismatch": "كلمات المرور غير متطابقة",
+    "minLength": "الحد الأدنى للطول هو {{min}} أحرف",
+    "maxLength": "الحد الأقصى للطول هو {{max}} أحرف"
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "common": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "submit": "Absenden",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "search": "Suchen",
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "warning": "Warnung",
+    "info": "Information",
+    "lightMode": "Zum hellen Modus wechseln",
+    "darkMode": "Zum dunklen Modus wechseln",
+    "language": "Sprache"
+  },
+  "auth": {
+    "loginTitle": "Anmelden",
+    "loginSubtitle": "Geben Sie Ihre Anmeldedaten ein",
+    "registerTitle": "Konto erstellen",
+    "registerSubtitle": "Füllen Sie die Informationen aus, um Ihr Konto zu erstellen",
+    "forgotPassword": "Passwort vergessen?",
+    "noAccount": "Noch kein Konto?",
+    "haveAccount": "Bereits ein Konto?",
+    "signUpLink": "Registrieren",
+    "signInLink": "Anmelden",
+    "loginSuccess": "Erfolgreich angemeldet",
+    "registerSuccess": "Konto erfolgreich erstellt",
+    "logoutSuccess": "Erfolgreich abgemeldet",
+    "loginError": "Ungültige E-Mail oder Passwort",
+    "registerError": "Registrierung fehlgeschlagen"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Willkommen zurück, {{name}}!",
+    "description": "Dies ist Ihr Dashboard. Hier können Sie Ihre Inhalte und Einstellungen verwalten."
+  },
+  "configurator": {
+    "title": "Konfigurator",
+    "description": "Konfigurieren Sie Ihre CMS-Einstellungen und passen Sie das Erscheinungsbild an."
+  },
+  "designer": {
+    "title": "Designer",
+    "description": "Gestalten und passen Sie Ihre Seiten mit unserem Drag-and-Drop-Editor an."
+  },
+  "header": {
+    "logoAlt": "Logo",
+    "logoPlaceholder": "LOGO"
+  },
+  "footer": {
+    "copyright": "Alle Rechte vorbehalten"
+  },
+  "styleSettings": {
+    "title": "Stileinstellungen",
+    "description": "Passen Sie die Farbpalette für Ihre Anwendung an",
+    "primaryColor": "Primärfarbe",
+    "secondaryColor": "Sekundärfarbe",
+    "successColor": "Erfolgsfarbe",
+    "warningColor": "Warnfarbe",
+    "errorColor": "Fehlerfarbe",
+    "reset": "Auf Standards zurücksetzen",
+    "saveSuccess": "Stileinstellungen erfolgreich gespeichert",
+    "saveError": "Fehler beim Speichern der Stileinstellungen"
+  },
+  "errors": {
+    "required": "Dieses Feld ist erforderlich",
+    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "passwordMismatch": "Passwörter stimmen nicht überein",
+    "minLength": "Mindestlänge beträgt {{min}} Zeichen",
+    "maxLength": "Maximale Länge beträgt {{max}} Zeichen"
+  }
+}

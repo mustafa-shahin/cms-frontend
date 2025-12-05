@@ -1,0 +1,26 @@
+<nav class="w-full text-white shadow-md" [style.background]="navbarBackground()">
+  <div class="max-w-screen-xl mx-auto px-6 flex items-center justify-between min-h-14 gap-8">
+    <!-- Brand Section -->
+    <div class="flex-shrink-0 font-semibold text-lg">
+      <ng-content select="[brand]"></ng-content>
+    </div>
+
+    <!-- Navigation Items -->
+    <div class="flex-1 flex items-center gap-2 max-md:flex-col max-md:items-stretch max-md:gap-1">
+      <a
+        *ngFor="let item of items"
+        [routerLink]="item.route"
+        routerLinkActive="bg-white/15"
+        class="px-4 py-2 text-white/90 no-underline rounded-md font-medium text-sm transition-all duration-150 whitespace-nowrap hover:bg-white/10 hover:text-white max-md:text-center"
+      >
+        {{ item.label }}
+      </a>
+      <ng-content select="[items]"></ng-content>
+    </div>
+
+    <!-- Actions Section -->
+    <div class="flex-shrink-0 flex items-center gap-3 max-md:justify-center">
+      <ng-content select="[actions]"></ng-content>
+    </div>
+  </div>
+</nav>

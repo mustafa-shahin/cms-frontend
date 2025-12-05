@@ -1,2 +1,21 @@
-<cms-nx-welcome></cms-nx-welcome>
-<router-outlet></router-outlet>
+<div class="min-h-screen flex flex-col bg-gray-50">
+  <!-- Navbar -->
+  <cms-navbar [items]="navItems">
+    <div brand class="text-white font-bold text-lg">Public CMS</div>
+    <div actions>
+      <cms-language-selector></cms-language-selector>
+    </div>
+  </cms-navbar>
+
+  <!-- Header -->
+  <cms-header></cms-header>
+
+  <!-- Main Content -->
+  <main class="flex-1">
+    <cms-nx-welcome></cms-nx-welcome>
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <cms-footer></cms-footer>
+</div>

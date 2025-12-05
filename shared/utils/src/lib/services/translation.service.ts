@@ -1,5 +1,8 @@
 import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import translationsEn from '../translations/en.json';
+import translationsDe from '../translations/de.json';
+import translationsAr from '../translations/ar.json';
 
 export type Language = 'en' | 'de' | 'ar';
 
@@ -14,9 +17,9 @@ const LANGUAGE_KEY = 'cms_language';
 })
 export class TranslationService {
   private translations: Record<Language, Translations> = {
-    en: {},
-    de: {},
-    ar: {},
+    en: translationsEn,
+    de: translationsDe,
+    ar: translationsAr,
   };
 
   private currentLanguageSubject = new BehaviorSubject<Language>(
@@ -26,7 +29,8 @@ export class TranslationService {
   public currentLanguage = signal<Language>(this.getStoredLanguage());
 
   constructor() {
-    this.loadDefaultTranslations();
+    // Set initial HTML attributes
+    this.applyLanguageAttributes(this.getStoredLanguage());
   }
 
   /**
@@ -36,8 +40,13 @@ export class TranslationService {
     this.currentLanguageSubject.next(language);
     this.currentLanguage.set(language);
     localStorage.setItem(LANGUAGE_KEY, language);
+    this.applyLanguageAttributes(language);
+  }
 
-    // Set HTML lang and dir attributes
+  /**
+   * Apply language attributes to HTML element
+   */
+  private applyLanguageAttributes(language: Language): void {
     document.documentElement.lang = language;
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
   }
@@ -140,206 +149,4 @@ export class TranslationService {
     return typeof current === 'string' ? current : '';
   }
 
-  /**
-   * Load default translations
-   */
-  private loadDefaultTranslations(): void {
-    // English
-    this.loadTranslations('en', {
-      common: {
-        login: 'Login',
-        register: 'Register',
-        logout: 'Logout',
-        email: 'Email',
-        password: 'Password',
-        confirmPassword: 'Confirm Password',
-        firstName: 'First Name',
-        lastName: 'Last Name',
-        submit: 'Submit',
-        cancel: 'Cancel',
-        save: 'Save',
-        delete: 'Delete',
-        edit: 'Edit',
-        create: 'Create',
-        update: 'Update',
-        search: 'Search',
-        loading: 'Loading...',
-        error: 'Error',
-        success: 'Success',
-        warning: 'Warning',
-        info: 'Information',
-        lightMode: 'Switch to Light Mode',
-        darkMode: 'Switch to Dark Mode',
-        language: 'Language',
-      },
-      auth: {
-        loginTitle: 'Sign In',
-        loginSubtitle: 'Enter your credentials to access your account',
-        registerTitle: 'Create Account',
-        registerSubtitle: 'Fill in the information below to create your account',
-        forgotPassword: 'Forgot Password?',
-        noAccount: "Don't have an account?",
-        haveAccount: 'Already have an account?',
-        signUpLink: 'Sign Up',
-        signInLink: 'Sign In',
-        loginSuccess: 'Successfully logged in',
-        registerSuccess: 'Account created successfully',
-        logoutSuccess: 'Successfully logged out',
-        loginError: 'Invalid email or password',
-        registerError: 'Registration failed',
-      },
-      dashboard: {
-        title: 'Dashboard',
-        welcome: 'Welcome back, {{name}}!',
-        description: 'This is your dashboard. Here you can manage your content and settings.',
-      },
-      configurator: {
-        title: 'Configurator',
-        description: 'Configure your CMS settings and customize the appearance.',
-      },
-      designer: {
-        title: 'Designer',
-        description: 'Design and customize your pages with our drag-and-drop editor.',
-      },
-      errors: {
-        required: 'This field is required',
-        invalidEmail: 'Please enter a valid email address',
-        passwordMismatch: 'Passwords do not match',
-        minLength: 'Minimum length is {{min}} characters',
-        maxLength: 'Maximum length is {{max}} characters',
-      },
-    });
-
-    // German
-    this.loadTranslations('de', {
-      common: {
-        login: 'Anmelden',
-        register: 'Registrieren',
-        logout: 'Abmelden',
-        email: 'E-Mail',
-        password: 'Passwort',
-        confirmPassword: 'Passwort bestätigen',
-        firstName: 'Vorname',
-        lastName: 'Nachname',
-        submit: 'Absenden',
-        cancel: 'Abbrechen',
-        save: 'Speichern',
-        delete: 'Löschen',
-        edit: 'Bearbeiten',
-        create: 'Erstellen',
-        update: 'Aktualisieren',
-        search: 'Suchen',
-        loading: 'Wird geladen...',
-        error: 'Fehler',
-        success: 'Erfolg',
-        warning: 'Warnung',
-        info: 'Information',
-        lightMode: 'Zum hellen Modus wechseln',
-        darkMode: 'Zum dunklen Modus wechseln',
-        language: 'Sprache',
-      },
-      auth: {
-        loginTitle: 'Anmelden',
-        loginSubtitle: 'Geben Sie Ihre Anmeldedaten ein',
-        registerTitle: 'Konto erstellen',
-        registerSubtitle: 'Füllen Sie die Informationen aus, um Ihr Konto zu erstellen',
-        forgotPassword: 'Passwort vergessen?',
-        noAccount: 'Noch kein Konto?',
-        haveAccount: 'Bereits ein Konto?',
-        signUpLink: 'Registrieren',
-        signInLink: 'Anmelden',
-        loginSuccess: 'Erfolgreich angemeldet',
-        registerSuccess: 'Konto erfolgreich erstellt',
-        logoutSuccess: 'Erfolgreich abgemeldet',
-        loginError: 'Ungültige E-Mail oder Passwort',
-        registerError: 'Registrierung fehlgeschlagen',
-      },
-      dashboard: {
-        title: 'Dashboard',
-        welcome: 'Willkommen zurück, {{name}}!',
-        description: 'Dies ist Ihr Dashboard. Hier können Sie Ihre Inhalte und Einstellungen verwalten.',
-      },
-      configurator: {
-        title: 'Konfigurator',
-        description: 'Konfigurieren Sie Ihre CMS-Einstellungen und passen Sie das Erscheinungsbild an.',
-      },
-      designer: {
-        title: 'Designer',
-        description: 'Gestalten und passen Sie Ihre Seiten mit unserem Drag-and-Drop-Editor an.',
-      },
-      errors: {
-        required: 'Dieses Feld ist erforderlich',
-        invalidEmail: 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
-        passwordMismatch: 'Passwörter stimmen nicht überein',
-        minLength: 'Mindestlänge beträgt {{min}} Zeichen',
-        maxLength: 'Maximale Länge beträgt {{max}} Zeichen',
-      },
-    });
-
-    // Arabic
-    this.loadTranslations('ar', {
-      common: {
-        login: 'تسجيل الدخول',
-        register: 'التسجيل',
-        logout: 'تسجيل الخروج',
-        email: 'البريد الإلكتروني',
-        password: 'كلمة المرور',
-        confirmPassword: 'تأكيد كلمة المرور',
-        firstName: 'الاسم الأول',
-        lastName: 'اسم العائلة',
-        submit: 'إرسال',
-        cancel: 'إلغاء',
-        save: 'حفظ',
-        delete: 'حذف',
-        edit: 'تعديل',
-        create: 'إنشاء',
-        update: 'تحديث',
-        search: 'بحث',
-        loading: 'جاري التحميل...',
-        error: 'خطأ',
-        success: 'نجاح',
-        warning: 'تحذير',
-        info: 'معلومات',
-        lightMode: 'التبديل إلى الوضع الفاتح',
-        darkMode: 'التبديل إلى الوضع الداكن',
-        language: 'اللغة',
-      },
-      auth: {
-        loginTitle: 'تسجيل الدخول',
-        loginSubtitle: 'أدخل بيانات الاعتماد الخاصة بك',
-        registerTitle: 'إنشاء حساب',
-        registerSubtitle: 'املأ المعلومات أدناه لإنشاء حسابك',
-        forgotPassword: 'نسيت كلمة المرور؟',
-        noAccount: 'ليس لديك حساب؟',
-        haveAccount: 'هل لديك حساب بالفعل؟',
-        signUpLink: 'التسجيل',
-        signInLink: 'تسجيل الدخول',
-        loginSuccess: 'تم تسجيل الدخول بنجاح',
-        registerSuccess: 'تم إنشاء الحساب بنجاح',
-        logoutSuccess: 'تم تسجيل الخروج بنجاح',
-        loginError: 'بريد إلكتروني أو كلمة مرور غير صحيحة',
-        registerError: 'فشل التسجيل',
-      },
-      dashboard: {
-        title: 'لوحة التحكم',
-        welcome: 'مرحبًا بعودتك، {{name}}!',
-        description: 'هذه هي لوحة التحكم الخاصة بك. هنا يمكنك إدارة المحتوى والإعدادات.',
-      },
-      configurator: {
-        title: 'المُكوِّن',
-        description: 'قم بتكوين إعدادات نظام إدارة المحتوى وتخصيص المظهر.',
-      },
-      designer: {
-        title: 'المصمم',
-        description: 'صمم وخصص صفحاتك باستخدام محرر السحب والإفلات.',
-      },
-      errors: {
-        required: 'هذا الحقل مطلوب',
-        invalidEmail: 'الرجاء إدخال عنوان بريد إلكتروني صحيح',
-        passwordMismatch: 'كلمات المرور غير متطابقة',
-        minLength: 'الحد الأدنى للطول هو {{min}} أحرف',
-        maxLength: 'الحد الأقصى للطول هو {{max}} أحرف',
-      },
-    });
-  }
 }

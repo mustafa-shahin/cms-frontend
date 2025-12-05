@@ -1,44 +1,48 @@
-<div class="min-h-screen bg-gray-50">
-  <!-- Header -->
-  <header class="bg-white shadow">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-900">
-          {{ translate.instant('designer.title') }}
-        </h1>
-        <div class="flex items-center space-x-4">
-          <!-- Language Selector -->
-          <cms-language-selector></cms-language-selector>
-
-          @if (currentUser(); as user) {
-            <div class="flex items-center space-x-3">
-              <div class="text-right">
-                <p class="text-sm font-medium text-gray-900">{{ user.fullName }}</p>
-                <p class="text-xs text-gray-500">{{ user.email }}</p>
-              </div>
-              <button
-                (click)="onLogout()"
-                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
-              >
-                <cms-icon name="logout" size="sm"></cms-icon>
-                {{ translate.instant('common.logout') }}
-              </button>
-            </div>
-          }
-        </div>
-      </div>
+<div class="min-h-screen bg-gray-50 flex flex-col">
+  <!-- Navbar -->
+  <cms-navbar [items]="navItems">
+    <div brand class="text-white font-bold text-lg">CMS Designer</div>
+    <div actions class="flex items-center gap-3">
+      <cms-language-selector></cms-language-selector>
+      @if (currentUser(); as user) {
+        <button
+          (click)="onLogout()"
+          class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
+        >
+          <cms-icon name="logout" size="sm"></cms-icon>
+          {{ translate.instant('common.logout') }}
+        </button>
+      }
     </div>
-  </header>
+  </cms-navbar>
+
+  <!-- Header -->
+  <cms-header>
+    <div class="flex items-center gap-4">
+      @if (currentUser(); as user) {
+        <div class="text-right">
+          <p class="text-sm font-medium text-gray-900">{{ user.fullName }}</p>
+          <p class="text-xs text-gray-500">{{ user.email }}</p>
+        </div>
+      }
+    </div>
+  </cms-header>
 
   <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="bg-white shadow rounded-lg p-6">
       <h2 class="text-xl font-semibold text-gray-900 mb-4">
         {{ translate.instant('designer.title') }}
       </h2>
-      <p class="text-gray-600">
+      <p class="text-gray-600 mb-4">
         {{ translate.instant('designer.description') }}
       </p>
+      <div class="text-sm text-gray-500">
+        <p>The navbar and footer colors can be configured in the Configurator page.</p>
+      </div>
     </div>
   </main>
+
+  <!-- Footer -->
+  <cms-footer></cms-footer>
 </div>

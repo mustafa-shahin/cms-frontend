@@ -1,0 +1,83 @@
+{
+  "common": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "lightMode": "Switch to Light Mode",
+    "darkMode": "Switch to Dark Mode",
+    "language": "Language"
+  },
+  "auth": {
+    "loginTitle": "Sign In",
+    "loginSubtitle": "Enter your credentials to access your account",
+    "registerTitle": "Create Account",
+    "registerSubtitle": "Fill in the information below to create your account",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "signUpLink": "Sign Up",
+    "signInLink": "Sign In",
+    "loginSuccess": "Successfully logged in",
+    "registerSuccess": "Account created successfully",
+    "logoutSuccess": "Successfully logged out",
+    "loginError": "Invalid email or password",
+    "registerError": "Registration failed"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back, {{name}}!",
+    "description": "This is your dashboard. Here you can manage your content and settings."
+  },
+  "configurator": {
+    "title": "Configurator",
+    "description": "Configure your CMS settings and customize the appearance."
+  },
+  "designer": {
+    "title": "Designer",
+    "description": "Design and customize your pages with our drag-and-drop editor."
+  },
+  "header": {
+    "logoAlt": "Logo",
+    "logoPlaceholder": "LOGO"
+  },
+  "footer": {
+    "copyright": "All Rights Reserved"
+  },
+  "styleSettings": {
+    "title": "Style Settings",
+    "description": "Customize the color palette for your application",
+    "primaryColor": "Primary Color",
+    "secondaryColor": "Secondary Color",
+    "successColor": "Success Color",
+    "warningColor": "Warning Color",
+    "errorColor": "Error Color",
+    "reset": "Reset to Defaults",
+    "saveSuccess": "Style settings saved successfully",
+    "saveError": "Failed to save style settings"
+  },
+  "errors": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordMismatch": "Passwords do not match",
+    "minLength": "Minimum length is {{min}} characters",
+    "maxLength": "Maximum length is {{max}} characters"
+  }
+}
