@@ -1,0 +1,159 @@
+<!-- Mobile menu toggle -->
+<button
+  type="button"
+  class="fixed bottom-4 left-4 z-50 inline-flex items-center rounded-lg bg-gray-800 p-2 text-white shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:hidden"
+  (click)="mobileMenuOpen = !mobileMenuOpen"
+>
+  <cms-icon [name]="mobileMenuOpen ? 'times' : 'bars'" [style]="'solid'" class="h-6 w-6"></cms-icon>
+  <span class="sr-only">Toggle menu</span>
+</button>
+
+<!-- Sidebar -->
+<aside
+  class="fixed left-0 top-0 z-40 h-screen w-72 bg-gradient-to-b from-gray-900 to-gray-800 shadow-2xl transition-transform sm:translate-x-0"
+  [class.-translate-x-full]="!mobileMenuOpen"
+  [class.translate-x-0]="mobileMenuOpen"
+>
+  <!-- Header -->
+  <div class="sticky top-0 border-b border-gray-700 bg-gray-900/50 p-4 backdrop-blur-sm">
+    <div class="flex items-center gap-3">
+      <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
+        <cms-icon name="paint-brush" [style]="'solid'"  class="h-6 w-6 text-white"></cms-icon>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold text-white">Customization</h1>
+        <p class="text-xs text-gray-400">Configure your site</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <nav class="flex-1 overflow-y-auto p-4">
+    <ul class="space-y-2">
+      @for (step of steps; track step.key) {
+        <li>
+          <button
+            (click)="setActiveStep(step.key)"
+            class="group flex w-full items-center gap-3 rounded-lg p-3 text-left transition-all duration-200"
+            [class.bg-gradient-to-r]="activeStep() === step.key"
+            [class.from-blue-600]="activeStep() === step.key"
+            [class.to-purple-600]="activeStep() === step.key"
+            [class.text-white]="activeStep() === step.key"
+            [class.shadow-lg]="activeStep() === step.key"
+            [class.text-gray-400]="activeStep() !== step.key"
+            [class.hover:bg-gray-700/50]="activeStep() !== step.key"
+            [class.hover:text-white]="activeStep() !== step.key"
+          >
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-lg transition-colors"
+              [class.bg-white/20]="activeStep() === step.key"
+              [class.bg-gray-700]="activeStep() !== step.key"
+            >
+              <cms-icon
+                [name]="step.icon"
+                [style]="step.iconStyle"
+                class="h-5 w-5"
+                [class.text-white]="activeStep() === step.key"
+                [class.text-gray-400]="activeStep() !== step.key"
+              ></cms-icon>
+            </div>
+            <div class="flex-1">
+              <div class="font-semibold">{{ step.title }}</div>
+              <div class="text-xs opacity-75">{{ step.description }}</div>
+            </div>
+            @if (activeStep() === step.key) {
+              <cms-icon name="chevron-right" [style]="'solid'"  class="h-4 w-4"></cms-icon>
+            }
+          </button>
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <!-- Actions -->
+  <div class="border-t border-gray-700 p-4">
+    <div class="space-y-2">
+      @if (hasChanges()) {
+        <div class="mb-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20 p-2">
+          <div class="flex items-center gap-2 text-yellow-500">
+            <cms-icon name="exclamation-triangle" [style]="'solid'"  class="h-4 w-4"></cms-icon>
+            <span class="text-xs font-medium">Unsaved changes</span>
+          </div>
+        </div>
+      }
+
+      <button
+        (click)="saveAndClose()"
+        [disabled]="!hasChanges() || saving()"
+        class="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-3 font-semibold text-white shadow-lg transition-all hover:from-green-600 hover:to-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        @if (saving()) {
+          <cms-icon name="spinner" [style]="'solid'"  class="h-4 w-4 animate-spin"></cms-icon>
+          <span>Saving...</span>
+        } @else {
+          <cms-icon name="check" [style]="'solid'"  class="h-4 w-4"></cms-icon>
+          <span>Save & Close</span>
+        }
+      </button>
+
+      <button
+        (click)="closeWithoutSaving()"
+        class="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-700 px-4 py-2 font-medium text-white transition-colors hover:bg-gray-600"
+      >
+        <cms-icon name="times" [style]="'solid'"  class="h-4 w-4"></cms-icon>
+        <span>Cancel</span>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- Main content -->
+<main class="min-h-screen bg-gray-50 sm:ml-72">
+  <!-- Loading state -->
+  @if (loading()) {
+    <div class="flex h-screen items-center justify-center">
+      <div class="text-center">
+        <cms-icon name="spinner" [style]="'solid'"  class="h-12 w-12 animate-spin text-blue-600"></cms-icon>
+        <p class="mt-4 text-lg font-semibold text-gray-700">Loading customization...</p>
+        <p class="text-sm text-gray-500">Please wait a moment</p>
+      </div>
+    </div>
+  }
+
+  <!-- Error state -->
+  @else if (error()) {
+    <div class="flex h-screen items-center justify-center p-4">
+      <div class="max-w-md rounded-lg bg-red-50 border border-red-200 p-6 text-center">
+        <cms-icon name="exclamation-circle" [style]="'solid'"  class="mx-auto h-12 w-12 text-red-600"></cms-icon>
+        <h3 class="mt-4 text-lg font-semibold text-red-900">Error Loading Settings</h3>
+        <p class="mt-2 text-sm text-red-700">{{ error() }}</p>
+        <button
+          (click)="ngOnInit()"
+          class="mt-4 rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700"
+        >
+          Try Again
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Content -->
+  @else {
+    <div class="p-6">
+      <!-- Theme step -->
+      @if (activeStep() === 'theme') {
+        <cms-theme-step></cms-theme-step>
+      }
+
+      <!-- Typography step -->
+      @if (activeStep() === 'typography') {
+        <cms-typography-step></cms-typography-step>
+      }
+
+      <!-- Layout step -->
+      @if (activeStep() === 'layout') {
+        <cms-layout-step></cms-layout-step>
+      }
+    </div>
+  }
+</main>

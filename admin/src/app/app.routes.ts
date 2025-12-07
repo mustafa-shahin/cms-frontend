@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import { authGuard } from '@cms/shared/auth/data-access';
 import { LoginComponent, RegisterComponent } from '@cms/shared/auth/feature';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ConfiguratorComponent } from './pages/configurator/configurator.component';
+import { CustomizationWizardComponent } from './pages/customization-wizard/customization-wizard.component';
 import { DesignerComponent } from './pages/designer/designer.component';
 
 export const appRoutes: Route[] = [
@@ -26,7 +26,12 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'configurator',
-    component: ConfiguratorComponent,
+    component: CustomizationWizardComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'customization',
+    component: CustomizationWizardComponent,
     canActivate: [authGuard],
   },
   {

@@ -1,0 +1,141 @@
+<div class="mx-auto max-w-5xl">
+  <!-- Header -->
+  <div class="mb-6">
+    <h2 class="text-2xl font-bold text-gray-900">Theme & Colors</h2>
+    <p class="mt-1 text-sm text-gray-600">
+      Customize your color palette. Click colors to change them, or use the magic wand to auto-generate variants.
+    </p>
+  </div>
+
+  @if (theme(); as currentTheme) {
+    <!-- Info box -->
+    <div class="mb-6 rounded-lg bg-blue-50 border border-blue-200 p-4">
+      <div class="flex items-start gap-3">
+        <cms-icon name="info-circle" [style]="'solid'"  class="mt-0.5 h-5 w-5 text-blue-600"></cms-icon>
+        <div class="text-sm text-blue-900">
+          <p class="font-medium">Color System Explained:</p>
+          <ul class="mt-2 list-inside list-disc space-y-1 text-blue-800">
+            <li><strong>Base:</strong> Main color for the palette</li>
+            <li><strong>Light:</strong> 20% lighter variant for hover states</li>
+            <li><strong>Dark:</strong> 20% darker variant for active states</li>
+            <li><strong>Contrast:</strong> Auto-calculated for text accessibility (WCAG compliant)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Palettes -->
+    <div class="space-y-8">
+      @for (palette of palettes; track palette.key) {
+        <div class="rounded-xl bg-white p-6 shadow-md">
+          <!-- Palette header -->
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
+              <cms-icon [name]="palette.icon" [style]="'solid'"  class="h-5 w-5 text-white"></cms-icon>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-900">{{ palette.title }}</h3>
+              <p class="text-sm text-gray-600">{{ palette.description }}</p>
+            </div>
+          </div>
+
+          <!-- Variant labels -->
+          <div class="mb-3 grid grid-cols-4 gap-2 text-center text-xs font-medium text-gray-600">
+            @for (variant of colorVariants; track variant) {
+              <div class="capitalize">{{ variant }}</div>
+            }
+          </div>
+
+          <!-- Color rows -->
+          <div class="space-y-3">
+            @for (colorType of colorTypes; track colorType.key) {
+              <div class="overflow-hidden rounded-lg bg-gray-50 border border-gray-200">
+                <!-- Color type label with magic wand -->
+                <div class="relative bg-white px-4 py-2">
+                  <span class="font-semibold text-gray-900">{{ colorType.label }}</span>
+                  <button
+                    (click)="autoGenerateVariants(palette.key, colorType.key)"
+                    class="absolute right-2 top-1/2 flex h-8 w-12 -translate-y-1/2 items-center justify-center rounded-md bg-gradient-to-r from-purple-500 to-pink-500 text-white transition-all hover:from-purple-600 hover:to-pink-600 hover:shadow-lg"
+                    title="Auto-generate color variants from base color"
+                  >
+                    <cms-icon name="wand-magic-sparkles" [style]="'solid'"  class="h-4 w-4"></cms-icon>
+                  </button>
+                </div>
+
+                <!-- Color swatches -->
+                <div class="grid grid-cols-4 gap-0">
+                  @for (variant of colorVariants; track variant) {
+                    <button
+                      (click)="openColorPicker('color-' + palette.key + '-' + colorType.key + '-' + variant)"
+                      class="group relative h-20 transition-all hover:z-10 hover:scale-105 hover:shadow-xl"
+                      [style.background-color]="getColor(palette.key, colorType.key, variant)"
+                    >
+                      <!-- Hover overlay -->
+                      <div
+                        class="absolute inset-0 flex items-center justify-center bg-black/0 transition-all group-hover:bg-black/20"
+                      >
+                        <cms-icon
+                          name="palette"
+                          [style]="'solid'" 
+                          class="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
+                          [ngClass]="getContrastClass(getColor(palette.key, colorType.key, variant))"
+                        ></cms-icon>
+                      </div>
+
+                      <!-- Hidden color input -->
+                      <input
+                        [id]="'color-' + palette.key + '-' + colorType.key + '-' + variant"
+                        type="color"
+                        [value]="getColor(palette.key, colorType.key, variant)"
+                        (input)="updateColor(palette.key, colorType.key, variant, $any($event.target).value)"
+                        class="absolute opacity-0 h-0 w-0"
+                      />
+
+                      <!-- Color value label -->
+                      <span
+                        class="absolute bottom-1 right-2 rounded bg-black/20 px-1.5 py-0.5 text-[10px] font-mono opacity-0 transition-opacity group-hover:opacity-100"
+                        [ngClass]="getContrastClass(getColor(palette.key, colorType.key, variant))"
+                      >
+                        {{ getColor(palette.key, colorType.key, variant) }}
+                      </span>
+                    </button>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Preview section -->
+    <div class="mt-8 rounded-xl bg-white p-6 shadow-md">
+      <h3 class="mb-4 text-lg font-bold text-gray-900">Live Preview</h3>
+      <div class="grid grid-cols-3 gap-4">
+        <!-- Brand colors preview -->
+        <div class="space-y-2">
+          <p class="text-xs font-medium text-gray-600">Brand Colors</p>
+          <div class="h-16 rounded-lg" [style.background-color]="currentTheme.brandPalette.primary.base"></div>
+          <div class="h-12 rounded-lg" [style.background-color]="currentTheme.brandPalette.secondary.base"></div>
+          <div class="h-12 rounded-lg" [style.background-color]="currentTheme.brandPalette.accent.base"></div>
+        </div>
+
+        <!-- Neutral colors preview -->
+        <div class="space-y-2">
+          <p class="text-xs font-medium text-gray-600">Neutral Colors</p>
+          <div class="h-16 rounded-lg" [style.background-color]="currentTheme.neutralPalette.primary.base"></div>
+          <div class="h-12 rounded-lg" [style.background-color]="currentTheme.neutralPalette.secondary.base"></div>
+          <div class="h-12 rounded-lg" [style.background-color]="currentTheme.neutralPalette.accent.base"></div>
+        </div>
+
+        <!-- Semantic colors preview -->
+        <div class="space-y-2">
+          <p class="text-xs font-medium text-gray-600">Semantic Colors</p>
+          <div class="h-16 rounded-lg" [style.background-color]="currentTheme.semanticPalette.primary.base"></div>
+          <div class="h-12 rounded-lg" [style.background-color]="currentTheme.semanticPalette.secondary.base"></div>
+          <div class="h-12 rounded-lg" [style.background-color]="currentTheme.semanticPalette.accent.base"></div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

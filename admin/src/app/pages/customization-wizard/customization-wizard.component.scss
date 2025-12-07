@@ -1,0 +1,8 @@
+// Add mobile menu state
+:host {
+  ::ng-deep {
+    cms-icon {
+      display: inline-block;
+    }
+  }
+}
