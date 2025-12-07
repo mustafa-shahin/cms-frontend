@@ -26,20 +26,20 @@
         <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
           @for (template of headerTemplates; track template.value) {
             <button
-              (click)="updateLayout({ headerTemplate: template.value })"
+              (click)="updateHeaderConfig({ template: template.value })"
               class="group relative overflow-hidden rounded-lg border-2 p-4 text-left transition-all"
-              [class.border-blue-500]="currentLayout.headerTemplate === template.value"
-              [class.bg-blue-50]="currentLayout.headerTemplate === template.value"
-              [class.border-gray-200]="currentLayout.headerTemplate !== template.value"
-              [class.hover:border-gray-300]="currentLayout.headerTemplate !== template.value"
+              [class.border-blue-500]="currentLayout.headerConfiguration.template === template.value"
+              [class.bg-blue-50]="currentLayout.headerConfiguration.template === template.value"
+              [class.border-gray-200]="currentLayout.headerConfiguration.template !== template.value"
+              [class.hover:border-gray-300]="currentLayout.headerConfiguration.template !== template.value"
             >
               <div class="flex items-start gap-3">
                 <div
                   class="flex h-10 w-10 items-center justify-center rounded-lg transition-colors"
-                  [class.bg-blue-500]="currentLayout.headerTemplate === template.value"
-                  [class.text-white]="currentLayout.headerTemplate === template.value"
-                  [class.bg-gray-100]="currentLayout.headerTemplate !== template.value"
-                  [class.text-gray-600]="currentLayout.headerTemplate !== template.value"
+                  [class.bg-blue-500]="currentLayout.headerConfiguration.template === template.value"
+                  [class.text-white]="currentLayout.headerConfiguration.template === template.value"
+                  [class.bg-gray-100]="currentLayout.headerConfiguration.template !== template.value"
+                  [class.text-gray-600]="currentLayout.headerConfiguration.template !== template.value"
                 >
                   <cms-icon [name]="template.icon" [style]="'solid'"  class="h-5 w-5"></cms-icon>
                 </div>
@@ -48,7 +48,7 @@
                   <div class="text-xs text-gray-600">{{ template.description }}</div>
                 </div>
               </div>
-              @if (currentLayout.headerTemplate === template.value) {
+              @if (currentLayout.headerConfiguration.template === template.value) {
                 <div class="absolute right-2 top-2">
                   <cms-icon name="check-circle" [style]="'solid'"  class="h-5 w-5 text-blue-500"></cms-icon>
                 </div>
@@ -64,24 +64,24 @@
         <div class="grid grid-cols-3 gap-3">
           @for (placement of logoPlacementOptions; track placement.value) {
             <button
-              (click)="updateLayout({ logoPlacement: placement.value })"
+              (click)="updateHeaderConfig({ logoPlacement: placement.value })"
               class="rounded-lg border-2 p-3 transition-all"
-              [class.border-blue-500]="currentLayout.logoPlacement === placement.value"
-              [class.bg-blue-50]="currentLayout.logoPlacement === placement.value"
-              [class.border-gray-200]="currentLayout.logoPlacement !== placement.value"
-              [class.hover:border-gray-300]="currentLayout.logoPlacement !== placement.value"
+              [class.border-blue-500]="currentLayout.headerConfiguration.logoPlacement === placement.value"
+              [class.bg-blue-50]="currentLayout.headerConfiguration.logoPlacement === placement.value"
+              [class.border-gray-200]="currentLayout.headerConfiguration.logoPlacement !== placement.value"
+              [class.hover:border-gray-300]="currentLayout.headerConfiguration.logoPlacement !== placement.value"
             >
               <cms-icon
                 [name]="placement.icon"
-                [style]="'solid'" 
+                [style]="'solid'"
                 class="mx-auto mb-2 h-6 w-6"
-                [class.text-blue-500]="currentLayout.logoPlacement === placement.value"
-                [class.text-gray-600]="currentLayout.logoPlacement !== placement.value"
+                [class.text-blue-500]="currentLayout.headerConfiguration.logoPlacement === placement.value"
+                [class.text-gray-600]="currentLayout.headerConfiguration.logoPlacement !== placement.value"
               ></cms-icon>
               <div
                 class="text-center text-sm font-medium"
-                [class.text-blue-700]="currentLayout.logoPlacement === placement.value"
-                [class.text-gray-700]="currentLayout.logoPlacement !== placement.value"
+                [class.text-blue-700]="currentLayout.headerConfiguration.logoPlacement === placement.value"
+                [class.text-gray-700]="currentLayout.headerConfiguration.logoPlacement !== placement.value"
               >
                 {{ placement.label }}
               </div>
@@ -105,8 +105,8 @@
           </div>
           <input
             type="checkbox"
-            [checked]="currentLayout.showSearch"
-            (change)="updateLayout({ showSearch: $any($event.target).checked })"
+            [checked]="currentLayout.headerConfiguration.showSearch"
+            (change)="updateHeaderConfig({ showSearch: $any($event.target).checked })"
             class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
           />
         </label>
@@ -122,8 +122,8 @@
           </div>
           <input
             type="checkbox"
-            [checked]="currentLayout.stickyHeader"
-            (change)="updateLayout({ stickyHeader: $any($event.target).checked })"
+            [checked]="currentLayout.headerConfiguration.stickyHeader"
+            (change)="updateHeaderConfig({ stickyHeader: $any($event.target).checked })"
             class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
           />
         </label>
@@ -148,20 +148,20 @@
         <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
           @for (template of footerTemplates; track template.value) {
             <button
-              (click)="updateLayout({ footerTemplate: template.value })"
+              (click)="updateFooterConfig({ template: template.value })"
               class="group relative overflow-hidden rounded-lg border-2 p-4 text-left transition-all"
-              [class.border-blue-500]="currentLayout.footerTemplate === template.value"
-              [class.bg-blue-50]="currentLayout.footerTemplate === template.value"
-              [class.border-gray-200]="currentLayout.footerTemplate !== template.value"
-              [class.hover:border-gray-300]="currentLayout.footerTemplate !== template.value"
+              [class.border-blue-500]="currentLayout.footerConfiguration.template === template.value"
+              [class.bg-blue-50]="currentLayout.footerConfiguration.template === template.value"
+              [class.border-gray-200]="currentLayout.footerConfiguration.template !== template.value"
+              [class.hover:border-gray-300]="currentLayout.footerConfiguration.template !== template.value"
             >
               <div class="flex items-start gap-3">
                 <div
                   class="flex h-10 w-10 items-center justify-center rounded-lg transition-colors"
-                  [class.bg-blue-500]="currentLayout.footerTemplate === template.value"
-                  [class.text-white]="currentLayout.footerTemplate === template.value"
-                  [class.bg-gray-100]="currentLayout.footerTemplate !== template.value"
-                  [class.text-gray-600]="currentLayout.footerTemplate !== template.value"
+                  [class.bg-blue-500]="currentLayout.footerConfiguration.template === template.value"
+                  [class.text-white]="currentLayout.footerConfiguration.template === template.value"
+                  [class.bg-gray-100]="currentLayout.footerConfiguration.template !== template.value"
+                  [class.text-gray-600]="currentLayout.footerConfiguration.template !== template.value"
                 >
                   <cms-icon [name]="template.icon" [style]="'solid'"  class="h-5 w-5"></cms-icon>
                 </div>
@@ -170,7 +170,7 @@
                   <div class="text-xs text-gray-600">{{ template.description }}</div>
                 </div>
               </div>
-              @if (currentLayout.footerTemplate === template.value) {
+              @if (currentLayout.footerConfiguration.template === template.value) {
                 <div class="absolute right-2 top-2">
                   <cms-icon name="check-circle" [style]="'solid'"  class="h-5 w-5 text-blue-500"></cms-icon>
                 </div>
@@ -189,12 +189,12 @@
             type="range"
             min="1"
             max="4"
-            [value]="currentLayout.footerColumnCount"
-            (input)="updateLayout({ footerColumnCount: +$any($event.target).value })"
+            [value]="currentLayout.footerConfiguration.columnCount"
+            (input)="updateFooterConfig({ columnCount: +$any($event.target).value })"
             class="flex-1"
           />
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 font-bold text-blue-700">
-            {{ currentLayout.footerColumnCount }}
+            {{ currentLayout.footerConfiguration.columnCount }}
           </div>
         </div>
       </div>
@@ -214,8 +214,8 @@
           </div>
           <input
             type="checkbox"
-            [checked]="currentLayout.showSocialLinks"
-            (change)="updateLayout({ showSocialLinks: $any($event.target).checked })"
+            [checked]="currentLayout.footerConfiguration.showSocialLinks"
+            (change)="updateFooterConfig({ showSocialLinks: $any($event.target).checked })"
             class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
           />
         </label>
@@ -231,8 +231,8 @@
           </div>
           <input
             type="checkbox"
-            [checked]="currentLayout.showNewsletter"
-            (change)="updateLayout({ showNewsletter: $any($event.target).checked })"
+            [checked]="currentLayout.footerConfiguration.showNewsletter"
+            (change)="updateFooterConfig({ showNewsletter: $any($event.target).checked })"
             class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
           />
         </label>
@@ -254,7 +254,7 @@
       <div class="space-y-6">
         <!-- Container Max Width -->
         <div>
-          <label class="mb-2 block text-sm font-semibold text-gray-900">Container Max Width</label>
+          <label class="mb-2 block text-sm font-semibold text-gray-900">Container Max Width (px)</label>
           <p class="mb-3 text-xs text-gray-600">Maximum width of content container</p>
           <div class="flex items-center gap-4">
             <input
@@ -262,14 +262,17 @@
               min="960"
               max="1920"
               step="80"
-              [value]="parseInt(currentLayout.spacing.containerMaxWidth)"
-              (input)="updateSpacing('containerMaxWidth', $any($event.target).value + 'px')"
+              [value]="currentLayout.spacing.containerMaxWidth"
+              (input)="updateSpacing('containerMaxWidth', +$any($event.target).value)"
               class="flex-1"
             />
             <input
-              type="text"
+              type="number"
+              min="960"
+              max="1920"
+              step="80"
               [value]="currentLayout.spacing.containerMaxWidth"
-              (input)="updateSpacing('containerMaxWidth', $any($event.target).value)"
+              (input)="updateSpacing('containerMaxWidth', +$any($event.target).value)"
               class="w-24 rounded border border-gray-300 px-3 py-2 text-sm"
             />
           </div>
@@ -277,22 +280,25 @@
 
         <!-- Section Padding -->
         <div>
-          <label class="mb-2 block text-sm font-semibold text-gray-900">Section Padding</label>
+          <label class="mb-2 block text-sm font-semibold text-gray-900">Section Padding (rem)</label>
           <p class="mb-3 text-xs text-gray-600">Vertical padding for page sections</p>
           <div class="flex items-center gap-4">
             <input
               type="range"
-              min="16"
-              max="128"
-              step="8"
-              [value]="parseInt(currentLayout.spacing.sectionPadding)"
-              (input)="updateSpacing('sectionPadding', $any($event.target).value + 'px')"
+              min="1"
+              max="8"
+              step="0.5"
+              [value]="currentLayout.spacing.sectionPadding"
+              (input)="updateSpacing('sectionPadding', +$any($event.target).value)"
               class="flex-1"
             />
             <input
-              type="text"
+              type="number"
+              min="1"
+              max="8"
+              step="0.5"
               [value]="currentLayout.spacing.sectionPadding"
-              (input)="updateSpacing('sectionPadding', $any($event.target).value)"
+              (input)="updateSpacing('sectionPadding', +$any($event.target).value)"
               class="w-24 rounded border border-gray-300 px-3 py-2 text-sm"
             />
           </div>
@@ -300,22 +306,25 @@
 
         <!-- Component Gap -->
         <div>
-          <label class="mb-2 block text-sm font-semibold text-gray-900">Component Gap</label>
+          <label class="mb-2 block text-sm font-semibold text-gray-900">Component Gap (rem)</label>
           <p class="mb-3 text-xs text-gray-600">Spacing between UI components</p>
           <div class="flex items-center gap-4">
             <input
               type="range"
-              min="8"
-              max="64"
-              step="4"
-              [value]="parseInt(currentLayout.spacing.componentGap)"
-              (input)="updateSpacing('componentGap', $any($event.target).value + 'px')"
+              min="0.5"
+              max="4"
+              step="0.25"
+              [value]="currentLayout.spacing.componentGap"
+              (input)="updateSpacing('componentGap', +$any($event.target).value)"
               class="flex-1"
             />
             <input
-              type="text"
+              type="number"
+              min="0.5"
+              max="4"
+              step="0.25"
               [value]="currentLayout.spacing.componentGap"
-              (input)="updateSpacing('componentGap', $any($event.target).value)"
+              (input)="updateSpacing('componentGap', +$any($event.target).value)"
               class="w-24 rounded border border-gray-300 px-3 py-2 text-sm"
             />
           </div>
@@ -330,18 +339,18 @@
         <!-- Mock Header -->
         <div
           class="border-b-2 border-gray-300 bg-white"
-          [class.sticky]="currentLayout.stickyHeader"
-          [style.padding]="'12px ' + currentLayout.spacing.sectionPadding"
+          [class.sticky]="currentLayout.headerConfiguration.stickyHeader"
+          [style.padding]="'12px ' + currentLayout.spacing.sectionPadding + 'rem'"
         >
           <div
             class="mx-auto flex items-center"
-            [style.max-width]="currentLayout.spacing.containerMaxWidth"
-            [style.justify-content]="currentLayout.logoPlacement === Placement.Left ? 'flex-start' : currentLayout.logoPlacement === Placement.Center ? 'center' : 'flex-end'"
+            [style.max-width]="currentLayout.spacing.containerMaxWidth + 'px'"
+            [style.justify-content]="currentLayout.headerConfiguration.logoPlacement === Placement.Left ? 'flex-start' : currentLayout.headerConfiguration.logoPlacement === Placement.Center ? 'center' : 'flex-end'"
           >
             <div class="flex items-center gap-4">
               <div class="h-8 w-8 rounded bg-blue-500"></div>
               <div class="text-sm font-bold text-gray-900">Your Site</div>
-              @if (currentLayout.showSearch) {
+              @if (currentLayout.headerConfiguration.showSearch) {
                 <div class="ml-4 h-8 w-48 rounded border border-gray-300 bg-gray-50"></div>
               }
             </div>
@@ -349,11 +358,11 @@
         </div>
 
         <!-- Mock Content -->
-        <div class="bg-gray-50" [style.padding]="currentLayout.spacing.sectionPadding">
+        <div class="bg-gray-50" [style.padding]="currentLayout.spacing.sectionPadding + 'rem'">
           <div
             class="mx-auto space-y-4"
-            [style.max-width]="currentLayout.spacing.containerMaxWidth"
-            [style.gap]="currentLayout.spacing.componentGap"
+            [style.max-width]="currentLayout.spacing.containerMaxWidth + 'px'"
+            [style.gap]="currentLayout.spacing.componentGap + 'rem'"
           >
             <div class="h-32 rounded-lg bg-white shadow"></div>
             <div class="h-48 rounded-lg bg-white shadow"></div>
@@ -361,13 +370,13 @@
         </div>
 
         <!-- Mock Footer -->
-        <div class="border-t-2 border-gray-300 bg-gray-800 text-white" [style.padding]="currentLayout.spacing.sectionPadding">
-          <div class="mx-auto" [style.max-width]="currentLayout.spacing.containerMaxWidth">
+        <div class="border-t-2 border-gray-300 bg-gray-800 text-white" [style.padding]="currentLayout.spacing.sectionPadding + 'rem'">
+          <div class="mx-auto" [style.max-width]="currentLayout.spacing.containerMaxWidth + 'px'">
             <div
               class="grid gap-6"
-              [style.grid-template-columns]="'repeat(' + currentLayout.footerColumnCount + ', 1fr)'"
+              [style.grid-template-columns]="'repeat(' + currentLayout.footerConfiguration.columnCount + ', 1fr)'"
             >
-              @for (col of [].constructor(currentLayout.footerColumnCount); track $index) {
+              @for (col of [].constructor(currentLayout.footerConfiguration.columnCount); track $index) {
                 <div class="space-y-2">
                   <div class="h-4 w-20 rounded bg-gray-600"></div>
                   <div class="h-3 w-full rounded bg-gray-700"></div>
@@ -376,16 +385,16 @@
                 </div>
               }
             </div>
-            @if (currentLayout.showSocialLinks || currentLayout.showNewsletter) {
+            @if (currentLayout.footerConfiguration.showSocialLinks || currentLayout.footerConfiguration.showNewsletter) {
               <div class="mt-6 flex items-center justify-between border-t border-gray-700 pt-6">
-                @if (currentLayout.showSocialLinks) {
+                @if (currentLayout.footerConfiguration.showSocialLinks) {
                   <div class="flex gap-3">
                     <div class="h-8 w-8 rounded-full bg-gray-600"></div>
                     <div class="h-8 w-8 rounded-full bg-gray-600"></div>
                     <div class="h-8 w-8 rounded-full bg-gray-600"></div>
                   </div>
                 }
-                @if (currentLayout.showNewsletter) {
+                @if (currentLayout.footerConfiguration.showNewsletter) {
                   <div class="h-10 w-64 rounded bg-gray-700"></div>
                 }
               </div>

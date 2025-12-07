@@ -96,19 +96,37 @@ export class LayoutStepComponent {
     }
   ];
 
-  updateLayout(updates: Partial<LayoutSettings>) {
+  updateHeaderConfig(updates: Partial<LayoutSettings['headerConfiguration']>) {
     const currentLayout = this.layout();
     if (!currentLayout) return;
 
     const updatedLayout: LayoutSettings = {
       ...currentLayout,
-      ...updates
+      headerConfiguration: {
+        ...currentLayout.headerConfiguration,
+        ...updates
+      }
     };
 
     this.customizationState.setLayoutLocal(updatedLayout);
   }
 
-  updateSpacing(key: keyof LayoutSettings['spacing'], value: string) {
+  updateFooterConfig(updates: Partial<LayoutSettings['footerConfiguration']>) {
+    const currentLayout = this.layout();
+    if (!currentLayout) return;
+
+    const updatedLayout: LayoutSettings = {
+      ...currentLayout,
+      footerConfiguration: {
+        ...currentLayout.footerConfiguration,
+        ...updates
+      }
+    };
+
+    this.customizationState.setLayoutLocal(updatedLayout);
+  }
+
+  updateSpacing(key: keyof LayoutSettings['spacing'], value: number) {
     const currentLayout = this.layout();
     if (!currentLayout) return;
 
