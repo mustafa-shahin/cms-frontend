@@ -7,7 +7,9 @@ import { TypographyStepComponent } from './steps/typography-step/typography-step
 import { LayoutStepComponent } from './steps/layout-step/layout-step.component';
 import { DeveloperStepComponent } from './steps/developer-step/developer-step.component';
 import { SystemInfoStepComponent } from './steps/system-info-step/system-info-step.component';
-import { IconComponent } from '@cms/shared/ui';
+import { IconComponent, ToasterService, LanguageSelectorComponent } from '@cms/shared/ui';
+import { ThemeService, TranslationService } from '@cms/shared/utils';
+import { AuthService } from '@cms/shared/auth/data-access';
 
 export type WizardStep = 'theme' | 'typography' | 'layout' | 'developer' | 'system-info';
 
@@ -29,7 +31,8 @@ interface IWizardStep {
     LayoutStepComponent,
     DeveloperStepComponent,
     SystemInfoStepComponent,
-    IconComponent
+    IconComponent,
+    LanguageSelectorComponent
   ],
   templateUrl: './customization-wizard.component.html',
   styleUrls: ['./customization-wizard.component.scss']
@@ -37,44 +40,14 @@ interface IWizardStep {
 export class CustomizationWizardComponent implements OnInit {
   private readonly customizationState = inject(CustomizationStateService);
   private readonly router = inject(Router);
+  private readonly toaster = inject(ToasterService);
+  private readonly themeService = inject(ThemeService);
+  protected readonly authService = inject(AuthService);
+  protected readonly translate = inject(TranslationService);
+  protected readonly currentUser = this.authService.currentUser;
+  protected readonly currentTheme = this.themeService.currentTheme;
 
-  readonly steps: IWizardStep[] = [
-    {
-      key: 'theme',
-      title: 'Theme & Colors',
-      description: 'Customize your color palette',
-      icon: 'palette',
-      iconStyle: 'solid'
-    },
-    {
-      key: 'typography',
-      title: 'Typography',
-      description: 'Configure fonts and text styles',
-      icon: 'font',
-      iconStyle: 'solid'
-    },
-    {
-      key: 'layout',
-      title: 'Layout',
-      description: 'Adjust header, footer, and spacing',
-      icon: 'layout',
-      iconStyle: 'solid'
-    },
-    {
-      key: 'developer',
-      title: 'Developer',
-      description: 'Settings & utilities for developers',
-      icon: 'code',
-      iconStyle: 'solid'
-    },
-    {
-      key: 'system-info',
-      title: 'System Info',
-      description: 'View system diagnostics',
-      icon: 'info',
-      iconStyle: 'solid'
-    }
-  ];
+  readonly steps: IWizardStep[] = [    {      key: 'theme',      title: 'customization.theme.title',      description: 'customization.theme.description',      icon: 'palette',      iconStyle: 'solid'    },    {      key: 'typography',      title: 'customization.typography.title',      description: 'customization.typography.description',      icon: 'font',      iconStyle: 'solid'    },    {      key: 'layout',      title: 'customization.layout.title',      description: 'customization.layout.description',      icon: 'layout',      iconStyle: 'solid'    },    {      key: 'developer',      title: 'customization.developer.title',      description: 'customization.developer.description',      icon: 'code',      iconStyle: 'solid'    },    {      key: 'system-info',      title: 'customization.systemInfo.title',      description: 'customization.systemInfo.description',      icon: 'info',      iconStyle: 'solid'    }  ];
 
   activeStep = signal<WizardStep>('theme');
   saving = signal<boolean>(false);
@@ -104,9 +77,10 @@ export class CustomizationWizardComponent implements OnInit {
       if (typography) await this.customizationState.updateTypography(typography);
       if (layout) await this.customizationState.updateLayout(layout);
 
-      await this.router.navigate(['/dashboard']);
+      this.toaster.success("Customization settings saved successfully!");
     } catch (error) {
       console.error('Failed to save customization:', error);
+      this.toaster.error('Failed to save customization settings. Please try again.');
     } finally {
       this.saving.set(false);
     }
@@ -120,6 +94,19 @@ export class CustomizationWizardComponent implements OnInit {
     this.customizationState.resetToSaved();
     await this.router.navigate(['/dashboard']);
   }
+
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
+  onLogout(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['"/login"']);
+      },
+    });
+  }
+
 
   resetToDefaults() {
     if (confirm('Are you sure you want to reset all settings to defaults? This cannot be undone.')) {

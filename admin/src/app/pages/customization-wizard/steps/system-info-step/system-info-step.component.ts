@@ -1,4 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { TranslationService } from '@cms/shared/utils';
 import { CommonModule } from '@angular/common';
 import { CustomizationStateService } from '@cms/shared/customization-services';
 import { IconComponent } from '@cms/shared/ui';
@@ -14,10 +15,10 @@ interface SystemInfo {
   standalone: true,
   imports: [CommonModule, IconComponent],
   templateUrl: './system-info-step.component.html',
-  styleUrls: ['./system-info-step.component.scss']
 })
 export class SystemInfoStepComponent implements OnInit {
   private readonly customizationState = inject(CustomizationStateService);
+  protected readonly translate = inject(TranslationService);
   private readonly authService = inject(AuthService);
 
   protected systemInfo = signal<SystemInfo[]>([]);

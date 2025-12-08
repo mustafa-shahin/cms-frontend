@@ -123,7 +123,7 @@
       "bodyMediumDescription": "Standard text",
       "bodySmall": "Body Small",
       "bodySmallDescription": "Compact text",
-      "subtitle": "Subtitle",
+      "subtitleText": "Subtitle",
       "subtitleDescription": "Supporting text",
       "caption": "Caption",
       "captionDescription": "Image captions",
@@ -189,7 +189,76 @@
       "componentGap": "Component Gap",
       "componentGapDescription": "Spacing between UI components",
       "layoutPreview": "Layout Preview"
+    },
+    "developer": {
+    "title": "Developer Settings",
+    "description": "Settings & Tools for Developers",
+    "actions": {
+      "loadConfig": "Load Configuration",
+      "saveConfig": "Save Configuration",
+      "resetDefaults": "Reset to Defaults",
+      "exportConfig": "Export Configuration",
+      "importConfig": "Import Configuration",
+      "refresh": "Refresh"
+    },
+    "status": {
+      "title": "Configuration Status",
+      "theme": "Theme",
+      "typography": "Typography",
+      "layout": "Layout",
+      "unsavedChanges": "Unsaved Changes",
+      "configured": "Configured",
+      "notConfigured": "Not Configured"
+    },
+    "messages": {
+      "loadSuccess": "Configuration loaded successfully",
+      "saveSuccess": "Configuration saved successfully",
+      "resetSuccess": "Configuration reset successfully",
+      "exportSuccess": "Configuration exported successfully",
+      "importSuccess": "Configuration imported successfully. Don't forget to save to apply changes permanently.",
+      "loadError": "Error loading configuration",
+      "saveError": "Error saving configuration",
+      "resetError": "Error resetting configuration",
+      "exportError": "Error exporting configuration",
+      "importError": "Error importing configuration",
+      "invalidFile": "Invalid file type. Please upload a JSON file.",
+      "fileTooLarge": "File is too large. Maximum size is 5MB.",
+      "fileEmpty": "File is empty",
+      "invalidJSON": "Invalid JSON format",
+      "invalidStructure": "Invalid configuration structure",
+      "missingRequired": "Missing required configuration sections (Theme, Typography, or Layout)",
+      "loadingConfig": "Loading configuration from server...",
+      "savingConfig": "Saving configuration to server...",
+      "resettingConfig": "Resetting configuration to defaults...",
+      "noConfigToSave": "No configuration to save. Please configure Theme, Typography, and Layout first."
+    },
+    "confirmReset": {
+      "title": "Reset Configuration",
+      "message": "Are you sure you want to reset all settings to their default values? This action cannot be undone.",
+      "confirm": "Reset",
+      "cancel": "Cancel"
     }
+  },
+  "systemInfo": {
+    "title": "System Information",
+    "description": "Show system diagnostics",
+    "categories": {
+      "application": "Application Information",
+      "user": "User Information",
+      "configStatus": "Configuration Status",
+      "theme": "Theme Configuration",
+      "typography": "Typography Configuration",
+      "layout": "Layout Configuration",
+      "browser": "Browser Information",
+      "storage": "Storage Information",
+      "performance": "Performance Metrics"
+    },
+    "actions": {
+      "refresh": "Refresh",
+      "copyAll": "Copy All",
+      "copied": "Copied to Clipboard"
+    }
+  }
   },
   "designer": {
     "title": "Designer",

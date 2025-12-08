@@ -23,7 +23,11 @@
     "info": "Information",
     "lightMode": "Zum hellen Modus wechseln",
     "darkMode": "Zum dunklen Modus wechseln",
-    "language": "Sprache"
+    "language": "Sprache",
+    "close": "Schließen"
+    ,"yes": "Ja"
+    ,"no": "Nein"
+    ,"saveAndClose": "Speichern & Schließen"
   },
   "auth": {
     "loginTitle": "Anmelden",
@@ -123,7 +127,7 @@
       "bodyMediumDescription": "Standardtext",
       "bodySmall": "Kleiner Fließtext",
       "bodySmallDescription": "Kompakter Text",
-      "subtitle": "Untertitel",
+      "subtitleText": "Untertitel",
       "subtitleDescription": "Unterstützender Text",
       "caption": "Beschriftung",
       "captionDescription": "Bildbeschriftungen",
@@ -189,6 +193,75 @@
       "componentGap": "Komponenten-Abstand",
       "componentGapDescription": "Abstand zwischen UI-Komponenten",
       "layoutPreview": "Layout-Vorschau"
+    },
+    "developer": {
+      "title": "Entwicklereinstellungen",
+      "description": "Einstellungen & Werkzeuge für Entwickler",
+      "actions": {
+        "loadConfig": "Konfiguration laden",
+        "saveConfig": "Konfiguration speichern",
+        "resetDefaults": "Auf Standardwerte zurücksetzen",
+        "exportConfig": "Konfiguration exportieren",
+        "importConfig": "Konfiguration importieren",
+        "refresh": "Aktualisieren"
+      },
+      "status": {
+        "title": "Konfigurationsstatus",
+        "theme": "Design",
+        "typography": "Typografie",
+        "layout": "Layout",
+        "unsavedChanges": "Nicht gespeicherte Änderungen",
+        "configured": "Konfiguriert",
+        "notConfigured": "Nicht konfiguriert"
+      },
+      "messages": {
+        "loadSuccess": "Konfiguration erfolgreich geladen",
+        "saveSuccess": "Konfiguration erfolgreich gespeichert",
+        "resetSuccess": "Konfiguration erfolgreich zurückgesetzt",
+        "exportSuccess": "Konfiguration erfolgreich exportiert",
+        "importSuccess": "Konfiguration erfolgreich importiert. Vergessen Sie nicht zu speichern, um die Änderungen dauerhaft anzuwenden.",
+        "loadError": "Fehler beim Laden der Konfiguration",
+        "saveError": "Fehler beim Speichern der Konfiguration",
+        "resetError": "Fehler beim Zurücksetzen der Konfiguration",
+        "exportError": "Fehler beim Exportieren der Konfiguration",
+        "importError": "Fehler beim Importieren der Konfiguration",
+        "invalidFile": "Ungültiger Dateityp. Bitte laden Sie eine JSON-Datei hoch.",
+        "fileTooLarge": "Datei ist zu groß. Maximale Größe ist 5MB.",
+        "fileEmpty": "Datei ist leer",
+        "invalidJSON": "Ungültiges JSON-Format",
+        "invalidStructure": "Ungültige Konfigurationsstruktur",
+        "missingRequired": "Fehlende erforderliche Konfigurationsabschnitte (Design, Typografie oder Layout)",
+        "loadingConfig": "Konfiguration wird vom Server geladen...",
+        "savingConfig": "Konfiguration wird auf dem Server gespeichert...",
+        "resettingConfig": "Konfiguration wird auf Standardwerte zurückgesetzt...",
+        "noConfigToSave": "Keine Konfiguration zum Speichern. Bitte konfigurieren Sie zuerst Design, Typografie und Layout."
+      },
+      "confirmReset": {
+        "title": "Konfiguration zurücksetzen",
+        "message": "Möchten Sie wirklich alle Einstellungen auf die Standardwerte zurücksetzen? Diese Aktion kann nicht rückgängig gemacht werden.",
+        "confirm": "Zurücksetzen",
+        "cancel": "Abbrechen"
+      }
+    },
+    "systemInfo": {
+      "title": "Systeminformationen",
+      "description": "Systemdiagnose anzeigen",
+      "categories": {
+        "application": "Anwendungsinformationen",
+        "user": "Benutzerinformationen",
+        "configStatus": "Konfigurationsstatus",
+        "theme": "Design-Konfiguration",
+        "typography": "Typografie-Konfiguration",
+        "layout": "Layout-Konfiguration",
+        "browser": "Browserinformationen",
+        "storage": "Speicherinformationen",
+        "performance": "Leistungsmetriken"
+      },
+      "actions": {
+        "refresh": "Aktualisieren",
+        "copyAll": "Alles kopieren",
+        "copied": "In Zwischenablage kopiert"
+      }
     }
   },
   "designer": {

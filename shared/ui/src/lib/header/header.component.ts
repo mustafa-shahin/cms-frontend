@@ -1,6 +1,6 @@
 import { Component, input, Type } from '@angular/core';
 import { CommonModule, NgComponentOutlet } from '@angular/common';
-import { HeaderTemplate } from '@cms-frontend/customization-models';
+import { HeaderTemplate } from '@cms/shared/customization-models';
 import { HeaderMinimalComponent } from './templates/header-minimal/header-minimal.component';
 import { HeaderStandardComponent } from './templates/header-standard/header-standard.component';
 import { HeaderFullComponent } from './templates/header-full/header-full.component';

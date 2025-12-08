@@ -5,6 +5,7 @@ import { CustomizationStateService } from '@cms/shared/customization-services';
 import { ThemeSettings } from '@cms/shared/customization-models';
 import { IconComponent } from '@cms/shared/ui';
 import { ColorUtilsService } from '@cms/shared/utils';
+import { TranslationService } from '@cms/shared/utils';
 
 type PaletteType = 'brandPalette' | 'neutralPalette' | 'semanticPalette';
 type ColorType = 'primary' | 'secondary' | 'accent';
@@ -15,11 +16,11 @@ type ColorVariant = 'base' | 'light' | 'dark' | 'contrast';
   standalone: true,
   imports: [CommonModule, FormsModule, IconComponent],
   templateUrl: './theme-step.component.html',
-  styleUrls: ['./theme-step.component.scss']
 })
 export class ThemeStepComponent {
   private readonly customizationState = inject(CustomizationStateService);
   private readonly colorUtils = inject(ColorUtilsService);
+  protected readonly translate = inject(TranslationService);
 
   readonly theme = this.customizationState.theme;
 
@@ -111,5 +112,31 @@ export class ThemeStepComponent {
     // Use shared color utilities for contrast calculation
     const luminance = this.colorUtils.getRelativeLuminance(color);
     return luminance > 0.5 ? 'text-black' : 'text-white';
+  }
+
+  getPaletteTitle(paletteKey: string): string {
+    const keyMap: Record<string, string> = {
+      'brandPalette': 'customization.theme.brandColors',
+      'neutralPalette': 'customization.theme.neutralColors',
+      'semanticPalette': 'customization.theme.semanticColors'
+    };
+    return this.translate.instant(keyMap[paletteKey] || paletteKey);
+  }
+
+  getPaletteDescription(paletteKey: string): string {
+    const keyMap: Record<string, string> = {
+      'brandPalette': 'customization.theme.brandDescription',
+      'neutralPalette': 'customization.theme.neutralDescription',
+      'semanticPalette': 'customization.theme.semanticDescription'
+    };
+    return this.translate.instant(keyMap[paletteKey] || paletteKey);
+  }
+
+  getColorTypeLabel(colorKey: string): string {
+    return this.translate.instant(`customization.theme.${colorKey}`);
+  }
+
+  getVariantLabel(variant: string): string {
+    return this.translate.instant(`customization.theme.${variant}`);
   }
 }

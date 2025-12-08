@@ -38,7 +38,7 @@ export type ImageVariant = 'original' | 'thumbnail' | 'medium';
 })
 export class ImageUploadService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = `${environment.apiUrl}/api/images`;
+  private readonly apiUrl = `${environment.apiUrl}/${environment.apiVersion}/images`;
 
   /**
    * Upload an image file with progress tracking.

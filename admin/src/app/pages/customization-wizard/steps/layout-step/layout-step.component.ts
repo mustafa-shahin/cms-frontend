@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { TranslationService } from '@cms/shared/utils';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CustomizationStateService } from '@cms/shared/customization-services';
@@ -26,6 +27,7 @@ interface TemplateOption<T> {
 })
 export class LayoutStepComponent {
   private readonly customizationState = inject(CustomizationStateService);
+  protected readonly translate = inject(TranslationService);
 
   readonly layout = this.customizationState.layout;
 

@@ -9,11 +9,10 @@ import { TranslationService } from '@cms/shared/utils';
   standalone: true,
   imports: [CommonModule, IconComponent],
   templateUrl: './developer-step.component.html',
-  styleUrls: ['./developer-step.component.scss']
 })
 export class DeveloperStepComponent {
   private readonly customizationState = inject(CustomizationStateService);
-  private readonly translate = inject(TranslationService);
+  protected readonly translate = inject(TranslationService);
 
   protected readonly loading = this.customizationState.loading;
   protected readonly error = this.customizationState.error;
@@ -184,14 +183,52 @@ export class DeveloperStepComponent {
 
     if (!file) return;
 
+    // Validate file type
+    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+      this.actionMessage.set({
+        type: 'error',
+        text: 'Invalid file type. Please upload a JSON file.'
+      });
+      input.value = '';
+      return;
+    }
+
+    // Validate file size (max 5MB for config files)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      this.actionMessage.set({
+        type: 'error',
+        text: 'File is too large. Maximum size is 5MB.'
+      });
+      input.value = '';
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
         const content = e.target?.result as string;
-        const config = JSON.parse(content);
+
+        // Validate content is not empty
+        if (!content || content.trim().length === 0) {
+          throw new Error('File is empty');
+        }
+
+        // Try-catch around JSON.parse
+        let config: any;
+        try {
+          config = JSON.parse(content);
+        } catch (parseError) {
+          throw new Error('Invalid JSON format');
+        }
+
+        // Security: Validate required structure
+        if (!config || typeof config !== 'object') {
+          throw new Error('Invalid configuration structure');
+        }
 
         if (!config.theme || !config.typography || !config.layout) {
-          throw new Error('Invalid configuration file format');
+          throw new Error('Missing required configuration sections (theme, typography, or layout)');
         }
 
         // Apply imported configuration locally
@@ -206,14 +243,22 @@ export class DeveloperStepComponent {
 
         this.clearMessageAfterDelay();
       } catch (error) {
-        console.error('Failed to import config:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         this.actionMessage.set({
           type: 'error',
-          text: 'Failed to import configuration. Invalid file format.'
+          text: `Failed to import configuration: ${errorMessage}`
         });
       }
 
       // Reset input
+      input.value = '';
+    };
+
+    reader.onerror = () => {
+      this.actionMessage.set({
+        type: 'error',
+        text: 'Failed to read file. Please try again.'
+      });
       input.value = '';
     };
 

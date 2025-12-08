@@ -5,7 +5,7 @@
   (click)="mobileMenuOpen = !mobileMenuOpen"
 >
   <cms-icon [name]="mobileMenuOpen ? 'times' : 'bars'" [style]="'solid'" class="h-6 w-6"></cms-icon>
-  <span class="sr-only">Toggle menu</span>
+  <span class="sr-only">{{ translate.instant('common.toggleMenu') || 'Toggle menu' }}</span>
 </button>
 
 <!-- Sidebar -->
@@ -14,15 +14,15 @@
   [class.-translate-x-full]="!mobileMenuOpen"
   [class.translate-x-0]="mobileMenuOpen"
 >
-  <!-- Header -->
+  <!-- Sidebar Header -->
   <div class="sticky top-0 border-b border-gray-700 bg-gray-900/50 p-4 backdrop-blur-sm">
     <div class="flex items-center gap-3">
       <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
-        <cms-icon name="paint-brush" [style]="'solid'"  class="h-6 w-6 text-white"></cms-icon>
+        <cms-icon name="paint-brush" [style]="'solid'" class="h-6 w-6 text-white"></cms-icon>
       </div>
       <div>
-        <h1 class="text-lg font-bold text-white">Customization</h1>
-        <p class="text-xs text-gray-400">Configure your site</p>
+        <h1 class="text-lg font-bold text-white">{{ translate.instant('customization.title') }}</h1>
+        <p class="text-xs text-gray-400">{{ translate.instant('customization.subtitle') }}</p>
       </div>
     </div>
   </div>
@@ -38,16 +38,14 @@
             [class.bg-gradient-to-r]="activeStep() === step.key"
             [class.from-blue-600]="activeStep() === step.key"
             [class.to-purple-600]="activeStep() === step.key"
-            [class.text-white]="activeStep() === step.key"
             [class.shadow-lg]="activeStep() === step.key"
-            [class.text-gray-400]="activeStep() !== step.key"
             [class.hover:bg-gray-700/50]="activeStep() !== step.key"
-            [class.hover:text-white]="activeStep() !== step.key"
           >
             <div
               class="flex h-10 w-10 items-center justify-center rounded-lg transition-colors"
               [class.bg-white/20]="activeStep() === step.key"
               [class.bg-gray-700]="activeStep() !== step.key"
+              [class.group-hover:bg-gray-600]="activeStep() !== step.key"
             >
               <cms-icon
                 [name]="step.icon"
@@ -58,12 +56,22 @@
               ></cms-icon>
             </div>
             <div class="flex-1">
-              <div class="font-semibold">{{ step.title }}</div>
-              <div class="text-xs opacity-75">{{ step.description }}</div>
+              <div
+                class="font-semibold"
+                [class.text-white]="activeStep() === step.key"
+                [class.text-gray-300]="activeStep() !== step.key"
+                [class.group-hover:text-white]="activeStep() !== step.key"
+              >
+                {{ translate.instant(step.title) }}
+              </div>
+              <div
+                class="text-xs"
+                [class.text-gray-200]="activeStep() === step.key"
+                [class.text-gray-500]="activeStep() !== step.key"
+              >
+                {{ translate.instant(step.description) }}
+              </div>
             </div>
-            @if (activeStep() === step.key) {
-              <cms-icon name="chevron-right" [style]="'solid'"  class="h-4 w-4"></cms-icon>
-            }
           </button>
         </li>
       }
@@ -77,7 +85,7 @@
         <div class="mb-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20 p-2">
           <div class="flex items-center gap-2 text-yellow-500">
             <cms-icon name="exclamation-triangle" [style]="'solid'"  class="h-4 w-4"></cms-icon>
-            <span class="text-xs font-medium">Unsaved changes</span>
+            <span class="text-xs font-medium">{{ translate.instant('customization.unsavedChanges') }}</span>
           </div>
         </div>
       }
@@ -89,10 +97,10 @@
       >
         @if (saving()) {
           <cms-icon name="spinner" [style]="'solid'"  class="h-4 w-4 animate-spin"></cms-icon>
-          <span>Saving...</span>
+          <span>{{ translate.instant('customization.saving') }}</span>
         } @else {
           <cms-icon name="check" [style]="'solid'"  class="h-4 w-4"></cms-icon>
-          <span>Save & Close</span>
+          <span>{{ translate.instant('common.save') }}</span>
         }
       </button>
 
@@ -101,21 +109,63 @@
         class="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-700 px-4 py-2 font-medium text-white transition-colors hover:bg-gray-600"
       >
         <cms-icon name="times" [style]="'solid'"  class="h-4 w-4"></cms-icon>
-        <span>Cancel</span>
+        <span>{{ translate.instant('common.cancel') }}</span>
       </button>
     </div>
   </div>
 </aside>
 
 <!-- Main content -->
-<main class="min-h-screen bg-gray-50 sm:ml-72">
+<main class="min-h-screen bg-gray-50 dark:bg-gray-900 sm:ml-72">
+  <!-- Top Header Bar -->
+  <header class="sticky top-0 z-30 bg-white dark:bg-gray-800 shadow-md border-b border-gray-200 dark:border-gray-700">
+    <div class="px-6 py-4">
+      <div class="flex justify-end">
+        <div class="flex items-center space-x-4">
+          <!-- Language Selector -->
+          <cms-language-selector></cms-language-selector>
+
+          <!-- Theme Toggle -->
+          <button
+            (click)="toggleTheme()"
+            class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            [title]="currentTheme() === 'dark' ? translate.instant('common.lightMode') : translate.instant('common.darkMode')"
+          >
+            @if (currentTheme() === 'dark') {
+              <cms-icon name="sun" size="lg"></cms-icon>
+            } @else {
+              <cms-icon name="moon" size="lg"></cms-icon>
+            }
+          </button>
+
+          <!-- User Info & Logout -->
+          @if (currentUser(); as user) {
+            <div class="flex items-center space-x-3">
+              <div class="text-right hidden md:block">
+                <p class="text-sm font-medium text-gray-900 dark:text-white">{{ user.fullName }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">{{ user.email }}</p>
+              </div>
+              <button
+                (click)="onLogout()"
+                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
+              >
+                <cms-icon name="logout" size="sm"></cms-icon>
+                <span class="hidden sm:inline">{{ translate.instant('common.logout') }}</span>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </header>
+
   <!-- Loading state -->
   @if (loading()) {
     <div class="flex h-screen items-center justify-center">
       <div class="text-center">
         <cms-icon name="spinner" [style]="'solid'"  class="h-12 w-12 animate-spin text-blue-600"></cms-icon>
-        <p class="mt-4 text-lg font-semibold text-gray-700">Loading customization...</p>
-        <p class="text-sm text-gray-500">Please wait a moment</p>
+        <p class="mt-4 text-lg font-semibold text-gray-700 dark:text-gray-300">{{ translate.instant('customization.loadingSettings') }}</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">{{ translate.instant('customization.loadingWait') }}</p>
       </div>
     </div>
   }
@@ -123,15 +173,15 @@
   <!-- Error state -->
   @else if (error()) {
     <div class="flex h-screen items-center justify-center p-4">
-      <div class="max-w-md rounded-lg bg-red-50 border border-red-200 p-6 text-center">
+      <div class="max-w-md rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-6 text-center">
         <cms-icon name="exclamation-circle" [style]="'solid'"  class="mx-auto h-12 w-12 text-red-600"></cms-icon>
-        <h3 class="mt-4 text-lg font-semibold text-red-900">Error Loading Settings</h3>
-        <p class="mt-2 text-sm text-red-700">{{ error() }}</p>
+        <h3 class="mt-4 text-lg font-semibold text-red-900 dark:text-red-100">{{ translate.instant('customization.errorLoading') }}</h3>
+        <p class="mt-2 text-sm text-red-700 dark:text-red-300">{{ error() }}</p>
         <button
           (click)="ngOnInit()"
           class="mt-4 rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700"
         >
-          Try Again
+          {{ translate.instant('customization.tryAgain') }}
         </button>
       </div>
     </div>
@@ -142,27 +192,27 @@
     <div class="p-6">
       <!-- Theme step -->
       @if (activeStep() === 'theme') {
-        <cms-theme-step></cms-theme-step>
+        <cms-theme-step />
       }
 
       <!-- Typography step -->
       @if (activeStep() === 'typography') {
-        <cms-typography-step></cms-typography-step>
+        <cms-typography-step />
       }
 
       <!-- Layout step -->
       @if (activeStep() === 'layout') {
-        <cms-layout-step></cms-layout-step>
+        <cms-layout-step />
       }
 
       <!-- Developer step -->
       @if (activeStep() === 'developer') {
-        <cms-developer-step></cms-developer-step>
+        <cms-developer-step />
       }
 
       <!-- System Info step -->
       @if (activeStep() === 'system-info') {
-        <cms-system-info-step></cms-system-info-step>
+        <cms-system-info-step />
       }
     </div>
   }

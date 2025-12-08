@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { TranslationService } from '@cms/shared/utils';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CustomizationStateService } from '@cms/shared/customization-services';
@@ -25,6 +26,7 @@ interface FontFamily {
 })
 export class TypographyStepComponent {
   private readonly customizationState = inject(CustomizationStateService);
+  protected readonly translate = inject(TranslationService);
 
   readonly typography = this.customizationState.typography;
 

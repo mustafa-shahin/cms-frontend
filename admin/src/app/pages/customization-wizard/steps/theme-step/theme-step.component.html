@@ -1,9 +1,9 @@
 <div class="mx-auto max-w-5xl">
   <!-- Header -->
   <div class="mb-6">
-    <h2 class="text-2xl font-bold text-gray-900">Theme & Colors</h2>
-    <p class="mt-1 text-sm text-gray-600">
-      Customize your color palette. Click colors to change them, or use the magic wand to auto-generate variants.
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.theme.title") }}</h2>
+    <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+      {{ translate.instant("customization.theme.subtitle") }}
     </p>
   </div>
 
@@ -13,12 +13,12 @@
       <div class="flex items-start gap-3">
         <cms-icon name="info-circle" [style]="'solid'"  class="mt-0.5 h-5 w-5 text-blue-600"></cms-icon>
         <div class="text-sm text-blue-900">
-          <p class="font-medium">Color System Explained:</p>
+          <p class="font-medium">{{ translate.instant("customization.theme.colorSystemTitle") }}</p>
           <ul class="mt-2 list-inside list-disc space-y-1 text-blue-800">
-            <li><strong>Base:</strong> Main color for the palette</li>
-            <li><strong>Light:</strong> 20% lighter variant for hover states</li>
-            <li><strong>Dark:</strong> 20% darker variant for active states</li>
-            <li><strong>Contrast:</strong> Auto-calculated for text accessibility (WCAG compliant)</li>
+            <li><strong>{{ translate.instant("customization.theme.base") }}:</strong> {{ translate.instant("customization.theme.colorBase") }}</li>
+            <li><strong>{{ translate.instant("customization.theme.light") }}:</strong> {{ translate.instant("customization.theme.colorLight") }}
+            <li><strong>{{ translate.instant("customization.theme.dark") }}:</strong> {{ translate.instant("customization.theme.colorDark") }}
+            <li><strong>{{ translate.instant("customization.theme.contrast") }}:</strong> {{ translate.instant("customization.theme.colorContrast") }}
           </ul>
         </div>
       </div>
@@ -27,39 +27,39 @@
     <!-- Color Palettes -->
     <div class="space-y-8">
       @for (palette of palettes; track palette.key) {
-        <div class="rounded-xl bg-white p-6 shadow-md">
+        <div class="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-md">
           <!-- Palette header -->
           <div class="mb-4 flex items-center gap-3">
             <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
               <cms-icon [name]="palette.icon" [style]="'solid'"  class="h-5 w-5 text-white"></cms-icon>
             </div>
             <div>
-              <h3 class="text-lg font-bold text-gray-900">{{ palette.title }}</h3>
-              <p class="text-sm text-gray-600">{{ palette.description }}</p>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.theme." + palette.key.replace("Palette", "Colors")) }}</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300">{{ translate.instant("customization.theme." + palette.key.replace("Palette", "Description")) }}</p>
             </div>
           </div>
 
           <!-- Variant labels -->
-          <div class="mb-3 grid grid-cols-4 gap-2 text-center text-xs font-medium text-gray-600">
+          <div class="mb-3 grid grid-cols-4 gap-2 text-center text-xs font-medium text-gray-600 dark:text-gray-300">
             @for (variant of colorVariants; track variant) {
-              <div class="capitalize">{{ variant }}</div>
+              <div class="capitalize">{{ translate.instant("customization.theme." + variant) }}</div>
             }
           </div>
 
           <!-- Color rows -->
           <div class="space-y-3">
             @for (colorType of colorTypes; track colorType.key) {
-              <div class="overflow-hidden rounded-lg bg-gray-50 border border-gray-200">
+              <div class="overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
                 <!-- Color type label with magic wand -->
-                <div class="relative bg-white px-4 py-2">
-                  <span class="font-semibold text-gray-900">{{ colorType.label }}</span>
-                  <button
+                <div class="relative bg-white dark:bg-gray-800 px-4 py-2">
+                  <span class="font-semibold text-gray-900 dark:text-white">{{ getColorTypeLabel(colorType.key) }}</span>
+                  <!-- <button
                     (click)="autoGenerateVariants(palette.key, colorType.key)"
                     class="absolute right-2 top-1/2 flex h-8 w-12 -translate-y-1/2 items-center justify-center rounded-md bg-gradient-to-r from-purple-500 to-pink-500 text-white transition-all hover:from-purple-600 hover:to-pink-600 hover:shadow-lg"
-                    title="Auto-generate color variants from base color"
+                    [title]="translate.instant('customization.theme.autoGenerate')"
                   >
                     <cms-icon name="wand-magic-sparkles" [style]="'solid'"  class="h-4 w-4"></cms-icon>
-                  </button>
+                  </button> -->
                 </div>
 
                 <!-- Color swatches -->
@@ -109,12 +109,12 @@
     </div>
 
     <!-- Preview section -->
-    <div class="mt-8 rounded-xl bg-white p-6 shadow-md">
-      <h3 class="mb-4 text-lg font-bold text-gray-900">Live Preview</h3>
+    <div class="mt-8 rounded-xl bg-white dark:bg-gray-800 p-6 shadow-md">
+      <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.theme.livePreview") }}</h3>
       <div class="grid grid-cols-3 gap-4">
         <!-- Brand colors preview -->
         <div class="space-y-2">
-          <p class="text-xs font-medium text-gray-600">Brand Colors</p>
+          <p class="text-xs font-medium text-gray-600 dark:text-gray-300">{{ translate.instant("customization.theme.brandColors") }}</p>
           <div class="h-16 rounded-lg" [style.background-color]="currentTheme.brandPalette.primary.base"></div>
           <div class="h-12 rounded-lg" [style.background-color]="currentTheme.brandPalette.secondary.base"></div>
           <div class="h-12 rounded-lg" [style.background-color]="currentTheme.brandPalette.accent.base"></div>
@@ -122,7 +122,7 @@
 
         <!-- Neutral colors preview -->
         <div class="space-y-2">
-          <p class="text-xs font-medium text-gray-600">Neutral Colors</p>
+          <p class="text-xs font-medium text-gray-600 dark:text-gray-300">{{ translate.instant("customization.theme.neutralColors") }}</p>
           <div class="h-16 rounded-lg" [style.background-color]="currentTheme.neutralPalette.primary.base"></div>
           <div class="h-12 rounded-lg" [style.background-color]="currentTheme.neutralPalette.secondary.base"></div>
           <div class="h-12 rounded-lg" [style.background-color]="currentTheme.neutralPalette.accent.base"></div>
@@ -130,7 +130,7 @@
 
         <!-- Semantic colors preview -->
         <div class="space-y-2">
-          <p class="text-xs font-medium text-gray-600">Semantic Colors</p>
+          <p class="text-xs font-medium text-gray-600 dark:text-gray-300">{{ translate.instant("customization.theme.semanticColors") }}</p>
           <div class="h-16 rounded-lg" [style.background-color]="currentTheme.semanticPalette.primary.base"></div>
           <div class="h-12 rounded-lg" [style.background-color]="currentTheme.semanticPalette.secondary.base"></div>
           <div class="h-12 rounded-lg" [style.background-color]="currentTheme.semanticPalette.accent.base"></div>

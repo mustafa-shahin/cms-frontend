@@ -23,7 +23,11 @@
     "info": "معلومات",
     "lightMode": "التبديل إلى الوضع الفاتح",
     "darkMode": "التبديل إلى الوضع الداكن",
-    "language": "اللغة"
+    "language": "اللغة",
+    "close": "إغلاق"
+    ,"yes": "نعم"
+    ,"no": "لا"
+    ,"saveAndClose": "حفظ وإغلاق"
   },
   "auth": {
     "loginTitle": "تسجيل الدخول",
@@ -123,7 +127,7 @@
       "bodyMediumDescription": "النص القياسي",
       "bodySmall": "نص جسم صغير",
       "bodySmallDescription": "النص المضغوط",
-      "subtitle": "عنوان فرعي",
+      "subtitleText": "عنوان فرعي",
       "subtitleDescription": "النص الداعم",
       "caption": "تعليق",
       "captionDescription": "تعليقات الصور",
@@ -189,6 +193,75 @@
       "componentGap": "فجوة المكونات",
       "componentGapDescription": "المسافة بين مكونات واجهة المستخدم",
       "layoutPreview": "معاينة التخطيط"
+    },
+    "developer": {
+      "title": "إعدادات المطور",
+      "description": "الإعدادات والأدوات للمطورين",
+      "actions": {
+        "loadConfig": "تحميل التكوين",
+        "saveConfig": "حفظ التكوين",
+        "resetDefaults": "إعادة تعيين إلى الافتراضيات",
+        "exportConfig": "تصدير التكوين",
+        "importConfig": "استيراد التكوين",
+        "refresh": "تحديث"
+      },
+      "status": {
+        "title": "حالة التكوين",
+        "theme": "التصميم",
+        "typography": "الطباعة",
+        "layout": "التخطيط",
+        "unsavedChanges": "تغييرات غير محفوظة",
+        "configured": "تم تكوينه",
+        "notConfigured": "لم يتم تكوينه"
+      },
+      "messages": {
+        "loadSuccess": "تم تحميل التكوين بنجاح",
+        "saveSuccess": "تم حفظ التكوين بنجاح",
+        "resetSuccess": "تم إعادة تعيين التكوين بنجاح",
+        "exportSuccess": "تم تصدير التكوين بنجاح",
+        "importSuccess": "تم استيراد التكوين بنجاح. تذكر الحفظ لتطبيق التغييرات بشكل دائم.",
+        "loadError": "خطأ في تحميل التكوين",
+        "saveError": "خطأ في حفظ التكوين",
+        "resetError": "خطأ في إعادة تعيين التكوين",
+        "exportError": "خطأ في تصدير التكوين",
+        "importError": "خطأ في استيراد التكوين",
+        "invalidFile": "نوع ملف غير صالح. يرجى تحميل ملف JSON.",
+        "fileTooLarge": "الملف كبير جدًا. الحجم الأقصى هو 5 ميجابايت.",
+        "fileEmpty": "الملف فارغ",
+        "invalidJSON": "تنسيق JSON غير صالح",
+        "invalidStructure": "بنية تكوين غير صالحة",
+        "missingRequired": "أقسام التكوين المطلوبة مفقودة (التصميم أو الطباعة أو التخطيط)",
+        "loadingConfig": "جاري تحميل التكوين من الخادم...",
+        "savingConfig": "جاري حفظ التكوين على الخادم...",
+        "resettingConfig": "جاري إعادة تعيين التكوين إلى القيم الافتراضية...",
+        "noConfigToSave": "لا يوجد تكوين للحفظ. يرجى تكوين التصميم والطباعة والتخطيط أولاً."
+      },
+      "confirmReset": {
+        "title": "إعادة تعيين التكوين",
+        "message": "هل أنت متأكد من إعادة تعيين جميع الإعدادات إلى القيم الافتراضية؟ لا يمكن التراجع عن هذا الإجراء.",
+        "confirm": "إعادة تعيين",
+        "cancel": "إلغاء"
+      }
+    },
+    "systemInfo": {
+      "title": "معلومات النظام",
+      "description": "عرض تشخيص النظام",
+      "categories": {
+        "application": "معلومات التطبيق",
+        "user": "معلومات المستخدم",
+        "configStatus": "حالة التكوين",
+        "theme": "تكوين التصميم",
+        "typography": "تكوين الطباعة",
+        "layout": "تكوين التخطيط",
+        "browser": "معلومات المتصفح",
+        "storage": "معلومات التخزين",
+        "performance": "مقاييس الأداء"
+      },
+      "actions": {
+        "refresh": "تحديث",
+        "copyAll": "نسخ الكل",
+        "copied": "تم النسخ إلى الحافظة"
+      }
     }
   },
   "designer": {

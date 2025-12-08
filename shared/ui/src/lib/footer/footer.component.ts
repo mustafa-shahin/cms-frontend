@@ -1,6 +1,6 @@
 import { Component, input, Type } from '@angular/core';
 import { CommonModule, NgComponentOutlet } from '@angular/common';
-import { FooterTemplate } from '@cms-frontend/customization-models';
+import { FooterTemplate } from '@cms/shared/customization-models';
 import { FooterMinimalComponent } from './templates/footer-minimal/footer-minimal.component';
 import { FooterStandardComponent } from './templates/footer-standard/footer-standard.component';
 import { FooterFullComponent } from './templates/footer-full/footer-full.component';

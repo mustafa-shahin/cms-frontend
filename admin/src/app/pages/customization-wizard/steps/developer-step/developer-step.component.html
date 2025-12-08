@@ -1,5 +1,5 @@
-<div class="developer-step p-6">
-  <h2 class="text-2xl font-bold mb-2">Developer Settings</h2>
+<div class="max-w-7xl mx-auto p-6">
+  <h2 class="text-2xl font-bold mb-2">{{ translate.instant("customization.developer.title") }}</h2>
   <p class="text-gray-600 dark:text-gray-400 mb-6">
     Advanced configuration management tools for developers
   </p>
@@ -20,7 +20,7 @@
 
   <!-- Configuration Management Section -->
   <div class="mb-8">
-    <h3 class="text-lg font-semibold mb-4">Configuration Management</h3>
+    <h3 class="text-lg font-semibold mb-4">{{ translate.instant("customization.developer.configManagement") || "Configuration Management" }}</h3>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- Load Newest Config -->
@@ -30,7 +30,7 @@
             <cms-icon name="download" class="w-6 h-6 text-blue-600" />
           </div>
           <div class="flex-1">
-            <h4 class="font-semibold mb-1">Load from Server</h4>
+            <h4 class="font-semibold mb-1">{{ translate.instant("customization.developer.actions.loadConfig") }}</h4>
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
               Load the latest configuration from the backend server, discarding any local changes.
             </p>
@@ -40,9 +40,9 @@
               class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               @if (loading()) {
-                <span>Loading...</span>
+                <span>{{ translate.instant("common.loading") }}</span>
               } @else {
-                <span>Load from Server</span>
+                <span>{{ translate.instant("customization.developer.actions.loadConfig") }}</span>
               }
             </button>
           </div>
@@ -56,7 +56,7 @@
             <cms-icon name="upload" class="w-6 h-6 text-green-600" />
           </div>
           <div class="flex-1">
-            <h4 class="font-semibold mb-1">Save to Server</h4>
+            <h4 class="font-semibold mb-1">{{ translate.instant("customization.developer.actions.saveConfig") }}</h4>
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
               Save the current configuration to the backend server.
             </p>
@@ -66,9 +66,9 @@
               class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               @if (loading()) {
-                <span>Saving...</span>
+                <span>{{ translate.instant("customization.saving") }}</span>
               } @else {
-                <span>Save to Server</span>
+                <span>{{ translate.instant("customization.developer.actions.saveConfig") }}</span>
               }
             </button>
           </div>
@@ -82,7 +82,7 @@
             <cms-icon name="refresh-cw" class="w-6 h-6 text-red-600" />
           </div>
           <div class="flex-1">
-            <h4 class="font-semibold mb-1 text-red-800 dark:text-red-400">Reset to Defaults</h4>
+            <h4 class="font-semibold mb-1 text-red-800 dark:text-red-400">{{ translate.instant("customization.developer.actions.resetDefaults") }}</h4>
             <p class="text-sm text-red-700 dark:text-red-300 mb-3">
               <strong>Warning:</strong> This will permanently reset all configuration to default values. This action cannot be undone.
             </p>
@@ -101,25 +101,25 @@
       <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
         <div class="flex items-start gap-3">
           <div class="flex-shrink-0 mt-1">
-            <cms-icon name="info" class="w-6 h-6 text-gray-600" />
+            <cms-icon name="info" class="w-6 h-6 text-gray-600 dark:text-gray-300" />
           </div>
           <div class="flex-1">
-            <h4 class="font-semibold mb-1">Configuration Status</h4>
+            <h4 class="font-semibold mb-1">{{ translate.instant("customization.developer.status.title") }}</h4>
             <div class="text-sm space-y-2">
               <div class="flex justify-between">
-                <span class="text-gray-600 dark:text-gray-400">Theme:</span>
+                <span class="text-gray-600 dark:text-gray-400">{{ translate.instant("customization.developer.status.theme") }}:</span>
                 <span class="font-medium">{{ theme() ? 'Configured' : 'Not Set' }}</span>
               </div>
               <div class="flex justify-between">
-                <span class="text-gray-600 dark:text-gray-400">Typography:</span>
+                <span class="text-gray-600 dark:text-gray-400">{{ translate.instant("customization.developer.status.typography") }}:</span>
                 <span class="font-medium">{{ typography() ? 'Configured' : 'Not Set' }}</span>
               </div>
               <div class="flex justify-between">
-                <span class="text-gray-600 dark:text-gray-400">Layout:</span>
+                <span class="text-gray-600 dark:text-gray-400">{{ translate.instant("customization.developer.status.layout") }}:</span>
                 <span class="font-medium">{{ layout() ? 'Configured' : 'Not Set' }}</span>
               </div>
               <div class="flex justify-between">
-                <span class="text-gray-600 dark:text-gray-400">Unsaved Changes:</span>
+                <span class="text-gray-600 dark:text-gray-400">{{ translate.instant("customization.developer.status.unsavedChanges") }}:</span>
                 <span class="font-medium" [class.text-orange-600]="hasUnsavedChanges()">
                   {{ hasUnsavedChanges() ? 'Yes' : 'No' }}
                 </span>
@@ -133,7 +133,7 @@
 
   <!-- Import/Export Section -->
   <div class="mb-8">
-    <h3 class="text-lg font-semibold mb-4">Import/Export</h3>
+    <h3 class="text-lg font-semibold mb-4">{{ translate.instant("customization.developer.importExport") || "Import/Export" }}</h3>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- Export Config -->
@@ -143,7 +143,7 @@
             <cms-icon name="file-down" class="w-6 h-6 text-indigo-600" />
           </div>
           <div class="flex-1">
-            <h4 class="font-semibold mb-1">Export Configuration</h4>
+            <h4 class="font-semibold mb-1">{{ translate.instant("customization.developer.actions.exportConfig") }}</h4>
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
               Download current configuration as a JSON file for backup or migration.
             </p>
@@ -164,7 +164,7 @@
             <cms-icon name="file-up" class="w-6 h-6 text-purple-600" />
           </div>
           <div class="flex-1">
-            <h4 class="font-semibold mb-1">Import Configuration</h4>
+            <h4 class="font-semibold mb-1">{{ translate.instant("customization.developer.actions.importConfig") }}</h4>
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
               Import configuration from a JSON file. Changes will be applied locally.
             </p>
