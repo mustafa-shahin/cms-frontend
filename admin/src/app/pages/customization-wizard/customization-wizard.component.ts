@@ -5,9 +5,11 @@ import { CustomizationStateService } from '@cms/shared/customization-services';
 import { ThemeStepComponent } from './steps/theme-step/theme-step.component';
 import { TypographyStepComponent } from './steps/typography-step/typography-step.component';
 import { LayoutStepComponent } from './steps/layout-step/layout-step.component';
+import { DeveloperStepComponent } from './steps/developer-step/developer-step.component';
+import { SystemInfoStepComponent } from './steps/system-info-step/system-info-step.component';
 import { IconComponent } from '@cms/shared/ui';
 
-export type WizardStep = 'theme' | 'typography' | 'layout';
+export type WizardStep = 'theme' | 'typography' | 'layout' | 'developer' | 'system-info';
 
 interface IWizardStep {
   key: WizardStep;
@@ -25,6 +27,8 @@ interface IWizardStep {
     ThemeStepComponent,
     TypographyStepComponent,
     LayoutStepComponent,
+    DeveloperStepComponent,
+    SystemInfoStepComponent,
     IconComponent
   ],
   templateUrl: './customization-wizard.component.html',
@@ -54,6 +58,20 @@ export class CustomizationWizardComponent implements OnInit {
       title: 'Layout',
       description: 'Adjust header, footer, and spacing',
       icon: 'layout',
+      iconStyle: 'solid'
+    },
+    {
+      key: 'developer',
+      title: 'Developer',
+      description: 'Settings & utilities for developers',
+      icon: 'code',
+      iconStyle: 'solid'
+    },
+    {
+      key: 'system-info',
+      title: 'System Info',
+      description: 'View system diagnostics',
+      icon: 'info',
       iconStyle: 'solid'
     }
   ];

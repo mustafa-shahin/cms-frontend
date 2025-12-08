@@ -1,0 +1,66 @@
+<div class="system-info-step p-6">
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <h2 class="text-2xl font-bold mb-2">System Information</h2>
+      <p class="text-gray-600 dark:text-gray-400">
+        Diagnostic information about the system and current configuration
+      </p>
+    </div>
+    <div class="flex gap-2">
+      <button
+        (click)="refresh()"
+        class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
+      >
+        <cms-icon name="refresh-cw" class="w-4 h-4" />
+        <span>Refresh</span>
+      </button>
+      <button
+        (click)="copyToClipboard()"
+        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2"
+      >
+        <cms-icon name="copy" class="w-4 h-4" />
+        <span>Copy All</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="space-y-6">
+    @for (category of systemInfo(); track category.category) {
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 dark:bg-gray-800 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+          <h3 class="font-semibold text-lg">{{ category.category }}</h3>
+        </div>
+        <div class="bg-white dark:bg-gray-900">
+          <table class="w-full">
+            <tbody>
+              @for (item of category.items; track item.label; let isLast = $last) {
+                <tr [class.border-b]="!isLast" class="border-gray-200 dark:border-gray-700">
+                  <td class="px-4 py-3 font-medium text-gray-700 dark:text-gray-300 w-1/3">
+                    {{ item.label }}
+                  </td>
+                  <td [class]="getValueClass(item.value, item.type) + ' px-4 py-3 font-mono text-sm break-all'">
+                    {{ formatValue(item.value, item.type) }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Legend -->
+  <div class="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+    <div class="flex gap-3">
+      <cms-icon name="info" class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+      <div>
+        <h4 class="font-semibold text-blue-900 dark:text-blue-200 mb-1">Information</h4>
+        <p class="text-sm text-blue-800 dark:text-blue-300">
+          This page displays read-only diagnostic information about your system, browser, and current configuration.
+          Use the "Refresh" button to update the information, or "Copy All" to copy all details to your clipboard for troubleshooting.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

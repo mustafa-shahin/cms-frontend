@@ -1,0 +1,246 @@
+<div class="developer-step p-6">
+  <h2 class="text-2xl font-bold mb-2">Developer Settings</h2>
+  <p class="text-gray-600 dark:text-gray-400 mb-6">
+    Advanced configuration management tools for developers
+  </p>
+
+  <!-- Action Message -->
+  @if (actionMessage()) {
+    <div [class]="getMessageClasses(actionMessage()!.type)">
+      {{ actionMessage()!.text }}
+    </div>
+  }
+
+  <!-- Error Display -->
+  @if (error()) {
+    <div class="bg-red-50 text-red-800 border border-red-200 p-4 rounded-md mb-6">
+      <strong>Error:</strong> {{ error() }}
+    </div>
+  }
+
+  <!-- Configuration Management Section -->
+  <div class="mb-8">
+    <h3 class="text-lg font-semibold mb-4">Configuration Management</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Load Newest Config -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 mt-1">
+            <cms-icon name="download" class="w-6 h-6 text-blue-600" />
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold mb-1">Load from Server</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+              Load the latest configuration from the backend server, discarding any local changes.
+            </p>
+            <button
+              (click)="loadNewestConfig()"
+              [disabled]="loading()"
+              class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              @if (loading()) {
+                <span>Loading...</span>
+              } @else {
+                <span>Load from Server</span>
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Save Current Config -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 mt-1">
+            <cms-icon name="upload" class="w-6 h-6 text-green-600" />
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold mb-1">Save to Server</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+              Save the current configuration to the backend server.
+            </p>
+            <button
+              (click)="saveCurrentConfig()"
+              [disabled]="loading()"
+              class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              @if (loading()) {
+                <span>Saving...</span>
+              } @else {
+                <span>Save to Server</span>
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reset to Defaults -->
+      <div class="border border-red-200 dark:border-red-700 rounded-lg p-4 bg-red-50 dark:bg-red-900/10">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 mt-1">
+            <cms-icon name="refresh-cw" class="w-6 h-6 text-red-600" />
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold mb-1 text-red-800 dark:text-red-400">Reset to Defaults</h4>
+            <p class="text-sm text-red-700 dark:text-red-300 mb-3">
+              <strong>Warning:</strong> This will permanently reset all configuration to default values. This action cannot be undone.
+            </p>
+            <button
+              (click)="showResetConfirmation()"
+              [disabled]="loading()"
+              class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Reset Configuration
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Current Status -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 mt-1">
+            <cms-icon name="info" class="w-6 h-6 text-gray-600" />
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold mb-1">Configuration Status</h4>
+            <div class="text-sm space-y-2">
+              <div class="flex justify-between">
+                <span class="text-gray-600 dark:text-gray-400">Theme:</span>
+                <span class="font-medium">{{ theme() ? 'Configured' : 'Not Set' }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600 dark:text-gray-400">Typography:</span>
+                <span class="font-medium">{{ typography() ? 'Configured' : 'Not Set' }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600 dark:text-gray-400">Layout:</span>
+                <span class="font-medium">{{ layout() ? 'Configured' : 'Not Set' }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600 dark:text-gray-400">Unsaved Changes:</span>
+                <span class="font-medium" [class.text-orange-600]="hasUnsavedChanges()">
+                  {{ hasUnsavedChanges() ? 'Yes' : 'No' }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import/Export Section -->
+  <div class="mb-8">
+    <h3 class="text-lg font-semibold mb-4">Import/Export</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Export Config -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 mt-1">
+            <cms-icon name="file-down" class="w-6 h-6 text-indigo-600" />
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold mb-1">Export Configuration</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+              Download current configuration as a JSON file for backup or migration.
+            </p>
+            <button
+              (click)="exportConfig()"
+              class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+            >
+              Export as JSON
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Import Config -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 mt-1">
+            <cms-icon name="file-up" class="w-6 h-6 text-purple-600" />
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold mb-1">Import Configuration</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+              Import configuration from a JSON file. Changes will be applied locally.
+            </p>
+            <label class="cursor-pointer">
+              <input
+                type="file"
+                accept=".json"
+                (change)="importConfig($event)"
+                class="hidden"
+              />
+              <span class="inline-block px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+                Import from JSON
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Section -->
+  <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+    <div class="flex gap-3">
+      <cms-icon name="help-circle" class="w-6 h-6 text-blue-600 flex-shrink-0" />
+      <div>
+        <h4 class="font-semibold text-blue-900 dark:text-blue-200 mb-2">Developer Tips</h4>
+        <ul class="text-sm text-blue-800 dark:text-blue-300 space-y-1 list-disc list-inside">
+          <li>Use "Load from Server" to discard local changes and sync with the backend</li>
+          <li>Use "Save to Server" to persist your current configuration</li>
+          <li>Export configuration before making major changes to create a backup</li>
+          <li>Import configuration to quickly apply settings from another environment</li>
+          <li>Reset to defaults will load server defaults if available, or use built-in defaults</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Reset Confirmation Modal -->
+@if (resetConfirmVisible()) {
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0">
+          <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+            <cms-icon name="alert-triangle" class="w-6 h-6 text-red-600" />
+          </div>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-lg font-semibold mb-2">Confirm Reset</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Are you sure you want to reset all configuration to defaults? This action cannot be undone and will:
+          </p>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 list-disc list-inside space-y-1 mb-6">
+            <li>Remove all theme customizations</li>
+            <li>Remove all typography settings</li>
+            <li>Remove all layout configurations</li>
+            <li>Clear local storage cache</li>
+            <li>Load server defaults</li>
+          </ul>
+          <div class="flex gap-3 justify-end">
+            <button
+              (click)="cancelReset()"
+              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              (click)="confirmReset()"
+              class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+            >
+              Yes, Reset Configuration
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

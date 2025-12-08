@@ -154,6 +154,16 @@
       @if (activeStep() === 'layout') {
         <cms-layout-step></cms-layout-step>
       }
+
+      <!-- Developer step -->
+      @if (activeStep() === 'developer') {
+        <cms-developer-step></cms-developer-step>
+      }
+
+      <!-- System Info step -->
+      @if (activeStep() === 'system-info') {
+        <cms-system-info-step></cms-system-info-step>
+      }
     </div>
   }
 </main>

@@ -17,16 +17,16 @@
   </cms-navbar>
 
   <!-- Header -->
-  <cms-header>
-    <div class="flex items-center gap-4">
-      @if (currentUser(); as user) {
-        <div class="text-right">
-          <p class="text-sm font-medium text-gray-900">{{ user.fullName }}</p>
-          <p class="text-xs text-gray-500">{{ user.email }}</p>
-        </div>
-      }
-    </div>
-  </cms-header>
+  @if (layout(); as currentLayout) {
+    <cms-header
+      [template]="currentLayout.headerConfiguration.template"
+      [logoPlacement]="currentLayout.headerConfiguration.logoPlacement === 0 ? 'left' : currentLayout.headerConfiguration.logoPlacement === 1 ? 'center' : 'right'"
+      [showSearch]="currentLayout.headerConfiguration.showSearch"
+      [isSticky]="currentLayout.headerConfiguration.stickyHeader"
+      [siteName]="'CMS Platform'"
+      [maxWidth]="currentLayout.spacing.containerMaxWidth"
+    ></cms-header>
+  }
 
   <!-- Main Content -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -38,11 +38,21 @@
         {{ translate.instant('designer.description') }}
       </p>
       <div class="text-sm text-gray-500">
-        <p>The navbar and footer colors can be configured in the Configurator page.</p>
+        <p>Change the header and footer templates in the Customization Wizard to see them update here in real-time!</p>
+        <p class="mt-2">Current configuration is loaded from the backend and updates when you save changes in the configurator.</p>
       </div>
     </div>
   </main>
 
   <!-- Footer -->
-  <cms-footer></cms-footer>
+  @if (layout(); as currentLayout) {
+    <cms-footer
+      [template]="currentLayout.footerConfiguration.template"
+      [columnCount]="currentLayout.footerConfiguration.columnCount"
+      [showSocialLinks]="currentLayout.footerConfiguration.showSocialLinks"
+      [showNewsletter]="currentLayout.footerConfiguration.showNewsletter"
+      [siteName]="'CMS Platform'"
+      [maxWidth]="currentLayout.spacing.containerMaxWidth"
+    ></cms-footer>
+  }
 </div>

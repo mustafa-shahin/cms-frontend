@@ -1,0 +1,300 @@
+<!-- Layout Preview Component - Enhanced to show actual template differences -->
+<!-- This is a reference implementation that should be integrated into layout-step.component.html -->
+
+<div class="mt-8 rounded-xl bg-white p-6 shadow-md">
+  <div class="mb-4 flex items-center justify-between">
+    <div>
+      <h3 class="text-lg font-bold text-gray-900">Layout Preview</h3>
+      <p class="text-sm text-gray-600">See how your header and footer templates will look</p>
+    </div>
+    <div class="text-xs text-gray-500">
+      Template: <span class="font-semibold">{{ getTemplateName(currentLayout.headerConfiguration.template) }}</span>
+    </div>
+  </div>
+
+  <div class="overflow-hidden rounded-lg border-2 border-gray-200 bg-gray-100 shadow-inner">
+    <!-- HEADER PREVIEW -->
+
+    <!-- Minimal Header Template -->
+    @if (currentLayout.headerConfiguration.template === HeaderTemplate.Minimal) {
+      <div
+        class="border-b-2 border-gray-300 bg-white transition-all duration-300"
+        [class.shadow-md]="currentLayout.headerConfiguration.stickyHeader"
+        [style.padding]="'12px ' + currentLayout.spacing.sectionPadding + 'rem'"
+      >
+        <div
+          class="mx-auto flex items-center justify-between"
+          [style.max-width]="currentLayout.spacing.containerMaxWidth + 'px'"
+        >
+          <div
+            class="flex items-center gap-3"
+            [class.mx-auto]="currentLayout.headerConfiguration.logoPlacement === Placement.Center"
+            [class.ml-auto]="currentLayout.headerConfiguration.logoPlacement === Placement.Right"
+          >
+            <div class="h-8 w-8 rounded bg-gradient-to-br from-blue-500 to-blue-600 shadow"></div>
+            <div class="text-sm font-semibold text-gray-900">Your Site</div>
+          </div>
+          <div class="flex gap-4 text-xs font-medium text-gray-700">
+            <div class="cursor-pointer hover:text-blue-600">Home</div>
+            <div class="cursor-pointer hover:text-blue-600">About</div>
+            <div class="cursor-pointer hover:text-blue-600">Contact</div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Standard Header Template -->
+    @if (currentLayout.headerConfiguration.template === HeaderTemplate.Standard) {
+      <div
+        class="border-b-2 border-gray-300 bg-white transition-all duration-300"
+        [class.shadow-lg]="currentLayout.headerConfiguration.stickyHeader"
+        [style.padding]="'16px ' + currentLayout.spacing.sectionPadding + 'rem'"
+      >
+        <div
+          class="mx-auto"
+          [style.max-width]="currentLayout.spacing.containerMaxWidth + 'px'"
+        >
+          <div class="flex items-center justify-between">
+            <div
+              class="flex items-center gap-3"
+              [class.mx-auto]="currentLayout.headerConfiguration.logoPlacement === Placement.Center"
+              [class.ml-auto]="currentLayout.headerConfiguration.logoPlacement === Placement.Right"
+            >
+              <div class="h-10 w-10 rounded bg-gradient-to-br from-blue-500 to-purple-600 shadow-md"></div>
+              <div>
+                <div class="text-sm font-bold text-gray-900">Your Site</div>
+                <div class="text-xs text-gray-500">Your tagline here</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-6">
+              <div class="flex gap-5 text-xs font-medium text-gray-700">
+                <div class="cursor-pointer hover:text-blue-600">Home</div>
+                <div class="cursor-pointer hover:text-blue-600">About</div>
+                <div class="cursor-pointer hover:text-blue-600">Products</div>
+                <div class="cursor-pointer hover:text-blue-600">Contact</div>
+              </div>
+              @if (currentLayout.headerConfiguration.showSearch) {
+                <div class="flex h-9 w-48 items-center rounded border border-gray-300 bg-gray-50 px-3">
+                  <div class="text-xs text-gray-400">Search...</div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Full Header Template -->
+    @if (currentLayout.headerConfiguration.template === HeaderTemplate.Full) {
+      <div
+        class="border-b-2 border-gray-300 bg-white transition-all duration-300"
+        [class.shadow-xl]="currentLayout.headerConfiguration.stickyHeader"
+        [style.padding]="'16px ' + currentLayout.spacing.sectionPadding + 'rem'"
+      >
+        <div
+          class="mx-auto"
+          [style.max-width]="currentLayout.spacing.containerMaxWidth + 'px'"
+        >
+          <!-- Top Bar -->
+          <div class="mb-3 flex items-center justify-between border-b border-gray-200 pb-2 text-xs text-gray-600">
+            <div class="flex gap-4">
+              <div>📧 info@yoursite.com</div>
+              <div>📞 (555) 123-4567</div>
+            </div>
+            <div class="flex gap-4 font-medium">
+              <div class="cursor-pointer hover:text-blue-600">Help</div>
+              <div class="cursor-pointer hover:text-blue-600">Account</div>
+              <div class="cursor-pointer hover:text-blue-600">Cart (0)</div>
+            </div>
+          </div>
+
+          <!-- Main Header -->
+          <div class="mb-3 flex items-center justify-between">
+            <div
+              class="flex items-center gap-4"
+              [class.mx-auto]="currentLayout.headerConfiguration.logoPlacement === Placement.Center"
+              [class.ml-auto]="currentLayout.headerConfiguration.logoPlacement === Placement.Right"
+            >
+              <div class="h-12 w-12 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg"></div>
+              <div>
+                <div class="text-base font-bold text-gray-900">Your Site</div>
+                <div class="text-xs text-gray-500">Premium tagline and description</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              @if (currentLayout.headerConfiguration.showSearch) {
+                <div class="flex h-10 w-64 items-center rounded-lg border border-gray-300 bg-white px-4 shadow-sm">
+                  <div class="text-xs text-gray-400">Search products, articles...</div>
+                </div>
+              }
+              <div class="flex gap-2">
+                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white">🔔</div>
+                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-300 text-xs font-bold">👤</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Bar -->
+          <div class="flex gap-6 border-t border-gray-200 pt-3 text-sm font-medium text-gray-700">
+            <div class="border-b-2 border-blue-600 pb-1 text-blue-600 cursor-pointer">Home</div>
+            <div class="cursor-pointer hover:text-blue-600">About</div>
+            <div class="cursor-pointer hover:text-blue-600">Products</div>
+            <div class="cursor-pointer hover:text-blue-600">Services</div>
+            <div class="cursor-pointer hover:text-blue-600">Blog</div>
+            <div class="cursor-pointer hover:text-blue-600">Contact</div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- CONTENT PREVIEW -->
+    <div class="bg-gray-50" [style.padding]="currentLayout.spacing.sectionPadding + 'rem'">
+      <div
+        class="mx-auto space-y-4"
+        [style.max-width]="currentLayout.spacing.containerMaxWidth + 'px'"
+        [style.gap]="currentLayout.spacing.componentGap + 'rem'"
+      >
+        <div class="h-32 rounded-lg bg-white p-4 shadow">
+          <div class="h-4 w-32 rounded bg-gray-300"></div>
+          <div class="mt-2 h-3 w-full rounded bg-gray-200"></div>
+          <div class="mt-1 h-3 w-3/4 rounded bg-gray-200"></div>
+        </div>
+        <div class="h-48 rounded-lg bg-white p-4 shadow">
+          <div class="h-4 w-48 rounded bg-gray-300"></div>
+          <div class="mt-3 h-3 w-full rounded bg-gray-200"></div>
+          <div class="mt-1 h-3 w-full rounded bg-gray-200"></div>
+          <div class="mt-1 h-3 w-2/3 rounded bg-gray-200"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER PREVIEW -->
+
+    <!-- Minimal Footer Template -->
+    @if (currentLayout.footerConfiguration.template === FooterTemplate.Minimal) {
+      <div class="border-t-2 border-gray-300 bg-gray-900 text-white" [style.padding]="currentLayout.spacing.sectionPadding + 'rem'">
+        <div class="mx-auto" [style.max-width]="currentLayout.spacing.containerMaxWidth + 'px'">
+          <div class="flex items-center justify-between text-sm">
+            <div class="text-gray-400">© 2025 Your Site. All rights reserved.</div>
+            <div class="flex gap-4 text-xs text-gray-400">
+              <div class="cursor-pointer hover:text-white">Privacy</div>
+              <div class="cursor-pointer hover:text-white">Terms</div>
+              <div class="cursor-pointer hover:text-white">Contact</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Standard Footer Template -->
+    @if (currentLayout.footerConfiguration.template === FooterTemplate.Standard) {
+      <div class="border-t-2 border-gray-300 bg-gray-800 text-white" [style.padding]="currentLayout.spacing.sectionPadding + 'rem'">
+        <div class="mx-auto" [style.max-width]="currentLayout.spacing.containerMaxWidth + 'px'">
+          <div
+            class="grid gap-6"
+            [style.grid-template-columns]="'repeat(' + currentLayout.footerConfiguration.columnCount + ', 1fr)'"
+          >
+            @for (col of [].constructor(currentLayout.footerConfiguration.columnCount); track $index) {
+              <div class="space-y-2">
+                <div class="h-4 w-20 rounded bg-gray-600 font-semibold"></div>
+                <div class="h-3 w-full rounded bg-gray-700"></div>
+                <div class="h-3 w-full rounded bg-gray-700"></div>
+                <div class="h-3 w-3/4 rounded bg-gray-700"></div>
+              </div>
+            }
+          </div>
+
+          @if (currentLayout.footerConfiguration.showSocialLinks || currentLayout.footerConfiguration.showNewsletter) {
+            <div class="mt-6 flex items-center justify-between border-t border-gray-700 pt-6">
+              @if (currentLayout.footerConfiguration.showSocialLinks) {
+                <div class="flex gap-3">
+                  <div class="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs">f</div>
+                  <div class="h-8 w-8 rounded-full bg-blue-400 flex items-center justify-center text-white text-xs">t</div>
+                  <div class="h-8 w-8 rounded-full bg-pink-600 flex items-center justify-center text-white text-xs">in</div>
+                </div>
+              }
+              @if (currentLayout.footerConfiguration.showNewsletter) {
+                <div class="flex h-10 items-center gap-2">
+                  <div class="h-full w-48 rounded bg-gray-700 px-3 flex items-center text-xs text-gray-400">Enter your email...</div>
+                  <div class="h-full rounded bg-blue-600 px-4 flex items-center text-xs font-semibold">Subscribe</div>
+                </div>
+              }
+            </div>
+          }
+
+          <div class="mt-6 border-t border-gray-700 pt-4 text-center text-xs text-gray-400">
+            © 2025 Your Site. All rights reserved.
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Full Footer Template -->
+    @if (currentLayout.footerConfiguration.template === FooterTemplate.Full) {
+      <div class="border-t-2 border-gray-300 bg-gray-900 text-white" [style.padding]="currentLayout.spacing.sectionPadding + ' rem'">
+        <div class="mx-auto" [style.max-width]="currentLayout.spacing.containerMaxWidth + 'px'">
+          <!-- Brand Section -->
+          <div class="mb-8 flex items-start justify-between border-b border-gray-700 pb-6">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600"></div>
+                <div class="text-lg font-bold">Your Site</div>
+              </div>
+              <div class="text-sm text-gray-400 max-w-sm">
+                Your comprehensive solution for all your business needs. Quality service since 2020.
+              </div>
+            </div>
+            @if (currentLayout.footerConfiguration.showSocialLinks) {
+              <div class="flex gap-3">
+                <div class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center hover:bg-blue-500 cursor-pointer">f</div>
+                <div class="h-10 w-10 rounded-full bg-blue-400 flex items-center justify-center hover:bg-blue-300 cursor-pointer">t</div>
+                <div class="h-10 w-10 rounded-full bg-pink-600 flex items-center justify-center hover:bg-pink-500 cursor-pointer">in</div>
+                <div class="h-10 w-10 rounded-full bg-red-600 flex items-center justify-center hover:bg-red-500 cursor-pointer">yt</div>
+              </div>
+            }
+          </div>
+
+          <!-- Links Section -->
+          <div
+            class="grid gap-8 mb-8"
+            [style.grid-template-columns]="'repeat(' + currentLayout.footerConfiguration.columnCount + ', 1fr)'"
+          >
+            @for (col of [].constructor(currentLayout.footerConfiguration.columnCount); track $index) {
+              <div class="space-y-3">
+                <div class="text-sm font-bold text-white">Section {{ $index + 1 }}</div>
+                <div class="space-y-2 text-sm text-gray-400">
+                  <div class="cursor-pointer hover:text-white">Link 1</div>
+                  <div class="cursor-pointer hover:text-white">Link 2</div>
+                  <div class="cursor-pointer hover:text-white">Link 3</div>
+                  <div class="cursor-pointer hover:text-white">Link 4</div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Newsletter Section -->
+          @if (currentLayout.footerConfiguration.showNewsletter) {
+            <div class="mb-8 border-t border-gray-700 pt-6">
+              <div class="text-sm font-bold mb-3">Subscribe to our newsletter</div>
+              <div class="flex gap-2 max-w-md">
+                <input class="flex-1 h-11 rounded bg-gray-800 border border-gray-700 px-4 text-sm text-white placeholder-gray-500" placeholder="Enter your email address" />
+                <button class="h-11 rounded bg-blue-600 px-6 text-sm font-semibold hover:bg-blue-500">Subscribe</button>
+              </div>
+              <div class="mt-2 text-xs text-gray-500">Get the latest updates and exclusive offers.</div>
+            </div>
+          }
+
+          <!-- Copyright Section -->
+          <div class="border-t border-gray-700 pt-6 flex items-center justify-between text-xs text-gray-400">
+            <div>© 2025 Your Site. All rights reserved.</div>
+            <div class="flex gap-4">
+              <div class="cursor-pointer hover:text-white">Privacy Policy</div>
+              <div class="cursor-pointer hover:text-white">Terms of Service</div>
+              <div class="cursor-pointer hover:text-white">Cookie Policy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
