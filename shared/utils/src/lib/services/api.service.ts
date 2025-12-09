@@ -64,7 +64,7 @@ export class ApiService {
         params: options?.params,
       })
       .pipe(
-        map((response) => response.data as T),
+        map((response) => response?.data as T),
         catchError(this.handleError)
       );
   }

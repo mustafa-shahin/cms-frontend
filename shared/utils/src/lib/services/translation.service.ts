@@ -72,7 +72,7 @@ export class TranslationService {
       // Fallback to English if translation not found
       translation = this.getNestedTranslation(this.translations['en'], key);
       if (!translation) {
-        console.warn(`Translation not found for key: ${key} in language: ${language}`);
+        //console.warn(`Translation not found for key: ${key} in language: ${language}`);
         return key;
       }
     }

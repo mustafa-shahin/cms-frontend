@@ -20,35 +20,35 @@ export class ToasterService {
   /**
    * Show a success toast
    */
-  success(message: string, duration: number = 5000): void {
+  success(message: string, duration = 5000): void {
     this.show('success', message, duration);
   }
 
   /**
    * Show an error toast
    */
-  error(message: string, duration: number = 7000): void {
+  error(message: string, duration = 7000): void {
     this.show('error', message, duration);
   }
 
   /**
    * Show a warning toast
    */
-  warning(message: string, duration: number = 6000): void {
+  warning(message: string, duration = 6000): void {
     this.show('warning', message, duration);
   }
 
   /**
    * Show an info toast
    */
-  info(message: string, duration: number = 5000): void {
+  info(message: string, duration = 5000): void {
     this.show('info', message, duration);
   }
 
   /**
    * Show a toast with custom type
    */
-  show(type: ToastType, message: string, duration: number = 5000): void {
+  show(type: ToastType, message: string, duration = 5000): void {
     const id = this.generateId();
     const toast: Toast = { id, type, message, duration };
 

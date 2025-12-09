@@ -1,11 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CustomizationStateService } from '@cms/shared/customization-services';
+import { CustomizationStateService, ColorUtilsService, TranslationService } from '@cms/shared/utils';
 import { ThemeSettings } from '@cms/shared/customization-models';
 import { IconComponent } from '@cms/shared/ui';
-import { ColorUtilsService } from '@cms/shared/utils';
-import { TranslationService } from '@cms/shared/utils';
 
 type PaletteType = 'brandPalette' | 'neutralPalette' | 'semanticPalette';
 type ColorType = 'primary' | 'secondary' | 'accent';

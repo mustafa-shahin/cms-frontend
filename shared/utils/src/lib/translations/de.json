@@ -37,6 +37,7 @@
     "name": "Name",
     "status": "Status",
     "active": "Aktiv",
+    "inactive": "Inaktiv",
     "saving": "Wird gespeichert..."
   },
   "auth": {

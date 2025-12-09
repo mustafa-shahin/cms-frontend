@@ -1,10 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../services/user.service';
+import { UserService, TranslationService, ToasterService } from '@cms/shared/utils';
 import { UserListDto, UserRole } from '@cms/shared/api-interfaces';
-import { TranslationService } from '@cms/shared/utils';
-import { IconComponent, DialogComponent, ToasterService } from '@cms/shared/ui';
+import { IconComponent, DialogComponent } from '@cms/shared/ui';
 import { UserFormComponent } from '../user-form';
 
 @Component({
@@ -24,6 +23,7 @@ export class UserListComponent implements OnInit {
   pageSize = 10;
   searchTerm = '';
   hasNextPage = false;
+  isLoading = false;
   
   isModalOpen = false;
   selectedUser: UserListDto | null = null;
@@ -35,15 +35,18 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers(): void {
+    this.isLoading = true;
     this.userService.getUsers(this.pageNumber, this.pageSize, this.searchTerm).subscribe({
       next: (response) => {
         this.users = response.items;
         this.totalCount = response.totalCount;
         this.hasNextPage = response.hasNextPage;
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Failed to load users', err);
         this.toaster.error(this.translate.instant('userManagement.errorLoadingUsers'));
+        this.isLoading = false;
       }
     });
   }

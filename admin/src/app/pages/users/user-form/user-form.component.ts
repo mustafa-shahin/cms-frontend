@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject, OnChanges } from '@angular/core';
 
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../services/user.service';
-import { TranslationService } from '@cms/shared/utils';
-import { InputComponent, ToasterService } from '@cms/shared/ui';
+import { UserService, TranslationService, ToasterService } from '@cms/shared/utils';
+import { InputComponent } from '@cms/shared/ui';
 import { UserListDto, UserRole, CreateUserDto, UpdateUserDto } from '@cms/shared/api-interfaces';
 
 @Component({

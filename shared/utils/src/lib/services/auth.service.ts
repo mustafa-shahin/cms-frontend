@@ -11,7 +11,7 @@ import {
   CurrentUserDto,
   LogoutRequest,
 } from '@cms/shared/api-interfaces';
-import { ApiService } from '@cms/shared/utils';
+import { ApiService } from './api.service';
 
 const TOKEN_KEY = 'cms_access_token';
 const REFRESH_TOKEN_KEY = 'cms_refresh_token';

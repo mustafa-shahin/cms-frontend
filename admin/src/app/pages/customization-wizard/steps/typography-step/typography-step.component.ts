@@ -1,15 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { TranslationService } from '@cms/shared/utils';
-
+import { TranslationService, CustomizationStateService } from '@cms/shared/utils';
 import { FormsModule } from '@angular/forms';
-import { CustomizationStateService } from '@cms/shared/customization-services';
+import { IconComponent } from '@cms/shared/ui';
 import {
   TypographySettings,
   TextStyle,
   TextStyleType,
   TextTransformType
 } from '@cms/shared/customization-models';
-import { IconComponent } from '@cms/shared/ui';
 
 interface FontFamily {
   name: string;

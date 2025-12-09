@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { AuthService } from '@cms/shared/auth/data-access';
-import { TranslationService } from '@cms/shared/utils';
+import { AuthService, TranslationService } from '@cms/shared/utils';
 
 @Component({
   selector: 'cms-dashboard-overview',

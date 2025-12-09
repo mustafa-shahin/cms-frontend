@@ -33,6 +33,7 @@
     "name": "Name",
     "status": "Status",
     "active": "Active",
+    "inactive": "Inactive",
     "saving": "saving..."
   },
   "auth": {

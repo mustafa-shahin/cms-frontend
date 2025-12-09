@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { ToasterService, Toast } from './toaster.service';
+import { ToasterService } from '@cms/shared/utils';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({

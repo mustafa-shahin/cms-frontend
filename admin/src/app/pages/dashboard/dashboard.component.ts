@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { AuthService } from '@cms/shared/auth/data-access';
-import { TranslationService, ThemeService } from '@cms/shared/utils';
+import { AuthService, TranslationService, ThemeService } from '@cms/shared/utils';
 import { IconComponent, LanguageSelectorComponent } from '@cms/shared/ui';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 

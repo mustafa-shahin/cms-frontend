@@ -1,6 +1,7 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { CustomizationApiService } from './customization-api.service';
-import { ColorUtilsService } from '@cms/shared/utils';
+import { ColorUtilsService } from './color-utils.service';
 import {
   ThemeSettings,
   TypographySettings,
@@ -62,9 +63,9 @@ export class CustomizationStateService {
       this.errorSignal.set(null);
 
       const [theme, typography, layout] = await Promise.all([
-        this.api.getThemeSettings().toPromise(),
-        this.api.getTypographySettings().toPromise(),
-        this.api.getLayoutSettings().toPromise()
+        firstValueFrom(this.api.getThemeSettings()),
+        firstValueFrom(this.api.getTypographySettings()),
+        firstValueFrom(this.api.getLayoutSettings())
       ]);
 
       this.themeSignal.set(theme || DEFAULT_THEME_SETTINGS);
@@ -93,7 +94,7 @@ export class CustomizationStateService {
       this.loadingSignal.set(true);
       this.errorSignal.set(null);
 
-      const updated = await this.api.updateThemeSettings(settings).toPromise();
+      const updated = await firstValueFrom(this.api.updateThemeSettings(settings));
       this.themeSignal.set(updated!);
       this.originalTheme = JSON.parse(JSON.stringify(updated));
 
@@ -115,7 +116,7 @@ export class CustomizationStateService {
       this.loadingSignal.set(true);
       this.errorSignal.set(null);
 
-      const updated = await this.api.updateTypographySettings(settings).toPromise();
+      const updated = await firstValueFrom(this.api.updateTypographySettings(settings));
       this.typographySignal.set(updated!);
       this.originalTypography = JSON.parse(JSON.stringify(updated));
 
@@ -137,7 +138,7 @@ export class CustomizationStateService {
       this.loadingSignal.set(true);
       this.errorSignal.set(null);
 
-      const updated = await this.api.updateLayoutSettings(settings).toPromise();
+      const updated = await firstValueFrom(this.api.updateLayoutSettings(settings));
       this.layoutSignal.set(updated!);
       this.originalLayout = JSON.parse(JSON.stringify(updated));
 

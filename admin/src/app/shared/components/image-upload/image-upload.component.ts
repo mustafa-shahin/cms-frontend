@@ -1,7 +1,7 @@
 import { Component, input, output, signal } from '@angular/core';
 
-import { HttpEventType } from '@angular/common/http';
-import { ImageUploadService, UploadImageResponse } from '../../../core/services/image-upload.service';
+import { HttpEventType, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { ImageUploadService, UploadImageResponse } from '@cms/shared/utils';
 
 interface UploadState {
   file: File;
@@ -15,7 +15,7 @@ interface UploadState {
  * Reusable image upload component with drag-and-drop support.
  */
 @Component({
-  selector: 'app-image-upload',
+  selector: 'cms-image-upload',
   standalone: true,
   imports: [],
   providers: [ImageUploadService],
@@ -30,6 +30,11 @@ interface UploadState {
           (dragover)="onDragOver($event)"
           (dragleave)="onDragLeave($event)"
           (click)="fileInput.click()"
+          (keydown.enter)="fileInput.click()"
+          (keydown.space)="fileInput.click()"
+          tabindex="0"
+          role="button"
+          aria-label="Upload image"
         >
           <div class="upload-icon">
             <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -329,7 +334,7 @@ export class ImageUploadComponent {
       file,
       folderId: this.folderId()
     }).subscribe({
-      next: (event) => {
+      next: (event: HttpEvent<UploadImageResponse>) => {
         if (event.type === HttpEventType.UploadProgress && event.total) {
           const progress = Math.round((100 * event.loaded) / event.total);
           this.uploadState.update(state => state ? { ...state, progress } : null);
@@ -337,12 +342,12 @@ export class ImageUploadComponent {
           this.uploadState.update(state => state ? {
             ...state,
             uploading: false,
-            result: event.body!
+            result: event.body || null
           } : null);
           this.uploadComplete.emit(event.body);
         }
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         const errorMessage = error.error?.message || 'Upload failed. Please try again.';
         this.uploadState.update(state => state ? {
           ...state,

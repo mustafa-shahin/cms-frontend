@@ -2,8 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '@cms/shared/auth/data-access';
-import { TranslationService } from '@cms/shared/utils';
+import { AuthService, TranslationService } from '@cms/shared/utils';
 import { IconComponent } from '@cms/shared/ui';
 
 @Component({

@@ -1,8 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 
-import { CustomizationStateService } from '@cms/shared/customization-services';
+import { CustomizationStateService, TranslationService } from '@cms/shared/utils';
 import { IconComponent } from '@cms/shared/ui';
-import { TranslationService } from '@cms/shared/utils';
 
 @Component({
   selector: 'cms-developer-step',

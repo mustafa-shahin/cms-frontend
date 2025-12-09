@@ -1,16 +1,15 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiService } from '@cms/shared/utils';
+import { ApiService } from './api.service';
 import { UserDto, UserListDto, CreateUserDto, UpdateUserDto, UserRole, PaginatedResponse } from '@cms/shared/api-interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private readonly http = inject(HttpClient);
   private readonly apiService = inject(ApiService);
-  private readonly baseUrl = '/api/v1/users';
+  private readonly endpoint = 'users';
 
   getUsers(
     pageNumber = 1,
@@ -31,30 +30,30 @@ export class UserService {
     if (isActiveFilter !== undefined && isActiveFilter !== null) params = params.set('isActiveFilter', isActiveFilter);
     if (sortBy) params = params.set('sortBy', sortBy);
 
-    return this.http.get<PaginatedResponse<UserListDto>>(this.baseUrl, { params });
+    return this.apiService.getPaginated<UserListDto>(this.endpoint, { params });
   }
 
   getUser(id: number): Observable<UserDto> {
-    return this.http.get<UserDto>(`${this.baseUrl}/${id}`);
+    return this.apiService.get<UserDto>(`${this.endpoint}/${id}`);
   }
 
   createUser(user: CreateUserDto): Observable<UserDto> {
-    return this.http.post<UserDto>(this.baseUrl, user);
+    return this.apiService.post<UserDto>(this.endpoint, user);
   }
 
   updateUser(id: number, user: UpdateUserDto): Observable<UserDto> {
-    return this.http.put<UserDto>(`${this.baseUrl}/${id}`, user);
+    return this.apiService.put<UserDto>(`${this.endpoint}/${id}`, user);
   }
 
   deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.apiService.delete<void>(`${this.endpoint}/${id}`);
   }
 
   activateUser(id: number): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/${id}/activate`, {});
+    return this.apiService.post<void>(`${this.endpoint}/${id}/activate`, {});
   }
 
   deactivateUser(id: number): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/${id}/deactivate`, {});
+    return this.apiService.post<void>(`${this.endpoint}/${id}/deactivate`, {});
   }
 }

@@ -1,9 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { TranslationService } from '@cms/shared/utils';
-
-import { CustomizationStateService } from '@cms/shared/customization-services';
+import { TranslationService, CustomizationStateService, AuthService } from '@cms/shared/utils';
 import { IconComponent } from '@cms/shared/ui';
-import { AuthService } from '@cms/shared/auth/data-access';
 
 interface SystemInfo {
   category: string;

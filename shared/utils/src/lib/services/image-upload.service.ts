@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpEvent, HttpEventType, HttpProgressEvent } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { EnvironmentService } from './environment.service';
 
 export interface UploadImageRequest {
   file: File;
@@ -38,7 +38,11 @@ export type ImageVariant = 'original' | 'thumbnail' | 'medium';
 })
 export class ImageUploadService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = `${environment.apiUrl}/${environment.apiVersion}/images`;
+  private readonly environmentService = inject(EnvironmentService);
+  
+  private get apiUrl(): string {
+     return `${this.environmentService.apiUrl}/${this.environmentService.apiVersion}/images`;
+  }
 
   /**
    * Upload an image file with progress tracking.
