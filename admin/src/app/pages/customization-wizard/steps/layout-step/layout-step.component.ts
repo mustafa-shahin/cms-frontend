@@ -35,6 +35,12 @@ export class LayoutStepComponent {
     return parseInt(value, 10);
   }
 
+  // Reactive translation helper
+  t(key: string): string {
+    this.translate.currentLanguage(); // Register signal dependency
+    return this.translate.instant(key);
+  }
+
   readonly headerTemplates: TemplateOption<HeaderTemplate>[] = [
     {
       value: HeaderTemplate.Minimal,
@@ -97,6 +103,19 @@ export class LayoutStepComponent {
       icon: 'align-right'
     }
   ];
+
+  updateHeader(key: string, value: any) {
+    this.updateHeaderConfig({ [key]: value });
+  }
+
+  updateFooter(key: string, value: any) {
+    this.updateFooterConfig({ [key]: value });
+  }
+
+  removePx(value: string | number): number {
+    if (typeof value === 'number') return value;
+    return value ? parseInt(value.replace('px', ''), 10) : 0;
+  }
 
   updateHeaderConfig(updates: Partial<LayoutSettings['headerConfiguration']>) {
     const currentLayout = this.layout();

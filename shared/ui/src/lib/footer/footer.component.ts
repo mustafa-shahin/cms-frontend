@@ -15,9 +15,6 @@ import { FooterFullComponent } from './templates/footer-full/footer-full.compone
   imports: [
     CommonModule,
     NgComponentOutlet,
-    FooterMinimalComponent,
-    FooterStandardComponent,
-    FooterFullComponent,
   ],
   template: `
     @if (activeTemplateComponent) {

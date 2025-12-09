@@ -139,20 +139,187 @@ export class TypographyStepComponent {
     this.customizationState.setTypographyLocal(updatedTypography);
   }
 
+  // Standard Tailwind font sizes
+  readonly fontSizes = [
+    { label: 'xs', value: 0.75, class: 'text-xs' },
+    { label: 'sm', value: 0.875, class: 'text-sm' },
+    { label: 'base', value: 1, class: 'text-base' },
+    { label: 'lg', value: 1.125, class: 'text-lg' },
+    { label: 'xl', value: 1.25, class: 'text-xl' },
+    { label: '2xl', value: 1.5, class: 'text-2xl' },
+    { label: '3xl', value: 1.875, class: 'text-3xl' },
+    { label: '4xl', value: 2.25, class: 'text-4xl' },
+    { label: '5xl', value: 3, class: 'text-5xl' },
+    { label: '6xl', value: 3.75, class: 'text-6xl' },
+    { label: '7xl', value: 4.5, class: 'text-7xl' },
+    { label: '8xl', value: 6, class: 'text-8xl' },
+    { label: '9xl', value: 8, class: 'text-9xl' },
+  ];
+
+  /* ... */
+
+  // Tailwind Font Weights
+  readonly fontWeights = [
+    { label: 'Thin', value: 100, class: 'font-thin' },
+    { label: 'Extra Light', value: 200, class: 'font-extralight' },
+    { label: 'Light', value: 300, class: 'font-light' },
+    { label: 'Regular', value: 400, class: 'font-normal' },
+    { label: 'Medium', value: 500, class: 'font-medium' },
+    { label: 'Semi Bold', value: 600, class: 'font-semibold' },
+    { label: 'Bold', value: 700, class: 'font-bold' },
+    { label: 'Extra Bold', value: 800, class: 'font-extrabold' },
+    { label: 'Black', value: 900, class: 'font-black' },
+  ];
+
+  // Tailwind Line Heights
+  readonly lineHeights = [
+    { label: 'None', value: 1, class: 'leading-none' },
+    { label: 'Tight', value: 1.25, class: 'leading-tight' },
+    { label: 'Snug', value: 1.375, class: 'leading-snug' },
+    { label: 'Normal', value: 1.5, class: 'leading-normal' },
+    { label: 'Relaxed', value: 1.625, class: 'leading-relaxed' },
+    { label: 'Loose', value: 2, class: 'leading-loose' },
+  ];
+
+  // Tailwind Letter Spacing (Tracking)
+  readonly letterSpacings = [
+    { label: 'Tighter', value: -0.05, class: 'tracking-tighter' },
+    { label: 'Tight', value: -0.025, class: 'tracking-tight' },
+    { label: 'Normal', value: 0, class: 'tracking-normal' },
+    { label: 'Wide', value: 0.025, class: 'tracking-wide' },
+    { label: 'Wider', value: 0.05, class: 'tracking-wider' },
+    { label: 'Widest', value: 0.1, class: 'tracking-widest' },
+  ];
+
+  // Reactive translation helper
+  t(key: string): string {
+    this.translate.currentLanguage(); // Register signal dependency
+    return this.translate.instant(key);
+  }
+
   getTextStyle(styleType: TextStyleType): TextStyle {
+    const defaultStyle: TextStyle = {
+      fontFamily: 'Inter',
+      fontSize: 1,
+      fontWeight: 400,
+      lineHeight: 1.5,
+      letterSpacing: 0,
+      textTransform: TextTransformType.None
+    };
+
     const currentTypography = this.typography();
-    if (!currentTypography) {
-      return {
-        fontFamily: 'Inter',
-        fontSize: 1,
-        fontWeight: 400,
-        lineHeight: 1.5,
-        letterSpacing: null,
-        textTransform: TextTransformType.None
-      };
+    if (!currentTypography || !currentTypography.textStyles) {
+      return defaultStyle;
     }
 
-    return currentTypography.textStyles[styleType];
+    return currentTypography.textStyles[styleType] || defaultStyle;
+  }
+
+  // --- Font Size Helpers ---
+  getFontSizeIndex(remValue: number): number {
+    return this.findClosestIndex(this.fontSizes, remValue);
+  }
+
+  updateFontSizeFromIndex(styleType: TextStyleType, index: number) {
+    const item = this.fontSizes[index];
+    if (item) this.updateTextStyle(styleType, { fontSize: item.value });
+  }
+
+  getTailwindFontSizeClass(remValue: number): string {
+    const index = this.getFontSizeIndex(remValue);
+    return this.fontSizes[index]?.class || 'text-base';
+  }
+
+  getFontSizeLabel(remValue: number): string {
+    const item = this.fontSizes[this.getFontSizeIndex(remValue)];
+    return item ? `${item.label} (${item.value}rem)` : `${remValue}rem`;
+  }
+
+  // --- Font Weight Helpers ---
+  getFontWeightIndex(value: number): number {
+    return this.findClosestIndex(this.fontWeights, value);
+  }
+
+  updateFontWeightFromIndex(styleType: TextStyleType, index: number) {
+    const item = this.fontWeights[index];
+    if (item) this.updateTextStyle(styleType, { fontWeight: item.value });
+  }
+
+  getTailwindFontWeightClass(value: number): string {
+    const index = this.getFontWeightIndex(value);
+    return this.fontWeights[index]?.class || 'font-normal';
+  }
+  
+  getFontWeightLabel(value: number): string {
+    const item = this.fontWeights[this.getFontWeightIndex(value)];
+    return item ? `${item.label} (${item.value})` : `${value}`;
+  }
+
+
+  // --- Line Height Helpers ---
+  getLineHeightIndex(value: number): number {
+    return this.findClosestIndex(this.lineHeights, value);
+  }
+
+  updateLineHeightFromIndex(styleType: TextStyleType, index: number) {
+    const item = this.lineHeights[index];
+    if (item) this.updateTextStyle(styleType, { lineHeight: item.value });
+  }
+
+  getTailwindLineHeightClass(value: number): string {
+    const index = this.getLineHeightIndex(value);
+    return this.lineHeights[index]?.class || 'leading-normal';
+  }
+
+   getLineHeightLabel(value: number): string {
+    const item = this.lineHeights[this.getLineHeightIndex(value)];
+    return item ? `${item.label} (${item.value})` : `${value}`;
+  }
+
+
+  // --- Letter Spacing Helpers ---
+  getLetterSpacingIndex(value: number | null | undefined): number {
+    return this.findClosestIndex(this.letterSpacings, value || 0);
+  }
+
+  updateLetterSpacingFromIndex(styleType: TextStyleType, index: number) {
+    const item = this.letterSpacings[index];
+    if (item) this.updateTextStyle(styleType, { letterSpacing: item.value });
+  }
+
+  getTailwindLetterSpacingClass(value: number | null | undefined): string {
+    const index = this.getLetterSpacingIndex(value);
+    return this.letterSpacings[index]?.class || 'tracking-normal';
+  }
+   getLetterSpacingLabel(value: number | null | undefined): string {
+    const item = this.letterSpacings[this.getLetterSpacingIndex(value)];
+    return item ? `${item.label} (${item.value}em)` : `${value || 0}em`;
+  }
+
+  // --- Utility ---
+  private findClosestIndex(collection: any[], targetValue: number): number {
+    const index = collection.findIndex(item => Math.abs(item.value - targetValue) < 0.01);
+    if (index !== -1) return index;
+
+    let closestIndex = 0;
+    let minDiff = Number.MAX_VALUE;
+    collection.forEach((item, i) => {
+      const diff = Math.abs(item.value - targetValue);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIndex = i;
+      }
+    });
+    return closestIndex;
+  }
+
+  getTailwindTextTransformClass(value: TextTransformType): string {
+      switch (value) {
+          case TextTransformType.Uppercase: return 'uppercase';
+          case TextTransformType.Lowercase: return 'lowercase';
+          case TextTransformType.Capitalize: return 'capitalize';
+          default: return 'normal-case';
+      }
   }
 
   getFontsForCategory(category: 'sans-serif' | 'serif' | 'monospace'): FontFamily[] {

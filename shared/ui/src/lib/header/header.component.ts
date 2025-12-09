@@ -15,9 +15,6 @@ import { HeaderFullComponent } from './templates/header-full/header-full.compone
   imports: [
     CommonModule,
     NgComponentOutlet,
-    HeaderMinimalComponent,
-    HeaderStandardComponent,
-    HeaderFullComponent,
   ],
   template: `
     @if (activeTemplateComponent) {

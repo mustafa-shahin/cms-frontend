@@ -8,6 +8,21 @@ export interface ColorPalette {
   darker: string;
 }
 
+export interface TailwindPalette {
+  50: string;
+  100: string;
+  200: string;
+  300: string;
+  400: string;
+  500: string;
+  600: string;
+  700: string;
+  800: string;
+  900: string;
+  950: string;
+  DEFAULT: string;
+}
+
 export interface WCAGCompliance {
   ratio: number;
   meetsAA: boolean;
@@ -21,7 +36,45 @@ export interface WCAGCompliance {
 })
 export class ColorUtilsService {
   /**
+   * Generate a full Tailwind CSS palette (50-950) from a base hex color
+   */
+  generateTailwindPalette(baseColor: string): TailwindPalette {
+    // 500 is the base color
+    return {
+      50: this.tint(baseColor, 0.95),
+      100: this.tint(baseColor, 0.9),
+      200: this.tint(baseColor, 0.75),
+      300: this.tint(baseColor, 0.6),
+      400: this.tint(baseColor, 0.3),
+      500: baseColor,
+      600: this.shade(baseColor, 0.1),
+      700: this.shade(baseColor, 0.25),
+      800: this.shade(baseColor, 0.4),
+      900: this.shade(baseColor, 0.6),
+      950: this.shade(baseColor, 0.8),
+      DEFAULT: baseColor,
+    };
+  }
+
+  /**
+   * Mix color with white (tint)
+   * factor: 0-1 (0 = original, 1 = white)
+   */
+  tint(color: string, factor: number): string {
+    return this.interpolateColor(color, '#FFFFFF', factor);
+  }
+
+  /**
+   * Mix color with black (shade)
+   * factor: 0-1 (0 = original, 1 = black)
+   */
+  shade(color: string, factor: number): string {
+    return this.interpolateColor(color, '#000000', factor);
+  }
+
+  /**
    * Generate a color palette (lighter, light, base, dark, darker) from a base hex color
+   * Kept for backward compatibility
    */
   generatePalette(baseColor: string): ColorPalette {
     const rgb = this.hexToRgb(baseColor);
@@ -180,7 +233,6 @@ export class ColorUtilsService {
   getContrastColor(backgroundColor: string): string {
     const luminance = this.getRelativeLuminance(backgroundColor);
     // Threshold of 0.5 works well for most cases
-    // Higher luminance (lighter color) needs dark text, and vice versa
     return luminance > 0.5 ? '#000000' : '#FFFFFF';
   }
 
@@ -224,14 +276,6 @@ export class ColorUtilsService {
 
   /**
    * Check if color combination meets WCAG compliance standards
-   *
-   * WCAG 2.0 Level AA Requirements:
-   * - Normal text: 4.5:1
-   * - Large text (18pt+/14pt+ bold): 3:1
-   *
-   * WCAG 2.0 Level AAA Requirements:
-   * - Normal text: 7:1
-   * - Large text: 4.5:1
    */
   checkWCAGCompliance(foreground: string, background: string): WCAGCompliance {
     const ratio = this.getContrastRatio(foreground, background);
@@ -247,7 +291,6 @@ export class ColorUtilsService {
 
   /**
    * Check if a color combination meets WCAG standards for normal text
-   * level: 'AA' requires 4.5:1, 'AAA' requires 7:1
    */
   meetsWCAG(foreground: string, background: string, level: 'AA' | 'AAA' = 'AA'): boolean {
     const ratio = this.getContrastRatio(foreground, background);

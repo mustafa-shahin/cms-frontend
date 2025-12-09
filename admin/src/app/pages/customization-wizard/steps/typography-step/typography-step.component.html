@@ -1,92 +1,116 @@
-<div class="mx-auto max-w-5xl">
+<div class="mx-auto max-w-5xl space-y-8">
   <!-- Header -->
-  <div class="mb-6">
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.typography.title") }}</h2>
-    <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
-      Configure fonts and text styles for your entire site.
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ t("customization.typography.title") }}</h2>
+    <p class="mt-2 text-lg text-gray-600 dark:text-gray-300">
+      {{ t("customization.typography.subtitle") }}
     </p>
   </div>
 
   @if (typography(); as currentTypography) {
     <!-- Font Families Section -->
-    <div class="mb-8 rounded-xl bg-white dark:bg-gray-800 p-6 shadow-md">
-      <div class="mb-4 flex items-center gap-3">
-        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
-          <cms-icon name="font" [style]="'solid'"  class="h-5 w-5 text-white"></cms-icon>
+    <div class="group rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 md:p-8 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50 transition-all hover:shadow-2xl hover:shadow-indigo-900/5 dark:hover:shadow-black/30">
+      <div class="mb-6 flex items-center gap-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform duration-300">
+          <cms-icon name="font" [style]="'solid'"  class="h-6 w-6 text-white"></cms-icon>
         </div>
         <div>
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.typography.fontFamilies") }}</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-300">{{ translate.instant("customization.typography.fontFamiliesDescription") }}</p>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ t("customization.typography.fontFamilies") }}</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">{{ t("customization.typography.fontFamiliesDescription") }}</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
         <!-- Primary Font -->
-        <div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-4">
-          <label class="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
-            <cms-icon name="font" [style]="'solid'"  class="mr-1 inline h-4 w-4"></cms-icon>
-            Primary Font
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 p-5 shadow-sm transition-all hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-900">
+          <label for="primary-font" class="mb-3 block text-sm font-bold text-gray-900 dark:text-white flex items-center">
+            <span class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mr-3">
+              <span class="text-xs font-serif">Aa</span>
+            </span>
+            {{ t("customization.typography.primaryFont") }}
           </label>
-          <p class="mb-3 text-xs text-gray-600 dark:text-gray-300">{{ translate.instant("customization.typography.primaryFontDescription") }}</p>
-          <select
-            [value]="currentTypography.primaryFontFamily"
-            (change)="updateFontFamily('primaryFontFamily', $any($event.target).value); loadGoogleFont($any($event.target).value)"
-            class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            @for (font of getFontsForCategory('sans-serif'); track font.name) {
-              <option [value]="font.name">{{ font.name }}</option>
-            }
-            @for (font of getFontsForCategory('serif'); track font.name) {
-              <option [value]="font.name">{{ font.name }} (Serif)</option>
-            }
-          </select>
-          <div class="mt-3 rounded bg-white dark:bg-gray-800 p-3 text-center" [style.font-family]="currentTypography.primaryFontFamily">
-            <span class="text-lg font-semibold">AaBbCc 123</span>
+          <p class="mb-4 text-xs text-gray-500 dark:text-gray-400">{{ t("customization.typography.primaryFontDescription") }}</p>
+          <div class="relative">
+            <select
+              id="primary-font"
+              [value]="currentTypography.primaryFontFamily"
+              (change)="updateFontFamily('primaryFontFamily', $any($event.target).value); loadGoogleFont($any($event.target).value)"
+              class="dark:text-white w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+            >
+              @for (font of getFontsForCategory('sans-serif'); track font.name) {
+                <option class="dark:text-white" [value]="font.name">{{ font.name }}</option>
+              }
+              @for (font of getFontsForCategory('serif'); track font.name) {
+                <option class="dark:text-white" [value]="font.name">{{ font.name }} (Serif)</option>
+              }
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+              <cms-icon name="chevron-down" size="sm"></cms-icon>
+            </div>
+          </div>
+          <div class="mt-4 rounded-lg bg-gray-50 dark:bg-gray-950 p-4 text-center border border-gray-100 dark:border-gray-800" [style.font-family]="currentTypography.primaryFontFamily">
+            <span class="text-2xl font-bold text-gray-800 dark:text-gray-200">AaBbCc 123</span>
           </div>
         </div>
 
         <!-- Secondary Font -->
-        <div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-4">
-          <label class="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
-            <cms-icon name="align-left" [style]="'solid'"  class="mr-1 inline h-4 w-4"></cms-icon>
-            Secondary Font
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 p-5 shadow-sm transition-all hover:shadow-md hover:border-purple-200 dark:hover:border-purple-900">
+          <label for="secondary-font" class="mb-3 block text-sm font-bold text-gray-900 dark:text-white flex items-center">
+             <span class="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center mr-3">
+              <cms-icon name="align-left" size="sm"></cms-icon>
+            </span>
+            {{ t("customization.typography.secondaryFont") }}
           </label>
-          <p class="mb-3 text-xs text-gray-600 dark:text-gray-300">{{ translate.instant("customization.typography.secondaryFontDescription") }}</p>
-          <select
-            [value]="currentTypography.secondaryFontFamily"
-            (change)="updateFontFamily('secondaryFontFamily', $any($event.target).value); loadGoogleFont($any($event.target).value)"
-            class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            @for (font of getFontsForCategory('sans-serif'); track font.name) {
-              <option [value]="font.name">{{ font.name }}</option>
-            }
-            @for (font of getFontsForCategory('serif'); track font.name) {
-              <option [value]="font.name">{{ font.name }} (Serif)</option>
-            }
-          </select>
-          <div class="mt-3 rounded bg-white dark:bg-gray-800 p-3 text-center" [style.font-family]="currentTypography.secondaryFontFamily">
-            <span class="text-lg">AaBbCc 123</span>
+          <p class="mb-4 text-xs text-gray-500 dark:text-gray-400">{{ t("customization.typography.secondaryFontDescription") }}</p>
+          <div class="relative">
+            <select
+              id="secondary-font"
+              [value]="currentTypography.secondaryFontFamily"
+              (change)="updateFontFamily('secondaryFontFamily', $any($event.target).value); loadGoogleFont($any($event.target).value)"
+              class="dark:text-white w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+            >
+              @for (font of getFontsForCategory('sans-serif'); track font.name) {
+                <option class="dark:text-white" [value]="font.name">{{ font.name }}</option>
+              }
+              @for (font of getFontsForCategory('serif'); track font.name) {
+                <option class="dark:text-white" [value]="font.name">{{ font.name }} (Serif)</option>
+              }
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+               <cms-icon name="chevron-down" size="sm"></cms-icon>
+            </div>
+          </div>
+          <div class="mt-4 rounded-lg bg-gray-50 dark:bg-gray-950 p-4 text-center border border-gray-100 dark:border-gray-800" [style.font-family]="currentTypography.secondaryFontFamily">
+            <span class="text-lg text-gray-700 dark:text-gray-300">The quick brown fox jumps over the lazy dog.</span>
           </div>
         </div>
 
         <!-- Monospace Font -->
-        <div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-4">
-          <label class="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
-            <cms-icon name="code" [style]="'solid'"  class="mr-1 inline h-4 w-4"></cms-icon>
-            Monospace Font
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 p-5 shadow-sm transition-all hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600">
+          <label for="monospace-font" class="mb-3 block text-sm font-bold text-gray-900 dark:text-white flex items-center">
+             <span class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 flex items-center justify-center mr-3">
+              <cms-icon name="code" size="sm"></cms-icon>
+            </span>
+            {{ t("customization.typography.monospaceFont") }}
           </label>
-          <p class="mb-3 text-xs text-gray-600 dark:text-gray-300">{{ translate.instant("customization.typography.monospaceFontDescription") }}</p>
-          <select
-            [value]="currentTypography.monoFontFamily"
-            (change)="updateFontFamily('monoFontFamily', $any($event.target).value); loadGoogleFont($any($event.target).value)"
-            class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            @for (font of getFontsForCategory('monospace'); track font.name) {
-              <option [value]="font.name">{{ font.name }}</option>
-            }
-          </select>
-          <div class="mt-3 rounded bg-white dark:bg-gray-800 p-3 text-center" [style.font-family]="currentTypography.monoFontFamily">
-            <span class="text-lg">AaBbCc 123</span>
+          <p class="mb-4 text-xs text-gray-500 dark:text-gray-400">{{ t("customization.typography.monospaceFontDescription") }}</p>
+          <div class="relative">
+            <select
+              id="monospace-font"
+              [value]="currentTypography.monoFontFamily"
+              (change)="updateFontFamily('monoFontFamily', $any($event.target).value); loadGoogleFont($any($event.target).value)"
+               class=" dark:text-white w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm focus:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500/20"
+            >
+              @for (font of getFontsForCategory('monospace'); track font.name) {
+                <option class="dark:text-white" [value]="font.name">{{ font.name }}</option>
+              }
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+               <cms-icon name="chevron-down" size="sm"></cms-icon>
+            </div>
+          </div>
+          <div class="mt-4 rounded-lg bg-gray-900 p-4 text-center border border-gray-800" [style.font-family]="currentTypography.monoFontFamily">
+            <span class="text-sm font-mono text-green-400">console.log("Hello World");</span>
           </div>
         </div>
       </div>
@@ -95,152 +119,151 @@
     <!-- Text Styles Section -->
     <div class="space-y-6">
       @for (group of textStyleGroups; track group.title) {
-        <div class="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-md">
+        <div class="group rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50">
           <!-- Group header -->
-          <div class="mb-4 flex items-center gap-3">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
-              <cms-icon [name]="group.icon" [style]="'solid'"  class="h-5 w-5 text-white"></cms-icon>
+          <div class="mb-6 flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+              <cms-icon [name]="group.icon" [style]="'solid'"  class="h-6 w-6 text-white"></cms-icon>
             </div>
             <div>
-              <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ group.title }}</h3>
-              <p class="text-sm text-gray-600 dark:text-gray-300">{{ group.description }}</p>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ t(group.title) || group.title }}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ t(group.description) || group.description }}</p>
             </div>
           </div>
 
           <!-- Text style rows -->
           <div class="space-y-4">
             @for (style of group.styles; track style.key) {
-              <div class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+              <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white/40 dark:bg-gray-900/40">
                 <!-- Style header -->
-                <div class="bg-white dark:bg-gray-800 px-4 py-3">
+                <div class="bg-gray-50/80 dark:bg-gray-800/80 px-5 py-3 border-b border-gray-200 dark:border-gray-700">
                   <div class="flex items-center justify-between">
                     <div>
-                      <span class="font-semibold text-gray-900 dark:text-white">{{ style.label }}</span>
-                      <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">{{ style.description }}</span>
+                      <span class="font-bold text-gray-900 dark:text-white">{{ t(style.label) || style.label }}</span>
+                      <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">{{ t(style.description) || style.description }}</span>
                     </div>
                   </div>
                 </div>
 
                 <!-- Style controls and preview -->
-                <div class="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2">
+                <div class="grid grid-cols-1 gap-6 p-5 lg:grid-cols-2">
                   <!-- Controls -->
-                  <div class="space-y-3">
+                  <div class="space-y-5">
                     <!-- Font Size -->
                     <div>
-                      <label class="mb-1 block text-xs font-medium text-gray-700 dark:text-gray-300">Font Size (rem)</label>
-                      <div class="flex items-center gap-2">
+                      <div class="flex justify-between mb-1">
+                        <label [for]="'font-size-' + style.key" class="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">{{ t("customization.typography.fontSize") }}</label>
+                        <span class="text-xs text-blue-600 dark:text-blue-400 tabular-nums font-mono">{{ getFontSizeLabel(getTextStyle(style.key).fontSize) }}</span>
+                      </div>
+                      <div class="flex items-center gap-3">
                         <input
+                          [id]="'font-size-' + style.key"
                           type="range"
-                          min="0.5"
-                          max="4"
-                          step="0.125"
-                          [value]="getTextStyle(style.key).fontSize"
-                          (input)="updateTextStyle(style.key, { fontSize: +$any($event.target).value })"
-                          class="flex-1"
-                        />
-                        <input
-                          type="number"
-                          min="0.5"
-                          max="4"
-                          step="0.125"
-                          [value]="getTextStyle(style.key).fontSize"
-                          (input)="updateTextStyle(style.key, { fontSize: +$any($event.target).value })"
-                          class="w-20 rounded border border-gray-300 dark:border-gray-600 px-2 py-1 text-sm"
+                          min="0"
+                          [max]="fontSizes.length - 1"
+                          step="1"
+                          [value]="getFontSizeIndex(getTextStyle(style.key).fontSize)"
+                          (input)="updateFontSizeFromIndex(style.key, +$any($event.target).value)"
+                          class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-600"
                         />
                       </div>
                     </div>
 
-                    <!-- Font Weight -->
+                    <!-- Font Weight in Slider (User Request: "Use Tailwind Typography for Font Weight") -->
                     <div>
-                      <label class="mb-1 block text-xs font-medium text-gray-700 dark:text-gray-300">Font Weight</label>
-                      <select
-                        [value]="getTextStyle(style.key).fontWeight"
-                        (change)="updateTextStyle(style.key, { fontWeight: +$any($event.target).value })"
-                        class="w-full rounded border border-gray-300 dark:border-gray-600 px-2 py-1 text-sm"
-                      >
-                        @for (weight of fontWeightOptions; track weight.value) {
-                          <option [value]="weight.value">{{ weight.label }} ({{ weight.value }})</option>
-                        }
-                      </select>
+                      <div class="flex justify-between mb-1">
+                         <label [for]="'font-weight-' + style.key" class="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">{{ t("customization.typography.fontWeight") }}</label>
+                         <span class="text-xs text-blue-600 dark:text-blue-400 tabular-nums font-mono">{{ getFontWeightLabel(getTextStyle(style.key).fontWeight) }}</span>
+                      </div>
+                      <input
+                          [id]="'font-weight-' + style.key"
+                          type="range"
+                          min="0"
+                          [max]="fontWeights.length - 1"
+                          step="1"
+                          [value]="getFontWeightIndex(getTextStyle(style.key).fontWeight)"
+                          (input)="updateFontWeightFromIndex(style.key, +$any($event.target).value)"
+                          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-600"
+                        />
                     </div>
 
-                    <!-- Line Height -->
-                    <div>
-                      <label class="mb-1 block text-xs font-medium text-gray-700 dark:text-gray-300">Line Height</label>
-                      <div class="flex items-center gap-2">
+                    <div class="grid grid-cols-2 gap-4">
+                      <!-- Line Height -->
+                      <div>
+                        <div class="flex justify-between mb-1">
+                          <label [for]="'line-height-' + style.key" class="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">{{ t("customization.typography.lineHeight") }}</label>
+                          <span class="text-xs text-blue-600 dark:text-blue-400 tabular-nums font-mono">{{ getLineHeightLabel(getTextStyle(style.key).lineHeight) }}</span>
+                        </div>
                         <input
+                          [id]="'line-height-' + style.key"
                           type="range"
-                          min="1"
-                          max="3"
-                          step="0.1"
-                          [value]="getTextStyle(style.key).lineHeight"
-                          (input)="updateTextStyle(style.key, { lineHeight: +$any($event.target).value })"
-                          class="flex-1"
-                        />
-                        <input
-                          type="number"
-                          min="1"
-                          max="3"
-                          step="0.1"
-                          [value]="getTextStyle(style.key).lineHeight"
-                          (input)="updateTextStyle(style.key, { lineHeight: +$any($event.target).value })"
-                          class="w-20 rounded border border-gray-300 dark:border-gray-600 px-2 py-1 text-sm"
+                          min="0"
+                          [max]="lineHeights.length - 1"
+                          step="1"
+                          [value]="getLineHeightIndex(getTextStyle(style.key).lineHeight)"
+                          (input)="updateLineHeightFromIndex(style.key, +$any($event.target).value)"
+                           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-600"
                         />
                       </div>
-                    </div>
 
-                    <!-- Letter Spacing -->
-                    <div>
-                      <label class="mb-1 block text-xs font-medium text-gray-700 dark:text-gray-300">Letter Spacing (em)</label>
-                      <div class="flex items-center gap-2">
+                      <!-- Letter Spacing -->
+                      <div>
+                        <div class="flex justify-between mb-1">
+                          <label [for]="'letter-spacing-' + style.key" class="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">{{ t("customization.typography.letterSpacing") }}</label>
+                          <span class="text-xs text-blue-600 dark:text-blue-400 tabular-nums font-mono">{{ getLetterSpacingLabel(getTextStyle(style.key).letterSpacing) }}</span>
+                        </div>
                         <input
+                          [id]="'letter-spacing-' + style.key"
                           type="range"
-                          min="-0.2"
-                          max="0.5"
-                          step="0.01"
-                          [value]="getTextStyle(style.key).letterSpacing || 0"
-                          (input)="updateTextStyle(style.key, { letterSpacing: +$any($event.target).value })"
-                          class="flex-1"
-                        />
-                        <input
-                          type="number"
-                          min="-0.2"
-                          max="0.5"
-                          step="0.01"
-                          [value]="getTextStyle(style.key).letterSpacing || 0"
-                          (input)="updateTextStyle(style.key, { letterSpacing: +$any($event.target).value })"
-                          class="w-20 rounded border border-gray-300 dark:border-gray-600 px-2 py-1 text-sm"
+                          min="0"
+                          [max]="letterSpacings.length - 1"
+                          step="1"
+                          [value]="getLetterSpacingIndex(getTextStyle(style.key).letterSpacing)"
+                          (input)="updateLetterSpacingFromIndex(style.key, +$any($event.target).value)"
+                           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-600"
                         />
                       </div>
                     </div>
 
                     <!-- Text Transform -->
                     <div>
-                      <label class="mb-1 block text-xs font-medium text-gray-700 dark:text-gray-300">Text Transform</label>
-                      <select
-                        [value]="getTextStyle(style.key).textTransform"
-                        (change)="updateTextStyle(style.key, { textTransform: +$any($event.target).value })"
-                        class="w-full rounded border border-gray-300 dark:border-gray-600 px-2 py-1 text-sm"
-                      >
+                      <span class="mb-1 block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">{{ t("customization.typography.textTransform") }}</span>
+                      <div class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
                         @for (transform of textTransformOptions; track transform.value) {
-                          <option [value]="transform.value">{{ transform.label }}</option>
+                          <button
+                            (click)="updateTextStyle(style.key, { textTransform: transform.value })"
+                            class="flex-1 py-1.5 px-2 text-xs font-medium rounded-md transition-all"
+                            [class.bg-white]="getTextStyle(style.key).textTransform === transform.value"
+                            [class.dark:bg-gray-700]="getTextStyle(style.key).textTransform === transform.value"
+                            [class.text-blue-600]="getTextStyle(style.key).textTransform === transform.value"
+                            [class.dark:text-blue-400]="getTextStyle(style.key).textTransform === transform.value"
+                            [class.shadow-sm]="getTextStyle(style.key).textTransform === transform.value"
+                            [class.text-gray-500]="getTextStyle(style.key).textTransform !== transform.value"
+                            [class.hover:text-gray-900]="getTextStyle(style.key).textTransform !== transform.value"
+                             [class.dark:hover:text-gray-300]="getTextStyle(style.key).textTransform !== transform.value"
+                          >
+                            {{ t(transform.label) || transform.label }}
+                          </button>
                         }
-                      </select>
+                      </div>
                     </div>
                   </div>
 
                   <!-- Live Preview -->
-                  <div class="flex items-center justify-center rounded-lg bg-white dark:bg-gray-800 p-6 border border-gray-200 dark:border-gray-700">
+                  <div class="flex items-center justify-center rounded-xl bg-white dark:bg-gray-800 p-8 border border-gray-200 dark:border-gray-700 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
                     <div
-                      class="text-center"
+                      class="text-center relative z-10 transition-all duration-300"
                       [style.font-family]="style.key <= 5 ? currentTypography.primaryFontFamily : currentTypography.secondaryFontFamily"
-                      [style.font-size]="getTextStyle(style.key).fontSize"
-                      [style.font-weight]="getTextStyle(style.key).fontWeight"
-                      [style.line-height]="getTextStyle(style.key).lineHeight"
-                      [style.letter-spacing]="getTextStyle(style.key).letterSpacing"
-                      [style.text-transform]="getTextStyle(style.key).textTransform === 0 ? 'none' : getTextStyle(style.key).textTransform === 1 ? 'uppercase' : getTextStyle(style.key).textTransform === 2 ? 'lowercase' : 'capitalize'"
+                      [class]="
+                        getTailwindFontSizeClass(getTextStyle(style.key).fontSize) + ' ' +
+                        getTailwindFontWeightClass(getTextStyle(style.key).fontWeight) + ' ' +
+                        getTailwindLineHeightClass(getTextStyle(style.key).lineHeight) + ' ' +
+                        getTailwindLetterSpacingClass(getTextStyle(style.key).letterSpacing) + ' ' +
+                        getTailwindTextTransformClass(getTextStyle(style.key).textTransform)
+                      "
                     >
-                      {{ getPreviewText(style.key) }}
+                      <span class="text-gray-900 dark:text-white">{{ getPreviewText(style.key) }}</span>
                     </div>
                   </div>
                 </div>
@@ -252,18 +275,21 @@
     </div>
 
     <!-- Full Preview Section -->
-    <div class="mt-8 rounded-xl bg-white dark:bg-gray-800 p-6 shadow-md">
-      <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.typography.completePreview") }}</h3>
-      <div class="space-y-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-6">
+    <div class="mt-8 rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 md:p-8 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50">
+      <h3 class="mb-6 text-xl font-bold text-gray-900 dark:text-white">{{ t("customization.typography.completePreview") }}</h3>
+      <div class="space-y-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-8 shadow-inner">
         @for (group of textStyleGroups; track group.title) {
           @for (style of group.styles; track style.key) {
             <div
               [style.font-family]="style.key <= 5 ? currentTypography.primaryFontFamily : currentTypography.secondaryFontFamily"
-              [style.font-size]="getTextStyle(style.key).fontSize"
-              [style.font-weight]="getTextStyle(style.key).fontWeight"
-              [style.line-height]="getTextStyle(style.key).lineHeight"
-              [style.letter-spacing]="getTextStyle(style.key).letterSpacing"
-              [style.text-transform]="getTextStyle(style.key).textTransform === 0 ? 'none' : getTextStyle(style.key).textTransform === 1 ? 'uppercase' : getTextStyle(style.key).textTransform === 2 ? 'lowercase' : 'capitalize'"
+              [class]="
+                getTailwindFontSizeClass(getTextStyle(style.key).fontSize) + ' ' +
+                getTailwindFontWeightClass(getTextStyle(style.key).fontWeight) + ' ' +
+                getTailwindLineHeightClass(getTextStyle(style.key).lineHeight) + ' ' +
+                getTailwindLetterSpacingClass(getTextStyle(style.key).letterSpacing) + ' ' +
+                getTailwindTextTransformClass(getTextStyle(style.key).textTransform)
+              "
+              class="text-gray-900 dark:text-white"
             >
               {{ getPreviewText(style.key) }}
             </div>

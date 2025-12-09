@@ -1,5 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { CustomizationApiService } from './customization-api.service';
+import { ColorUtilsService } from '@cms/shared/utils';
 import {
   ThemeSettings,
   TypographySettings,
@@ -18,6 +19,7 @@ import {
 })
 export class CustomizationStateService {
   private readonly api = inject(CustomizationApiService);
+  private readonly colorUtils = inject(ColorUtilsService);
 
   // Signals for reactive state
   private readonly themeSignal = signal<ThemeSettings | null>(null);
@@ -28,7 +30,7 @@ export class CustomizationStateService {
 
   // Original values for change detection
   private originalTheme: ThemeSettings | null = null;
-  private originalTypography: TypographySettings | null = null;
+  private originalTypography: TypographySettings | null = null  ;
   private originalLayout: LayoutSettings | null = null;
 
   // Public readonly signals
@@ -203,26 +205,33 @@ export class CustomizationStateService {
     const root = document.documentElement;
 
     // Brand colors
-    this.applyColorScheme(root, 'brand-primary', theme.brandPalette.primary);
-    this.applyColorScheme(root, 'brand-secondary', theme.brandPalette.secondary);
-    this.applyColorScheme(root, 'brand-accent', theme.brandPalette.accent);
+    this.applyColorScheme(root, 'color-primary', theme.brandPalette.primary.base);
+    this.applyColorScheme(root, 'color-secondary', theme.brandPalette.secondary.base);
 
-    // Neutral colors
-    this.applyColorScheme(root, 'neutral-light', theme.neutralPalette.primary);
-    this.applyColorScheme(root, 'neutral-medium', theme.neutralPalette.secondary);
-    this.applyColorScheme(root, 'neutral-dark', theme.neutralPalette.accent);
-
+    
     // Semantic colors
-    this.applyColorScheme(root, 'semantic-success', theme.semanticPalette.primary);
-    this.applyColorScheme(root, 'semantic-warning', theme.semanticPalette.secondary);
-    this.applyColorScheme(root, 'semantic-error', theme.semanticPalette.accent);
+    this.applyColorScheme(root, 'color-success', theme.semanticPalette.primary.base);
+    this.applyColorScheme(root, 'color-warning', theme.semanticPalette.secondary.base);
+    this.applyColorScheme(root, 'color-error', theme.semanticPalette.accent.base); 
+    
   }
 
-  private applyColorScheme(element: HTMLElement, prefix: string, scheme: any): void {
-    element.style.setProperty(`--${prefix}-base`, scheme.base);
-    element.style.setProperty(`--${prefix}-light`, scheme.light);
-    element.style.setProperty(`--${prefix}-dark`, scheme.dark);
-    element.style.setProperty(`--${prefix}-contrast`, scheme.contrast);
+  private applyColorScheme(element: HTMLElement, prefix: string, baseColor: string): void {
+    const palette = this.colorUtils.generateTailwindPalette(baseColor);
+    
+    element.style.setProperty(`--${prefix}-50`, palette[50]);
+    element.style.setProperty(`--${prefix}-100`, palette[100]);
+    element.style.setProperty(`--${prefix}-200`, palette[200]);
+    element.style.setProperty(`--${prefix}-300`, palette[300]);
+    element.style.setProperty(`--${prefix}-400`, palette[400]);
+    element.style.setProperty(`--${prefix}-500`, palette[500]);
+    element.style.setProperty(`--${prefix}-600`, palette[600]);
+    element.style.setProperty(`--${prefix}-700`, palette[700]);
+    element.style.setProperty(`--${prefix}-800`, palette[800]);
+    element.style.setProperty(`--${prefix}-900`, palette[900]);
+    element.style.setProperty(`--${prefix}-950`, palette[950]);
+    element.style.setProperty(`--${prefix}`, palette.DEFAULT);
+
   }
 
   /**

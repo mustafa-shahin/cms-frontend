@@ -1,7 +1,7 @@
 <!-- Mobile menu toggle -->
 <button
   type="button"
-  class="fixed bottom-4 left-4 z-50 inline-flex items-center rounded-lg bg-gray-800 p-2 text-white shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:hidden"
+  class="fixed bottom-4 left-4 z-50 inline-flex items-center rounded-lg bg-gray-800/90 p-3 text-white shadow-lg backdrop-blur-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:hidden transition-all hover:scale-105"
   (click)="mobileMenuOpen = !mobileMenuOpen"
 >
   <cms-icon [name]="mobileMenuOpen ? 'times' : 'bars'" [style]="'solid'" class="h-6 w-6"></cms-icon>
@@ -10,54 +10,57 @@
 
 <!-- Sidebar -->
 <aside
-  class="fixed left-0 top-0 z-40 h-screen w-72 bg-gradient-to-b from-gray-900 to-gray-800 shadow-2xl transition-transform sm:translate-x-0"
+  class="fixed left-0 top-0 z-40 h-screen w-72 bg-gray-900/95 backdrop-blur-xl shadow-2xl transition-transform sm:translate-x-0 border-r border-gray-800"
   [class.-translate-x-full]="!mobileMenuOpen"
   [class.translate-x-0]="mobileMenuOpen"
 >
   <!-- Sidebar Header -->
-  <div class="sticky top-0 border-b border-gray-700 bg-gray-900/50 p-4 backdrop-blur-sm">
-    <div class="flex items-center gap-3">
-      <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
+  <div class="sticky top-0 border-b border-gray-800 bg-gray-900/50 p-6 backdrop-blur-sm">
+    <div class="flex items-center gap-4">
+      <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg shadow-blue-500/20">
         <cms-icon name="paint-brush" [style]="'solid'" class="h-6 w-6 text-white"></cms-icon>
       </div>
       <div>
-        <h1 class="text-lg font-bold text-white">{{ translate.instant('customization.title') }}</h1>
-        <p class="text-xs text-gray-400">{{ translate.instant('customization.subtitle') }}</p>
+        <h1 class="text-xl font-bold text-white tracking-tight">{{ translate.instant('customization.title') }}</h1>
+        <p class="text-xs text-gray-400 font-medium">{{ translate.instant('customization.subtitle') }}</p>
       </div>
     </div>
   </div>
 
   <!-- Steps -->
-  <nav class="flex-1 overflow-y-auto p-4">
+  <nav class="flex-1 overflow-y-auto p-4 custom-scrollbar">
     <ul class="space-y-2">
       @for (step of steps; track step.key) {
         <li>
           <button
             (click)="setActiveStep(step.key)"
-            class="group flex w-full items-center gap-3 rounded-lg p-3 text-left transition-all duration-200"
+            class="group flex w-full items-center gap-3 rounded-xl p-3 text-left transition-all duration-300"
             [class.bg-gradient-to-r]="activeStep() === step.key"
             [class.from-blue-600]="activeStep() === step.key"
             [class.to-purple-600]="activeStep() === step.key"
             [class.shadow-lg]="activeStep() === step.key"
-            [class.hover:bg-gray-700/50]="activeStep() !== step.key"
+            [class.shadow-blue-900/20]="activeStep() === step.key"
+            [class.hover:bg-gray-800]="activeStep() !== step.key"
           >
             <div
-              class="flex h-10 w-10 items-center justify-center rounded-lg transition-colors"
+              class="flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-300"
               [class.bg-white/20]="activeStep() === step.key"
-              [class.bg-gray-700]="activeStep() !== step.key"
-              [class.group-hover:bg-gray-600]="activeStep() !== step.key"
+              [class.bg-gray-800]="activeStep() !== step.key"
+              [class.group-hover:bg-gray-700]="activeStep() !== step.key"
+              [class.group-hover:scale-110]="activeStep() !== step.key"
             >
               <cms-icon
                 [name]="step.icon"
                 [style]="step.iconStyle"
-                class="h-5 w-5"
+                class="h-5 w-5 transition-colors"
                 [class.text-white]="activeStep() === step.key"
                 [class.text-gray-400]="activeStep() !== step.key"
+                [class.group-hover:text-white]="activeStep() !== step.key"
               ></cms-icon>
             </div>
             <div class="flex-1">
               <div
-                class="font-semibold"
+                class="font-semibold transition-colors"
                 [class.text-white]="activeStep() === step.key"
                 [class.text-gray-300]="activeStep() !== step.key"
                 [class.group-hover:text-white]="activeStep() !== step.key"
@@ -65,9 +68,10 @@
                 {{ translate.instant(step.title) }}
               </div>
               <div
-                class="text-xs"
-                [class.text-gray-200]="activeStep() === step.key"
+                class="text-xs transition-colors"
+                [class.text-blue-100]="activeStep() === step.key"
                 [class.text-gray-500]="activeStep() !== step.key"
+                [class.group-hover:text-gray-400]="activeStep() !== step.key"
               >
                 {{ translate.instant(step.description) }}
               </div>
@@ -79,13 +83,13 @@
   </nav>
 
   <!-- Actions -->
-  <div class="border-t border-gray-700 p-4">
-    <div class="space-y-2">
+  <div class="border-t border-gray-800 p-4 bg-gray-900/50 backdrop-blur-sm">
+    <div class="space-y-3">
       @if (hasChanges()) {
-        <div class="mb-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20 p-2">
-          <div class="flex items-center gap-2 text-yellow-500">
+        <div class="mb-3 rounded-lg bg-orange-500/10 border border-orange-500/20 p-3 animate-fade-in">
+          <div class="flex items-center gap-2 text-orange-400">
             <cms-icon name="exclamation-triangle" [style]="'solid'"  class="h-4 w-4"></cms-icon>
-            <span class="text-xs font-medium">{{ translate.instant('customization.unsavedChanges') }}</span>
+            <span class="text-xs font-bold uppercase tracking-wider">{{ translate.instant('customization.unsavedChanges') }}</span>
           </div>
         </div>
       }
@@ -93,7 +97,7 @@
       <button
         (click)="saveAndClose()"
         [disabled]="!hasChanges() || saving()"
-        class="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-3 font-semibold text-white shadow-lg transition-all hover:from-green-600 hover:to-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
+        class="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 px-4 py-3.5 font-bold text-white shadow-lg shadow-emerald-900/20 transition-all hover:from-emerald-600 hover:to-teal-700 hover:shadow-emerald-900/30 hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:grayscale disabled:hover:scale-100"
       >
         @if (saving()) {
           <cms-icon name="spinner" [style]="'solid'"  class="h-4 w-4 animate-spin"></cms-icon>
@@ -106,7 +110,7 @@
 
       <button
         (click)="closeWithoutSaving()"
-        class="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-700 px-4 py-2 font-medium text-white transition-colors hover:bg-gray-600"
+        class="flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-4 py-2.5 font-medium text-gray-300 transition-all hover:bg-gray-700 hover:text-white"
       >
         <cms-icon name="times" [style]="'solid'"  class="h-4 w-4"></cms-icon>
         <span>{{ translate.instant('common.cancel') }}</span>
@@ -116,9 +120,9 @@
 </aside>
 
 <!-- Main content -->
-<main class="min-h-screen bg-gray-50 dark:bg-gray-900 sm:ml-72">
+<main class="min-h-screen bg-gray-50/50 dark:bg-gray-950 sm:ml-72 transition-colors duration-300">
   <!-- Top Header Bar -->
-  <header class="sticky top-0 z-30 bg-white dark:bg-gray-800 shadow-md border-b border-gray-200 dark:border-gray-700">
+  <header class="sticky top-0 z-30 bg-white/80 dark:bg-gray-900/80 shadow-sm border-b border-gray-200/50 dark:border-gray-800/50 backdrop-blur-md transition-colors duration-300">
     <div class="px-6 py-4">
       <div class="flex justify-end">
         <div class="flex items-center space-x-4">
@@ -128,11 +132,11 @@
           <!-- Theme Toggle -->
           <button
             (click)="toggleTheme()"
-            class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            class="p-2.5 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
             [title]="currentTheme() === 'dark' ? translate.instant('common.lightMode') : translate.instant('common.darkMode')"
           >
             @if (currentTheme() === 'dark') {
-              <cms-icon name="sun" size="lg"></cms-icon>
+              <cms-icon name="sun" size="lg" class="animate-spin-slow"></cms-icon>
             } @else {
               <cms-icon name="moon" size="lg"></cms-icon>
             }
@@ -140,14 +144,14 @@
 
           <!-- User Info & Logout -->
           @if (currentUser(); as user) {
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center gap-4 pl-4 border-l border-gray-200 dark:border-gray-800">
               <div class="text-right hidden md:block">
-                <p class="text-sm font-medium text-gray-900 dark:text-white">{{ user.fullName }}</p>
+                <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ user.fullName }}</p>
                 <p class="text-xs text-gray-500 dark:text-gray-400">{{ user.email }}</p>
               </div>
               <button
                 (click)="onLogout()"
-                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
+                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm shadow-red-200 dark:shadow-red-900/20 transition-all active:scale-95"
               >
                 <cms-icon name="logout" size="sm"></cms-icon>
                 <span class="hidden sm:inline">{{ translate.instant('common.logout') }}</span>
@@ -161,25 +165,30 @@
 
   <!-- Loading state -->
   @if (loading()) {
-    <div class="flex h-screen items-center justify-center">
+    <div class="flex h-[calc(100vh-80px)] items-center justify-center">
       <div class="text-center">
-        <cms-icon name="spinner" [style]="'solid'"  class="h-12 w-12 animate-spin text-blue-600"></cms-icon>
-        <p class="mt-4 text-lg font-semibold text-gray-700 dark:text-gray-300">{{ translate.instant('customization.loadingSettings') }}</p>
-        <p class="text-sm text-gray-500 dark:text-gray-400">{{ translate.instant('customization.loadingWait') }}</p>
+        <div class="relative inline-flex">
+          <div class="w-16 h-16 rounded-full border-4 border-blue-200 dark:border-blue-900 animate-pulse"></div>
+          <cms-icon name="spinner" [style]="'solid'"  class="absolute inset-0 m-auto h-8 w-8 animate-spin text-blue-600 dark:text-blue-400"></cms-icon>
+        </div>
+        <p class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">{{ translate.instant('customization.loadingSettings') }}</p>
+        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ translate.instant('customization.loadingWait') }}</p>
       </div>
     </div>
   }
 
   <!-- Error state -->
   @else if (error()) {
-    <div class="flex h-screen items-center justify-center p-4">
-      <div class="max-w-md rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-6 text-center">
-        <cms-icon name="exclamation-circle" [style]="'solid'"  class="mx-auto h-12 w-12 text-red-600"></cms-icon>
-        <h3 class="mt-4 text-lg font-semibold text-red-900 dark:text-red-100">{{ translate.instant('customization.errorLoading') }}</h3>
-        <p class="mt-2 text-sm text-red-700 dark:text-red-300">{{ error() }}</p>
+    <div class="flex h-[calc(100vh-80px)] items-center justify-center p-6">
+      <div class="max-w-md w-full rounded-2xl bg-white dark:bg-gray-800 border border-red-100 dark:border-red-900/50 p-8 text-center shadow-xl shadow-red-900/5">
+        <div class="mx-auto w-16 h-16 rounded-full bg-red-50 dark:bg-red-900/20 flex items-center justify-center mb-4">
+          <cms-icon name="exclamation-circle" [style]="'solid'"  class="h-8 w-8 text-red-600 dark:text-red-400"></cms-icon>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ translate.instant('customization.errorLoading') }}</h3>
+        <p class="text-gray-500 dark:text-gray-400 mb-6">{{ error() }}</p>
         <button
           (click)="ngOnInit()"
-          class="mt-4 rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700"
+          class="w-full rounded-xl bg-red-600 px-4 py-3 text-white font-medium hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20"
         >
           {{ translate.instant('customization.tryAgain') }}
         </button>
@@ -189,7 +198,7 @@
 
   <!-- Content -->
   @else {
-    <div class="p-6">
+    <div class="p-6 md:p-8 animate-fade-in">
       <!-- Theme step -->
       @if (activeStep() === 'theme') {
         <cms-theme-step />

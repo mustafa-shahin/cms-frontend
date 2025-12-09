@@ -161,10 +161,10 @@
       "footerMinimal": "Copyright and legal links",
       "footerStandard": "Links, social, and copyright",
       "footerFull": "Multi-column with newsletter",
-      "logoPlacement": "Logo Placement",
       "logoLeft": "Align logo to the left",
       "logoCenter": "Center the logo",
       "logoRight": "Align logo to the right",
+      "logoPlacement": "Logo Placement",
       "left": "Left",
       "center": "Center",
       "right": "Right",
@@ -188,6 +188,11 @@
       "sectionPaddingDescription": "Vertical padding for page sections",
       "componentGap": "Component Gap",
       "componentGapDescription": "Spacing between UI components",
+      "headerSettings": "Header Settings",
+      "footerSettings": "Footer Settings",
+      "spacingSettings": "Spacing Settings",
+      "liveLayoutPreview": "Live Layout Preview",
+      "previewDescription": "Preview how your changes affect the layout.",
       "layoutPreview": "Layout Preview"
     },
     "developer": {
@@ -282,7 +287,7 @@
     "reset": "Reset to Defaults",
     "saveSuccess": "Style settings saved successfully",
     "saveError": "Failed to save style settings",
-    "barndColors": "Barnd Color"
+    "brandColors": "Brand Color"
   },
   "errors": {
     "required": "This field is required",
