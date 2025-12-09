@@ -18,7 +18,9 @@
       [ngModel]="color()"
       (ngModelChange)="onColorChange($event)"
       [placeholder]="placeholder()"
-      class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      [class.border-red-500]="errorMessage()"
+      [class.border-gray-300]="!errorMessage()"
+      class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
     />
 
     <!-- Preview Box -->
@@ -27,4 +29,11 @@
       [style.background]="color()"
     ></div>
   </div>
+
+  <!-- Error Message -->
+  @if (errorMessage()) {
+    <p class="text-sm text-red-600 dark:text-red-400 mt-1">
+      {{ errorMessage() }}
+    </p>
+  }
 </div>

@@ -1,0 +1,168 @@
+<div class="mx-auto max-w-5xl space-y-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ translate.instant("customization.theme.title") }}</h2>
+    <p class="mt-2 text-lg text-gray-600 dark:text-gray-300">
+      {{ translate.instant("customization.theme.subtitle") }}
+    </p>
+  </div>
+
+  @if (theme(); as currentTheme) {
+    <!-- Info box -->
+    <div class="rounded-2xl border border-blue-100 dark:border-blue-900/30 bg-blue-50/50 dark:bg-blue-900/10 p-5 backdrop-blur-sm">
+      <div class="flex items-start gap-4">
+        <div class="rounded-full bg-blue-100 dark:bg-blue-900/50 p-2 text-blue-600 dark:text-blue-400">
+          <cms-icon name="info-circle" [style]="'solid'"  class="h-5 w-5"></cms-icon>
+        </div>
+        <div class="text-sm text-blue-900 dark:text-blue-100">
+          <p class="font-bold text-base mb-2">{{ translate.instant("customization.theme.colorSystemTitle") }}</p>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 list-disc list-inside opacity-90">
+            <li><strong class="font-semibold">{{ translate.instant("customization.theme.base") }}:</strong> {{ translate.instant("customization.theme.colorBase") }}</li>
+            <li><strong class="font-semibold">{{ translate.instant("customization.theme.light") }}:</strong> {{ translate.instant("customization.theme.colorLight") }}</li>
+            <li><strong class="font-semibold">{{ translate.instant("customization.theme.dark") }}:</strong> {{ translate.instant("customization.theme.colorDark") }}</li>
+            <li><strong class="font-semibold">{{ translate.instant("customization.theme.contrast") }}:</strong> {{ translate.instant("customization.theme.colorContrast") }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Palettes -->
+    <div class="space-y-8">
+      @for (palette of palettes; track palette.key) {
+        <div class="group rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 md:p-8 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50 transition-all hover:shadow-2xl hover:shadow-blue-900/5 dark:hover:shadow-black/30 hover:-translate-y-0.5">
+          <!-- Palette header -->
+          <div class="mb-6 flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+              <cms-icon [name]="palette.icon" [style]="'solid'"  class="h-6 w-6 text-white"></cms-icon>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.theme." + palette.key.replace("Palette", "Colors")) }}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ translate.instant("customization.theme." + palette.key.replace("Palette", "Description")) }}</p>
+            </div>
+          </div>
+
+          <!-- Color rows -->
+          <div class="space-y-6">
+            @for (colorType of colorTypes; track colorType.key) {
+              <div class="overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-700/50 shadow-sm transition-all hover:shadow-md">
+                <!-- Color type label -->
+                <div class="flex items-center justify-between bg-white/50 dark:bg-gray-800/50 px-5 py-3 border-b border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
+                  <span class="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                    <div class="w-2 h-8 rounded-full bg-gradient-to-b from-transparent to-current opacity-20"></div>
+                    {{ getColorTypeLabel(colorType.key) }}
+                  </span>
+                  <div class="text-xs font-medium text-gray-400 uppercase tracking-widest">{{ translate.instant("customization.theme.autoGenerate") }}</div>
+                </div>
+
+                <!-- Color swatches grid -->
+                <div class="grid grid-cols-4 gap-px bg-gray-200 dark:bg-gray-700">
+                  @for (variant of colorVariants; track variant) {
+                    <button
+                      (click)="openColorPicker('color-' + palette.key + '-' + colorType.key + '-' + variant)"
+                      class="relative h-24 w-full transition-all hover:z-10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white/50"
+                      [style.background-color]="getColor(palette.key, colorType.key, variant)"
+                      [title]="getVariantLabel(variant)"
+                    >
+                      <!-- Content Container -->
+                      <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black/10 backdrop-blur-[1px]">
+                         <cms-icon
+                          name="palette"
+                          [style]="'solid'"
+                          class="h-6 w-6 mb-1 drop-shadow-md"
+                          [ngClass]="getContrastClass(getColor(palette.key, colorType.key, variant))"
+                        ></cms-icon>
+                        <span
+                          class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/20 backdrop-blur-md"
+                          [ngClass]="getContrastClass(getColor(palette.key, colorType.key, variant))"
+                        >
+                          {{ getColor(palette.key, colorType.key, variant) }}
+                        </span>
+                         <span
+                          class="mt-1 text-[10px] font-medium uppercase tracking-wide opacity-90"
+                          [ngClass]="getContrastClass(getColor(palette.key, colorType.key, variant))"
+                        >
+                          {{ getVariantLabel(variant) }}
+                        </span>
+                      </div>
+
+                      <!-- Hidden color input -->
+                      <input
+                        [id]="'color-' + palette.key + '-' + colorType.key + '-' + variant"
+                        type="color"
+                        [value]="getColor(palette.key, colorType.key, variant)"
+                        (input)="updateColor(palette.key, colorType.key, variant, $any($event.target).value)"
+                        class="absolute opacity-0 h-0 w-0 pointer-events-none"
+                      />
+                    </button>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Preview section -->
+    <div class="mt-12 rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 md:p-8 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50">
+      <div class="mb-6">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.theme.livePreview") }}</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Preview how your colors will look in the application interface.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Brand colors preview -->
+        <div class="space-y-3">
+          <p class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ translate.instant("customization.theme.brandColors") }}</p>
+          <div class="rounded-xl overflow-hidden shadow-lg ring-1 ring-black/5 dark:ring-white/10">
+            <div class="h-20 flex items-center justify-center" [style.background-color]="currentTheme.brandPalette.primary.base">
+              <span class="text-white font-medium drop-shadow-md">Primary Button</span>
+            </div>
+            <div class="grid grid-cols-2 h-16">
+               <div class="flex items-center justify-center" [style.background-color]="currentTheme.brandPalette.secondary.base">
+                  <span class="text-xs text-white/90 font-medium">Secondary</span>
+               </div>
+               <div class="flex items-center justify-center" [style.background-color]="currentTheme.brandPalette.accent.base">
+                  <span class="text-xs text-white/90 font-medium">Accent</span>
+               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Neutral colors preview -->
+        <div class="space-y-3">
+           <p class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ translate.instant("customization.theme.neutralColors") }}</p>
+           <div class="rounded-xl overflow-hidden shadow-lg ring-1 ring-black/5 dark:ring-white/10">
+            <div class="h-20 flex items-center justify-center" [style.background-color]="currentTheme.neutralPalette.primary.base">
+              <span class="text-xs font-medium px-3 py-1 rounded bg-white/20 backdrop-blur-md">Background</span>
+            </div>
+            <div class="grid grid-cols-2 h-16">
+               <div class="flex items-center justify-center" [style.background-color]="currentTheme.neutralPalette.secondary.base">
+                  <span class="text-xs opacity-70">Surface</span>
+               </div>
+               <div class="flex items-center justify-center" [style.background-color]="currentTheme.neutralPalette.accent.base">
+                  <span class="text-xs text-white opacity-70">Dark</span>
+               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Semantic colors preview -->
+        <div class="space-y-3">
+           <p class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ translate.instant("customization.theme.semanticColors") }}</p>
+           <div class="flex flex-col gap-2">
+             <div class="h-10 rounded-lg flex items-center px-4 text-sm font-medium text-white shadow-sm" [style.background-color]="currentTheme.semanticPalette.primary.base">
+                <cms-icon name="check-circle" class="mr-2 h-4 w-4"></cms-icon> Success Message
+             </div>
+             <div class="h-10 rounded-lg flex items-center px-4 text-sm font-medium text-white shadow-sm" [style.background-color]="currentTheme.semanticPalette.secondary.base">
+                <cms-icon name="exclamation-triangle" class="mr-2 h-4 w-4"></cms-icon> Warning Alert
+             </div>
+             <div class="h-10 rounded-lg flex items-center px-4 text-sm font-medium text-white shadow-sm" [style.background-color]="currentTheme.semanticPalette.accent.base">
+                <cms-icon name="times-circle" class="mr-2 h-4 w-4"></cms-icon> Error Toast
+             </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

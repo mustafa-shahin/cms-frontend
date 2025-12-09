@@ -23,7 +23,9 @@
       "@cms/shared/ui": ["shared/ui/src/index.ts"],
       "@cms/shared/visual-settings": ["shared/visual-settings/src/index.ts"],
       "@cms/shared/components-registry": ["shared/components-registry/src/index.ts"],
-      "@cms/shared/utils": ["shared/utils/src/index.ts"]
+      "@cms/shared/utils": ["shared/utils/src/index.ts"],
+      "@cms/shared/customization-models": ["shared/customization-models/src/index.ts"],
+      "@cms/shared/customization-services": ["shared/customization-services/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

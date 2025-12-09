@@ -1,0 +1,294 @@
+<div class="mx-auto max-w-5xl space-y-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ translate.instant("customization.developer.title") }}</h2>
+    <p class="mt-2 text-lg text-gray-600 dark:text-gray-300">
+      {{ translate.instant("customization.developer.subtitle") || "Advanced configuration management tools for developers" }}
+    </p>
+  </div>
+
+  <!-- Status & Messages -->
+  <div class="space-y-4">
+    <!-- Action Message -->
+    @if (actionMessage()) {
+      <div [class]="getMessageClasses(actionMessage()!.type) + ' rounded-xl p-4 shadow-sm border animate-fade-in flex items-center gap-3'">
+        @if (actionMessage()!.type === 'success') {
+          <cms-icon name="check-circle" class="w-5 h-5 flex-shrink-0" />
+        } @else if (actionMessage()!.type === 'error') {
+          <cms-icon name="alert-circle" class="w-5 h-5 flex-shrink-0" />
+        } @else {
+          <cms-icon name="info" class="w-5 h-5 flex-shrink-0" />
+        }
+        <span class="font-medium">{{ actionMessage()!.text }}</span>
+      </div>
+    }
+
+    <!-- Error Display -->
+    @if (error()) {
+      <div class="bg-red-50/90 dark:bg-red-900/20 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800 p-4 rounded-xl shadow-sm flex items-start gap-3">
+        <cms-icon name="alert-triangle" class="w-5 h-5 flex-shrink-0 mt-0.5 text-red-600 dark:text-red-400" />
+        <div>
+          <strong class="font-bold block mb-1">Error</strong>
+          <span>{{ error() }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Configuration Management -->
+    <div class="group h-full rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50 transition-all hover:shadow-2xl hover:shadow-cyan-900/5 dark:hover:shadow-black/30">
+      <div class="mb-6 flex items-center gap-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform duration-300">
+          <cms-icon name="settings" [style]="'solid'"  class="h-6 w-6 text-white"></cms-icon>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.developer.configManagement") || "Configuration Management" }}</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Manage your configuration state.</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Load Newest Config -->
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 p-5 transition-all hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 mt-1 p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-blue-600 dark:text-blue-400">
+              <cms-icon name="download" class="w-5 h-5" />
+            </div>
+            <div class="flex-1">
+              <h4 class="font-bold text-gray-900 dark:text-white mb-1">{{ translate.instant("customization.developer.actions.loadConfig") }}</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                Load the latest configuration from the backend server, discarding any local changes.
+              </p>
+              <button
+                (click)="loadNewestConfig()"
+                [disabled]="loading()"
+                class="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-blue-600/20 font-medium text-sm flex items-center justify-center gap-2"
+              >
+                @if (loading()) {
+                  <cms-icon name="loader" class="w-4 h-4 animate-spin" />
+                  <span>{{ translate.instant("common.loading") }}</span>
+                } @else {
+                  <cms-icon name="download" class="w-4 h-4" />
+                  <span>{{ translate.instant("customization.developer.actions.loadConfig") }}</span>
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Save Current Config -->
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 p-5 transition-all hover:border-green-300 dark:hover:border-green-700 hover:shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 mt-1 p-2 bg-green-100 dark:bg-green-900/30 rounded-lg text-green-600 dark:text-green-400">
+              <cms-icon name="upload" class="w-5 h-5" />
+            </div>
+            <div class="flex-1">
+              <h4 class="font-bold text-gray-900 dark:text-white mb-1">{{ translate.instant("customization.developer.actions.saveConfig") }}</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                Save the current configuration to the backend server.
+              </p>
+              <button
+                (click)="saveCurrentConfig()"
+                [disabled]="loading()"
+                class="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-green-600/20 font-medium text-sm flex items-center justify-center gap-2"
+              >
+                @if (loading()) {
+                  <cms-icon name="loader" class="w-4 h-4 animate-spin" />
+                  <span>{{ translate.instant("customization.saving") }}</span>
+                } @else {
+                  <cms-icon name="save" class="w-4 h-4" />
+                  <span>{{ translate.instant("customization.developer.actions.saveConfig") }}</span>
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reset to Defaults -->
+        <div class="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/10 p-5 transition-all hover:border-red-300 dark:hover:border-red-700 hover:shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 mt-1 p-2 bg-red-100 dark:bg-red-900/30 rounded-lg text-red-600 dark:text-red-400">
+              <cms-icon name="refresh-cw" class="w-5 h-5" />
+            </div>
+            <div class="flex-1">
+              <h4 class="font-bold text-red-900 dark:text-red-200 mb-1">{{ translate.instant("customization.developer.actions.resetDefaults") }}</h4>
+              <p class="text-xs text-red-700 dark:text-red-300 mb-4">
+                <strong>Warning:</strong> This will permanently reset all configuration to default values. This action cannot be undone.
+              </p>
+              <button
+                (click)="showResetConfirmation()"
+                [disabled]="loading()"
+                class="w-full sm:w-auto px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-red-600/20 font-medium text-sm flex items-center justify-center gap-2"
+              >
+                <cms-icon name="alert-triangle" class="w-4 h-4" />
+                <span>Reset Configuration</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-8">
+      <!-- Current Status -->
+      <div class="group rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50 transition-all hover:shadow-2xl hover:shadow-purple-900/5 dark:hover:shadow-black/30">
+        <div class="mb-6 flex items-center gap-4">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform duration-300">
+            <cms-icon name="info" [style]="'solid'"  class="h-6 w-6 text-white"></cms-icon>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.developer.status.title") }}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Current configuration state.</p>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 overflow-hidden">
+          <div class="divide-y divide-gray-200 dark:divide-gray-700">
+            <div class="flex items-center justify-between p-4 hover:bg-white dark:hover:bg-gray-800 transition-colors">
+              <span class="text-sm font-medium text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                <cms-icon name="palette" size="xs" />
+                {{ translate.instant("customization.developer.status.theme") }}
+              </span>
+              <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium" [class]="theme() ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'">
+                {{ theme() ? 'Configured' : 'Not Set' }}
+              </span>
+            </div>
+            <div class="flex items-center justify-between p-4 hover:bg-white dark:hover:bg-gray-800 transition-colors">
+              <span class="text-sm font-medium text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                <cms-icon name="font" size="xs" />
+                {{ translate.instant("customization.developer.status.typography") }}
+              </span>
+              <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium" [class]="typography() ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'">
+                {{ typography() ? 'Configured' : 'Not Set' }}
+              </span>
+            </div>
+            <div class="flex items-center justify-between p-4 hover:bg-white dark:hover:bg-gray-800 transition-colors">
+              <span class="text-sm font-medium text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                <cms-icon name="layout" size="xs" />
+                {{ translate.instant("customization.developer.status.layout") }}
+              </span>
+              <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium" [class]="layout() ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'">
+                {{ layout() ? 'Configured' : 'Not Set' }}
+              </span>
+            </div>
+            <div class="flex items-center justify-between p-4 hover:bg-white dark:hover:bg-gray-800 transition-colors">
+              <span class="text-sm font-medium text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                <cms-icon name="edit" size="xs" />
+                {{ translate.instant("customization.developer.status.unsavedChanges") }}
+              </span>
+              <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium" [class]="hasUnsavedChanges() ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' : 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'">
+                {{ hasUnsavedChanges() ? 'Yes' : 'No' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Import/Export -->
+      <div class="group rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50 transition-all hover:shadow-2xl hover:shadow-orange-900/5 dark:hover:shadow-black/30">
+        <div class="mb-6 flex items-center gap-4">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform duration-300">
+            <cms-icon name="arrow-right-arrow-left" [style]="'solid'"  class="h-6 w-6 text-white"></cms-icon>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.developer.importExport") || "Import/Export" }}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Transfer configurations.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Export -->
+          <button
+          (click)="exportConfig()"
+          class="flex flex-col items-center justify-center p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all text-center group/btn"
+          >
+            <div class="mb-3 p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-full text-indigo-600 dark:text-indigo-400 group-hover/btn:scale-110 transition-transform">
+              <cms-icon name="file-down" class="w-6 h-6" />
+            </div>
+            <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">Export JSON</h4>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Download backup</p>
+          </button>
+
+          <!-- Import -->
+          <label class="cursor-pointer flex flex-col items-center justify-center p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all text-center group/btn">
+            <input
+              type="file"
+              accept=".json"
+              (change)="importConfig($event)"
+              class="hidden"
+            />
+            <div class="mb-3 p-3 bg-purple-100 dark:bg-purple-900/30 rounded-full text-purple-600 dark:text-purple-400 group-hover/btn:scale-110 transition-transform">
+              <cms-icon name="file-up" class="w-6 h-6" />
+            </div>
+            <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">Import JSON</h4>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Restore from file</p>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Section -->
+  <div class="rounded-xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900 p-6 flex gap-4 backdrop-blur-sm">
+    <div class="flex-shrink-0">
+      <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+        <cms-icon name="help-circle" class="w-6 h-6 text-blue-600 dark:text-blue-400" />
+      </div>
+    </div>
+    <div>
+      <h4 class="font-bold text-blue-900 dark:text-blue-200 mb-2">Developer Tips</h4>
+      <ul class="text-sm text-blue-800 dark:text-blue-300 space-y-1.5 list-disc list-inside marker:text-blue-400">
+        <li>Use "Load from Server" to discard local changes and sync with the backend</li>
+        <li>Use "Save to Server" to persist your current configuration</li>
+        <li>Export configuration before making major changes to create a backup</li>
+        <li>Import configuration to quickly apply settings from another environment</li>
+        <li>Reset to defaults will load server defaults if available, or use built-in defaults</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Reset Confirmation Modal -->
+@if (resetConfirmVisible()) {
+  <div class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 border border-white/20 dark:border-gray-700 transform scale-100 transition-all">
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0">
+          <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+            <cms-icon name="alert-triangle" class="w-6 h-6 text-red-600 dark:text-red-400" />
+          </div>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Confirm Reset</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">
+            Are you sure you want to reset all configuration to defaults? This action cannot be undone and will:
+          </p>
+          <div class="bg-red-50 dark:bg-red-900/10 rounded-lg p-3 mb-6 border border-red-100 dark:border-red-900/30">
+            <ul class="text-xs text-red-800 dark:text-red-300 list-disc list-inside space-y-1">
+              <li>Remove all theme customizations</li>
+              <li>Remove all typography settings</li>
+              <li>Remove all layout configurations</li>
+              <li>Clear local storage cache</li>
+              <li>Load server defaults</li>
+            </ul>
+          </div>
+          <div class="flex gap-3 justify-end">
+            <button
+              (click)="cancelReset()"
+              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              (click)="confirmReset()"
+              class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium transition-colors shadow-lg shadow-red-600/20"
+            >
+              Yes, Reset Configuration
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

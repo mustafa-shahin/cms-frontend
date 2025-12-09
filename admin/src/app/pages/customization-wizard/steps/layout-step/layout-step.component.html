@@ -1,0 +1,642 @@
+<div class="mx-auto max-w-5xl space-y-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ t("customization.layout.title") }}</h2>
+    <p class="mt-2 text-lg text-gray-600 dark:text-gray-300">
+      {{ t("customization.layout.subtitle") }}
+    </p>
+  </div>
+
+  @if (layout(); as currentLayout) {
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <!-- Left Column: Controls -->
+      <div class="space-y-8">
+        <!-- Header Settings -->
+        <div class="group rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50 transition-all hover:shadow-2xl hover:shadow-blue-900/5 dark:hover:shadow-black/30">
+          <div class="mb-6 flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+              <cms-icon name="window-maximize" [style]="'regular'"  class="h-6 w-6 text-white"></cms-icon>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ t("customization.layout.headerSettings") }}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ t("customization.layout.headerDescription") }}</p>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <!-- Header Template -->
+            <div>
+              <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.headerTemplate") }}</label>
+              <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <button
+                  (click)="updateHeader('template', 0)"
+                  class="flex flex-col items-center justify-center rounded-xl border-2 p-4 transition-all hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  [class.border-blue-500]="currentLayout.headerConfiguration.template === 0"
+                  [class.bg-blue-50]="currentLayout.headerConfiguration.template === 0"
+                  [class.dark:bg-blue-900/20]="currentLayout.headerConfiguration.template === 0"
+                  [class.border-gray-200]="currentLayout.headerConfiguration.template !== 0"
+                  [class.dark:border-gray-700]="currentLayout.headerConfiguration.template !== 0"
+                >
+                  <div class="mb-2 h-2 w-16 rounded bg-gray-300 dark:bg-gray-600"></div>
+                  <span class="text-xs font-medium dark:text-white" [class.text-blue-600]="currentLayout.headerConfiguration.template === 0" [class.dark:text-blue-400]="currentLayout.headerConfiguration.template === 0">{{ t("customization.layout.headerMinimal") }}</span>
+                </button>
+                <button
+                  (click)="updateHeader('template', 1)"
+                  class="flex flex-col items-center justify-center rounded-xl border-2 p-4 transition-all hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  [class.border-blue-500]="currentLayout.headerConfiguration.template === 1"
+                  [class.bg-blue-50]="currentLayout.headerConfiguration.template === 1"
+                  [class.dark:bg-blue-900/20]="currentLayout.headerConfiguration.template === 1"
+                  [class.border-gray-200]="currentLayout.headerConfiguration.template !== 1"
+                  [class.dark:border-gray-700]="currentLayout.headerConfiguration.template !== 1"
+                >
+                  <div class="mb-2 h-3 w-16 rounded bg-gray-300 dark:bg-gray-600"></div>
+                  <span class="text-xs font-medium dark:text-white" [class.text-blue-600]="currentLayout.headerConfiguration.template === 1" [class.dark:text-blue-400]="currentLayout.headerConfiguration.template === 1">{{ t("customization.layout.headerStandard") }}</span>
+                </button>
+                <button
+                  (click)="updateHeader('template', 2)"
+                  class="flex flex-col items-center justify-center rounded-xl border-2 p-4 transition-all hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  [class.border-blue-500]="currentLayout.headerConfiguration.template === 2"
+                  [class.bg-blue-50]="currentLayout.headerConfiguration.template === 2"
+                  [class.dark:bg-blue-900/20]="currentLayout.headerConfiguration.template === 2"
+                  [class.border-gray-200]="currentLayout.headerConfiguration.template !== 2"
+                  [class.dark:border-gray-700]="currentLayout.headerConfiguration.template !== 2"
+                >
+                  <div class="mb-1 h-1 w-16 rounded bg-gray-300 dark:bg-gray-600"></div>
+                  <div class="mb-1 h-2 w-16 rounded bg-gray-300 dark:bg-gray-600"></div>
+                  <span class="text-xs font-medium dark:text-white" [class.text-blue-600]="currentLayout.headerConfiguration.template === 2" [class.dark:text-blue-400]="currentLayout.headerConfiguration.template === 2">{{ t("customization.layout.headerFull") }}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Logo Placement -->
+            <div>
+              <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.logoPlacement") }}</label>
+              <div class="flex rounded-lg bg-gray-100 dark:bg-gray-900/50 p-1">
+                <button
+                  (click)="updateHeader('logoPlacement', 0)"
+                  [title]="t('customization.layout.logoLeft')"
+                  class="flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all"
+                  [class.bg-white]="currentLayout.headerConfiguration.logoPlacement === 0"
+                  [class.dark:bg-gray-700]="currentLayout.headerConfiguration.logoPlacement === 0"
+                  [class.shadow-sm]="currentLayout.headerConfiguration.logoPlacement === 0"
+                  [class.text-gray-900]="currentLayout.headerConfiguration.logoPlacement === 0"
+                  [class.dark:text-white]="currentLayout.headerConfiguration.logoPlacement === 0"
+                  [class.text-gray-500]="currentLayout.headerConfiguration.logoPlacement !== 0"
+                >
+                  {{ t("customization.layout.left") }}
+                </button>
+                <button
+                  (click)="updateHeader('logoPlacement', 1)"
+                  [title]="t('customization.layout.logoCenter')"
+                  class="flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all"
+                  [class.bg-white]="currentLayout.headerConfiguration.logoPlacement === 1"
+                  [class.dark:bg-gray-700]="currentLayout.headerConfiguration.logoPlacement === 1"
+                  [class.shadow-sm]="currentLayout.headerConfiguration.logoPlacement === 1"
+                  [class.text-gray-900]="currentLayout.headerConfiguration.logoPlacement === 1"
+                  [class.dark:text-white]="currentLayout.headerConfiguration.logoPlacement === 1"
+                  [class.text-gray-500]="currentLayout.headerConfiguration.logoPlacement !== 1"
+                >
+                  {{ t("customization.layout.center") }}
+                </button>
+                <button
+                  (click)="updateHeader('logoPlacement', 2)"
+                  [title]="t('customization.layout.logoRight')"
+                  class="flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all"
+                  [class.bg-white]="currentLayout.headerConfiguration.logoPlacement === 2"
+                  [class.dark:bg-gray-700]="currentLayout.headerConfiguration.logoPlacement === 2"
+                  [class.shadow-sm]="currentLayout.headerConfiguration.logoPlacement === 2"
+                  [class.text-gray-900]="currentLayout.headerConfiguration.logoPlacement === 2"
+                  [class.dark:text-white]="currentLayout.headerConfiguration.logoPlacement === 2"
+                  [class.text-gray-500]="currentLayout.headerConfiguration.logoPlacement !== 2"
+                >
+                  {{ t("customization.layout.right") }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Toggles -->
+            <div class="space-y-4 rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/30 p-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="block text-sm font-medium text-gray-900 dark:text-white">{{ t("customization.layout.stickyHeader") }}</span>
+                  <span class="text-xs text-gray-500 dark:text-gray-400">{{ t("customization.layout.stickyHeaderDescription") }}</span>
+                </div>
+                <button
+                  type="button"
+                  (click)="updateHeader('sticky', !currentLayout.headerConfiguration.stickyHeader)"
+                  class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  [class.bg-blue-600]="currentLayout.headerConfiguration.stickyHeader"
+                  [class.bg-gray-200]="!currentLayout.headerConfiguration.stickyHeader"
+                  [class.dark:bg-gray-700]="!currentLayout.headerConfiguration.stickyHeader"
+                >
+                  <span
+                    class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                    [class.translate-x-5]="currentLayout.headerConfiguration.stickyHeader"
+                    [class.translate-x-0]="!currentLayout.headerConfiguration.stickyHeader"
+                  ></span>
+                </button>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div>
+                   <span class="block text-sm font-medium text-gray-900 dark:text-white">{{ t("customization.layout.showSearchBar") }}</span>
+                </div>
+                <button
+                  type="button"
+                  (click)="updateHeader('showSearchBar', !currentLayout.headerConfiguration.showSearch)"
+                  class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  [class.bg-blue-600]="currentLayout.headerConfiguration.showSearch"
+                  [class.bg-gray-200]="!currentLayout.headerConfiguration.showSearch"
+                  [class.dark:bg-gray-700]="!currentLayout.headerConfiguration.showSearch"
+                >
+                  <span
+                    class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                    [class.translate-x-5]="currentLayout.headerConfiguration.showSearch"
+                    [class.translate-x-0]="!currentLayout.headerConfiguration.showSearch"
+                  ></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Settings -->
+        <div class="group rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50 transition-all hover:shadow-2xl hover:shadow-indigo-900/5 dark:hover:shadow-black/30">
+          <div class="mb-6 flex items-center gap-4">
+             <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform duration-300">
+              <cms-icon name="columns" [style]="'regular'"  class="h-6 w-6 text-white"></cms-icon>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ t("customization.layout.footerSettings") }}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ t("customization.layout.footerDescription") }}</p>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <!-- Footer Template -->
+            <div>
+              <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.footerTemplate") }}</label>
+              <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <button
+                  (click)="updateFooter('template', 0)"
+                  class="flex flex-col items-center justify-center rounded-xl border-2 p-4 transition-all hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  [class.border-purple-500]="currentLayout.footerConfiguration.template === 0"
+                  [class.bg-purple-50]="currentLayout.footerConfiguration.template === 0"
+                  [class.dark:bg-purple-900/20]="currentLayout.footerConfiguration.template === 0"
+                  [class.border-gray-200]="currentLayout.footerConfiguration.template !== 0"
+                  [class.dark:border-gray-700]="currentLayout.footerConfiguration.template !== 0"
+                >
+                  <div class="mb-2 h-1 w-16 rounded bg-gray-300 dark:bg-gray-600"></div>
+                  <span class="text-xs font-medium dark:text-white" [class.text-purple-600]="currentLayout.footerConfiguration.template === 0" [class.dark:text-purple-400]="currentLayout.footerConfiguration.template === 0">{{ t("customization.layout.footerMinimal") }}</span>
+                </button>
+                <button
+                  (click)="updateFooter('template', 1)"
+                  class="flex flex-col items-center justify-center rounded-xl border-2 p-4 transition-all hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  [class.border-purple-500]="currentLayout.footerConfiguration.template === 1"
+                  [class.bg-purple-50]="currentLayout.footerConfiguration.template === 1"
+                  [class.dark:bg-purple-900/20]="currentLayout.footerConfiguration.template === 1"
+                  [class.border-gray-200]="currentLayout.footerConfiguration.template !== 1"
+                  [class.dark:border-gray-700]="currentLayout.footerConfiguration.template !== 1"
+                >
+                  <div class="mb-1 h-3 w-16 rounded bg-gray-300 dark:bg-gray-600"></div>
+                  <div class="mb-1 h-1 w-10 rounded bg-gray-300 dark:bg-gray-600"></div>
+                  <span class="text-xs font-medium dark:text-white" [class.text-purple-600]="currentLayout.footerConfiguration.template === 1" [class.dark:text-purple-400]="currentLayout.footerConfiguration.template === 1">{{ t("customization.layout.footerStandard") }}</span>
+                </button>
+                <button
+                  (click)="updateFooter('template', 2)"
+                  class="flex flex-col items-center justify-center rounded-xl border-2 p-4 transition-all hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  [class.border-purple-500]="currentLayout.footerConfiguration.template === 2"
+                  [class.bg-purple-50]="currentLayout.footerConfiguration.template === 2"
+                  [class.dark:bg-purple-900/20]="currentLayout.footerConfiguration.template === 2"
+                  [class.border-gray-200]="currentLayout.footerConfiguration.template !== 2"
+                  [class.dark:border-gray-700]="currentLayout.footerConfiguration.template !== 2"
+                >
+                   <div class="flex gap-1 mb-1">
+                      <div class="h-4 w-4 rounded bg-gray-300 dark:bg-gray-600"></div>
+                      <div class="h-4 w-4 rounded bg-gray-300 dark:bg-gray-600"></div>
+                      <div class="h-4 w-4 rounded bg-gray-300 dark:bg-gray-600"></div>
+                   </div>
+                  <span class="text-xs font-medium dark:text-white" [class.text-purple-600]="currentLayout.footerConfiguration.template === 2" [class.dark:text-purple-400]="currentLayout.footerConfiguration.template === 2">{{ t("customization.layout.footerFull") }}</span>
+                </button>
+              </div>
+            </div>
+
+             <!-- Footer Columns -->
+             <div>
+              <div class="flex justify-between mb-2">
+                <label for="footer-columns" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.footerColumns") }}</label>
+                <span class="text-sm font-bold text-purple-600 dark:text-purple-400">{{ currentLayout.footerConfiguration.columnCount }}</span>
+              </div>
+              <input
+                id="footer-columns"
+                type="range"
+                min="1"
+                max="4"
+                step="1"
+                [value]="currentLayout.footerConfiguration.columnCount"
+                (input)="updateFooter('columns', +$any($event.target).value)"
+                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-purple-600"
+              />
+              <div class="mt-1 flex justify-between text-xs text-gray-400">
+                <span>1</span>
+                <span>4</span>
+              </div>
+            </div>
+
+            <!-- Toggles -->
+            <div class="space-y-4 rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/30 p-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="block text-sm font-medium text-gray-900 dark:text-white">{{ t("customization.layout.showSocialLinks") }}</span>
+                </div>
+                <button
+                  type="button"
+                  (click)="updateFooter('showSocialLinks', !currentLayout.footerConfiguration.showSocialLinks)"
+                  class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                  [class.bg-purple-600]="currentLayout.footerConfiguration.showSocialLinks"
+                  [class.bg-gray-200]="!currentLayout.footerConfiguration.showSocialLinks"
+                  [class.dark:bg-gray-700]="!currentLayout.footerConfiguration.showSocialLinks"
+                >
+                  <span
+                    class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                    [class.translate-x-5]="currentLayout.footerConfiguration.showSocialLinks"
+                    [class.translate-x-0]="!currentLayout.footerConfiguration.showSocialLinks"
+                  ></span>
+                </button>
+              </div>
+
+               <div class="flex items-center justify-between">
+                <div>
+                   <span class="block text-sm font-medium text-gray-900 dark:text-white">{{ t("customization.layout.showNewsletter") }}</span>
+                </div>
+                <button
+                  type="button"
+                  (click)="updateFooter('showNewsletter', !currentLayout.footerConfiguration.showNewsletter)"
+                   class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                  [class.bg-purple-600]="currentLayout.footerConfiguration.showNewsletter"
+                  [class.bg-gray-200]="!currentLayout.footerConfiguration.showNewsletter"
+                  [class.dark:bg-gray-700]="!currentLayout.footerConfiguration.showNewsletter"
+                >
+                  <span
+                    class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                    [class.translate-x-5]="currentLayout.footerConfiguration.showNewsletter"
+                    [class.translate-x-0]="!currentLayout.footerConfiguration.showNewsletter"
+                  ></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spacing Settings -->
+        <div class="group rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50 transition-all hover:shadow-2xl hover:shadow-green-900/5 dark:hover:shadow-black/30">
+          <div class="mb-6 flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green-500 to-teal-500 shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform duration-300">
+              <cms-icon name="arrows-alt-h" [style]="'regular'"  class="h-6 w-6 text-white"></cms-icon>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ t("customization.layout.spacingSettings") }}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ t("customization.layout.spacingDescription") }}</p>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <!-- Container Max Width -->
+             <div>
+              <div class="flex justify-between mb-2">
+                <label for="container-width" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.containerMaxWidth") }}</label>
+                <span class="text-sm font-bold text-green-600 dark:text-green-400">{{ currentLayout.spacing.containerMaxWidth }}px</span>
+              </div>
+              <input
+                id="container-width"
+                type="range"
+                min="1024"
+                max="1920"
+                step="16"
+                [value]="removePx(currentLayout.spacing.containerMaxWidth)"
+                (input)="updateSpacing('containerMaxWidth', +$any($event.target).value)"
+                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-green-600"
+              />
+            </div>
+
+            <!-- Section Padding -->
+            <div>
+              <div class="flex justify-between mb-2">
+                <label for="section-padding" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.sectionPadding") }}</label>
+                <span class="text-sm font-bold text-green-600 dark:text-green-400">{{ currentLayout.spacing.sectionPadding }}</span>
+              </div>
+              <select
+                id="section-padding"
+                [value]="currentLayout.spacing.sectionPadding"
+                (change)="updateSpacing('sectionPadding', $any($event.target).value)"
+                class="dark:text-white w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+              >
+                <option class="dark:text-white" value="2rem 1rem">{{ t("common.compact") || 'Compact' }} (2rem)</option>
+                <option class="dark:text-white" value="4rem 1.5rem">{{ t("common.comfortable") || 'Comfortable' }} (4rem)</option>
+                <option class="dark:text-white" value="6rem 2rem">{{ t("common.spacious") || 'Spacious' }} (6rem)</option>
+              </select>
+            </div>
+
+            <!-- Component Gap -->
+            <div>
+              <div class="flex justify-between mb-2">
+                <label for="component-gap" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.componentGap") }}</label>
+                <span class="text-sm font-bold text-green-600 dark:text-green-400">{{ currentLayout.spacing.componentGap }}</span>
+              </div>
+              <select
+                 id="component-gap"
+                 [value]="currentLayout.spacing.componentGap"
+                (change)="updateSpacing('componentGap', $any($event.target).value)"
+                 class="dark:text-white w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+              >
+                <option class="dark:text-white" value="1rem">{{ t("common.compact") || 'Compact' }} (1rem)</option>
+                <option class="dark:text-white" value="2rem">{{ t("common.comfortable") || 'Comfortable' }} (2rem)</option>
+                <option class="dark:text-white" value="3rem">{{ t("common.spacious") || 'Spacious' }} (3rem)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Live Preview -->
+      <div class="h-fit sticky top-24">
+        <div class="rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 md:p-8 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50">
+          <div class="mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ t("customization.layout.liveLayoutPreview") }}</h3>
+             <p class="text-sm text-gray-500 dark:text-gray-400">{{ t("customization.layout.previewDescription") }}</p>
+          </div>
+
+          <!-- Scaled Preview Container -->
+          <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white shadow-inner dark:bg-gray-900">
+            <div class="layout-preview-wrapper min-h-[400px]">
+              <!-- Header Preview -->
+              <!-- 0: Minimal (Logo only, h-16) -->
+              @if (currentLayout.headerConfiguration.template === 0) {
+                <header class="h-16 border-b border-gray-100 bg-white px-4 flex items-center dark:border-gray-700 dark:bg-gray-800"
+                  [class.sticky]="currentLayout.headerConfiguration.stickyHeader"
+                  [class.top-0]="currentLayout.headerConfiguration.stickyHeader"
+                  [class.z-20]="currentLayout.headerConfiguration.stickyHeader">
+                  <div class="w-full flex"
+                    [class.justify-start]="currentLayout.headerConfiguration.logoPlacement === 0"
+                    [class.justify-center]="currentLayout.headerConfiguration.logoPlacement === 1"
+                    [class.justify-end]="currentLayout.headerConfiguration.logoPlacement === 2">
+                     <div class="flex items-center gap-2">
+                         <div class="h-8 w-8 rounded-lg bg-blue-600"></div>
+                         <span class="text-lg font-bold text-gray-900 dark:text-white">Brand</span>
+                     </div>
+                  </div>
+                </header>
+              }
+
+              <!-- 1: Standard (Logo + Nav + Search Input, h-16) -->
+              @if (currentLayout.headerConfiguration.template === 1) {
+                <header class="h-16 border-b border-gray-100 bg-white px-4 flex items-center justify-between dark:border-gray-700 dark:bg-gray-800"
+                  [class.sticky]="currentLayout.headerConfiguration.stickyHeader"
+                  [class.top-0]="currentLayout.headerConfiguration.stickyHeader"
+                  [class.z-20]="currentLayout.headerConfiguration.stickyHeader">
+                  <!-- Logo -->
+                  <div class="flex items-center gap-2">
+                    <div class="h-8 w-8 rounded-lg bg-blue-600"></div>
+                    <span class="font-bold text-gray-900 dark:text-white">Brand</span>
+                  </div>
+                  <!-- Nav -->
+                  <div class="hidden md:flex gap-4 text-sm font-medium text-gray-600 dark:text-gray-300">
+                    <span>Home</span>
+                    <span>Products</span>
+                    <span>About</span>
+                  </div>
+                  <!-- Actions (Search Input) -->
+                  <div class="flex items-center gap-2">
+                    @if (currentLayout.headerConfiguration.showSearch) {
+                      <!-- Matches w-48 input style -->
+                      <div class="hidden sm:block relative">
+                         <div class="h-8 w-32 lg:w-48 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 py-1.5 text-xs text-gray-400">Search...</div>
+                      </div>
+                      <!-- Mobile fallback icon -->
+                      <div class="sm:hidden h-8 w-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                         <cms-icon name="search" size="xs" class="text-gray-500"></cms-icon>
+                      </div>
+                    }
+                    <div class="h-8 w-8 rounded bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                       <svg class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </div>
+                  </div>
+                </header>
+              }
+
+              <!-- 2: Full (TopBar + Logo/Tag + MegaMenu + Auth, h-20) -->
+              @if (currentLayout.headerConfiguration.template === 2) {
+                <div class="flex flex-col">
+                  <!-- Top Bar -->
+                  <div class="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 py-1 px-4 flex justify-between text-[10px] text-gray-500">
+                    <span>Welcome to our site!</span>
+                    <div class="flex gap-2"><span>Contact</span><span>Help</span></div>
+                  </div>
+                  <!-- Main Header -->
+                  <header class="h-20 border-b border-gray-100 bg-white px-4 flex items-center justify-between dark:border-gray-700 dark:bg-gray-800"
+                    [class.sticky]="currentLayout.headerConfiguration.stickyHeader"
+                    [class.top-0]="currentLayout.headerConfiguration.stickyHeader"
+                    [class.z-20]="currentLayout.headerConfiguration.stickyHeader">
+                     <!-- Logo & Tagline -->
+                     <div class="flex items-center gap-3">
+                        <div class="h-10 w-10 rounded-lg bg-blue-600"></div>
+                        <div>
+                           <div class="font-bold text-gray-900 dark:text-white leading-tight">Brand</div>
+                           <div class="text-[10px] text-gray-500 leading-tight">Best in class</div>
+                        </div>
+                     </div>
+                     <!-- Mega Menu Nav -->
+                     <div class="hidden lg:flex gap-6 text-sm font-medium text-gray-700 dark:text-gray-200">
+                        <div class="flex items-center gap-1">Products <cms-icon name="chevron-down" size="xs"></cms-icon></div>
+                        <div class="flex items-center gap-1">Solutions <cms-icon name="chevron-down" size="xs"></cms-icon></div>
+                        <div>Pricing</div>
+                     </div>
+                     <!-- Actions -->
+                     <div class="flex items-center gap-3">
+                        @if (currentLayout.headerConfiguration.showSearch) {
+                           <div class="hidden md:flex items-center border rounded px-3 py-1.5 bg-white border-gray-300 dark:bg-gray-900 dark:border-gray-600 w-40">
+                              <span class="text-xs text-gray-400 mr-2 flex-1">Search...</span>
+                              <cms-icon name="search" size="xs" class="text-gray-400"></cms-icon>
+                           </div>
+                        }
+                        <!-- Auth Buttons (Sign In + Sign Up) -->
+                        <div class="hidden md:flex items-center gap-2">
+                           <button class="text-xs font-semibold px-2 text-gray-600 dark:text-gray-300">Sign In</button>
+                           <button class="text-xs font-semibold px-3 py-1.5 rounded bg-blue-600 text-white">Sign Up</button>
+                        </div>
+                     </div>
+                  </header>
+                </div>
+              }
+
+              <!-- Mock Content -->
+              <main
+                 class="mx-auto transition-all duration-300"
+                 [style.max-width]="currentLayout.spacing.containerMaxWidth"
+                 [style.padding]="currentLayout.spacing.sectionPadding"
+              >
+                <!-- Hero Section -->
+                 <div class="mb-8 rounded-2xl bg-gray-50 dark:bg-gray-800 p-8 text-center" [style.margin-bottom]="currentLayout.spacing.componentGap">
+                    <h1 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Hero Section</h1>
+                    <p class="mx-auto max-w-lg text-sm text-gray-500 dark:text-gray-400">This padding and spacing is controlled by your settings.</p>
+                 </div>
+
+                 <!-- Grid Section -->
+                 <div class="grid grid-cols-2 gap-4" [style.gap]="currentLayout.spacing.componentGap">
+                    <div class="h-32 rounded-xl bg-gray-100 dark:bg-gray-800"></div>
+                    <div class="h-32 rounded-xl bg-gray-100 dark:bg-gray-800"></div>
+                 </div>
+              </main>
+
+              <!-- Footer Preview -->
+              <!-- 0: Minimal (Light bg, copyright + legal) -->
+              @if (currentLayout.footerConfiguration.template === 0) {
+                <footer class="bg-gray-50 border-t py-6 dark:bg-gray-900 dark:border-gray-800">
+                  <div class="mx-auto px-4 flex flex-col items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                    <div>© 2024 Brand. All rights reserved.</div>
+                    <div class="flex gap-4">
+                       <span class="hover:text-gray-900 dark:hover:text-white">Privacy</span>
+                       <span class="hover:text-gray-900 dark:hover:text-white">Terms</span>
+                    </div>
+                  </div>
+                </footer>
+              }
+
+              <!-- 1: Standard (Dark bg, Columns, Social) -->
+              @if (currentLayout.footerConfiguration.template === 1) {
+                 <footer class="bg-gray-900 text-white py-8 transition-all duration-300">
+                    <div class="mx-auto px-4" [style.max-width]="currentLayout.spacing.containerMaxWidth">
+                       <div class="grid gap-8" [style.grid-template-columns]="'repeat(' + currentLayout.footerConfiguration.columnCount + ', minmax(0, 1fr))'">
+                          <div class="space-y-3">
+                             <div class="font-bold text-lg">Brand</div>
+                             <p class="text-xs text-gray-400">Standard footer content area.</p>
+                             @if(currentLayout.footerConfiguration.showSocialLinks) {
+                                <div class="flex gap-2">
+                                   <!-- Icons -->
+                                   <div class="h-5 w-5 rounded bg-gray-700"></div>
+                                   <div class="h-5 w-5 rounded bg-gray-700"></div>
+                                   <div class="h-5 w-5 rounded bg-gray-700"></div>
+                                </div>
+                             }
+                          </div>
+                          <!-- Dynamic Columns -->
+                          @if (currentLayout.footerConfiguration.columnCount >= 2) {
+                             <div class="space-y-2 text-xs text-gray-400">
+                                <div class="font-bold text-white mb-2">Links</div>
+                                <div>Overview</div>
+                                <div>Pricing</div>
+                                <div>Services</div>
+                             </div>
+                          }
+                          @if (currentLayout.footerConfiguration.columnCount >= 3) {
+                             <div class="space-y-2 text-xs text-gray-400">
+                                <div class="font-bold text-white mb-2">Company</div>
+                                <div>About</div>
+                                <div>Careers</div>
+                                <div>Blog</div>
+                             </div>
+                          }
+                          @if (currentLayout.footerConfiguration.columnCount >= 4) {
+                             <div class="space-y-2 text-xs text-gray-400">
+                                <div class="font-bold text-white mb-2">Support</div>
+                                <div>Help Center</div>
+                                <div>Contact</div>
+                                <div>Status</div>
+                             </div>
+                          }
+                       </div>
+                       <!-- Bottom Bar -->
+                       <div class="border-t border-gray-800 mt-8 pt-6 flex flex-col sm:flex-row justify-between text-xs text-gray-500">
+                          <span>© 2024 Brand.</span>
+                          <span class="flex gap-3"><span>Privacy</span><span>Terms</span></span>
+                       </div>
+                    </div>
+                 </footer>
+              }
+
+              <!-- 2: Full (Dark bg, Newsletter Header, Payment) -->
+              @if (currentLayout.footerConfiguration.template === 2) {
+                 <footer class="bg-gray-900 text-white transition-all duration-300">
+                    <!-- Newsletter Section -->
+                    @if (currentLayout.footerConfiguration.showNewsletter) {
+                       <div class="bg-gray-800 py-8 px-4 text-center">
+                          <h4 class="font-bold mb-2">Subscribe to our newsletter</h4>
+                          <div class="flex max-w-xs mx-auto gap-2">
+                             <input type="text" disabled placeholder="Enter email" class="w-full rounded bg-gray-700 border-none px-3 py-1.5 text-xs text-white">
+                             <button class="bg-blue-600 rounded px-4 py-1.5 text-xs font-bold">Subscribe</button>
+                          </div>
+                       </div>
+                    }
+
+                    <div class="mx-auto px-4 py-8" [style.max-width]="currentLayout.spacing.containerMaxWidth">
+                       <div class="grid gap-8" [style.grid-template-columns]="'repeat(' + currentLayout.footerConfiguration.columnCount + ', minmax(0, 1fr))'">
+                          <div class="lg:col-span-1 space-y-4">
+                             <div class="flex items-center gap-2">
+                                <div class="h-6 w-6 bg-blue-500 rounded"></div>
+                                <span class="text-xl font-bold">Brand</span>
+                             </div>
+                             <p class="text-xs text-gray-400 leading-relaxed">The best solution for your business needs. We provide quality services and support.</p>
+                             @if(currentLayout.footerConfiguration.showSocialLinks) {
+                                <div>
+                                   <div class="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-2">Follow Us</div>
+                                   <div class="flex gap-3">
+                                      <div class="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700">f</div>
+                                      <div class="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700">t</div>
+                                      <div class="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700">in</div>
+                                   </div>
+                                </div>
+                             }
+                          </div>
+                           <!-- Dynamic Columns -->
+                          @if (currentLayout.footerConfiguration.columnCount >= 2) {
+                             <div class="space-y-3 text-xs text-gray-400">
+                                <div class="font-bold text-white text-sm mb-1">Product</div>
+                                <div>Features</div>
+                                <div>Integrations</div>
+                                <div>Pricing</div>
+                                <div>Changelog</div>
+                             </div>
+                          }
+                          @if (currentLayout.footerConfiguration.columnCount >= 3) {
+                             <div class="space-y-3 text-xs text-gray-400">
+                                <div class="font-bold text-white text-sm mb-1">Resources</div>
+                                <div>Documentation</div>
+                                <div>API Reference</div>
+                                <div>Community</div>
+                                <div>Blog</div>
+                             </div>
+                          }
+                          @if (currentLayout.footerConfiguration.columnCount >= 4) {
+                             <div class="space-y-3 text-xs text-gray-400">
+                                <div class="font-bold text-white text-sm mb-1">Company</div>
+                                <div>About Us</div>
+                                <div>Careers</div>
+                                <div>Legal</div>
+                                <div>Contact</div>
+                             </div>
+                          }
+                       </div>
+
+                       <!-- Bottom Bar with Payment Icons -->
+                       <div class="border-t border-gray-800 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+                          <div>© 2024 Brand Inc. All rights reserved.</div>
+                          <div class="flex items-center gap-2">
+                             <span class="text-[10px]">We accept:</span>
+                             <div class="flex gap-1">
+                                <div class="w-8 h-5 bg-white rounded flex items-center justify-center text-[8px] font-bold text-gray-900">VISA</div>
+                                <div class="w-8 h-5 bg-white rounded flex items-center justify-center text-[8px] font-bold text-gray-900">MC</div>
+                                <div class="w-8 h-5 bg-white rounded flex items-center justify-center text-[8px] font-bold text-gray-900">AMEX</div>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </footer>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
