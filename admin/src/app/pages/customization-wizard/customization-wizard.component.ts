@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { CustomizationStateService } from '@cms/shared/customization-services';
 import { ThemeStepComponent } from './steps/theme-step/theme-step.component';
@@ -25,7 +25,6 @@ interface IWizardStep {
   selector: 'cms-customization-wizard',
   standalone: true,
   imports: [
-    CommonModule,
     ThemeStepComponent,
     TypographyStepComponent,
     LayoutStepComponent,
@@ -33,7 +32,7 @@ interface IWizardStep {
     SystemInfoStepComponent,
     IconComponent,
     LanguageSelectorComponent
-  ],
+],
   templateUrl: './customization-wizard.component.html',
   styleUrls: ['./customization-wizard.component.scss']
 })

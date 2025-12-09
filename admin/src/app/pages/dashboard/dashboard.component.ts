@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
-
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '@cms/shared/auth/data-access';
 import { TranslationService, ThemeService } from '@cms/shared/utils';
 import { IconComponent, LanguageSelectorComponent } from '@cms/shared/ui';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 
 @Component({
   selector: 'cms-dashboard',
-  imports: [IconComponent, LanguageSelectorComponent],
+  standalone: true,
+  imports: [RouterOutlet, IconComponent, LanguageSelectorComponent, SidebarComponent],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
   protected readonly authService = inject(AuthService);

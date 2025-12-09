@@ -23,7 +23,17 @@
     "info": "Information",
     "lightMode": "Switch to Light Mode",
     "darkMode": "Switch to Dark Mode",
-    "language": "Language"
+    "language": "Language",
+    "cmsAdmin": "CMS Admin",
+    "management": "Management",
+    "showing": "Showing",
+    "to": "to",
+    "of": "of",
+    "results": "results",
+    "name": "Name",
+    "status": "Status",
+    "active": "Active",
+    "saving": "saving..."
   },
   "auth": {
     "loginTitle": "Sign In",
@@ -288,6 +298,33 @@
     "saveSuccess": "Style settings saved successfully",
     "saveError": "Failed to save style settings",
     "brandColors": "Brand Color"
+  },
+  "userManagement": {
+    "title": "User Management",
+    "subtitle": "Manage user access and roles",
+    "addUser": "Add User",
+    "editUser": "Edit User",
+    "role": "Role",
+    "emailHint": "User cannot change their email address",
+    "deactivate": "Deactivate User",
+    "activate": "Activate User",
+    "confirmDelete": "Are you sure you want to delete this user? This action cannot be undone.",
+    "noUsersFound": "No users found",
+    "roles": {
+      "EndUser": "User",
+      "Developer": "Developer",
+      "Admin": "Admin"
+    },
+    "userCreated": "User created successfully",
+    "userUpdated": "User updated successfully",
+    "userDeleted": "User deleted successfully",
+    "userActivated": "User activated successfully",
+    "userDeactivated": "User deactivated successfully",
+    "errorLoadingUsers": "Failed to load users",
+    "errorCreatingUser": "Failed to create user",
+    "errorUpdatingUser": "Failed to update user",
+    "errorDeletingUser": "Failed to delete user",
+    "errorTogglingStatus": "Failed to update user status"
   },
   "errors": {
     "required": "This field is required",

@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ToasterService, Toast } from './toaster.service';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'cms-toaster',
   standalone: true,
-  imports: [CommonModule, IconComponent],
+  imports: [IconComponent],
   templateUrl: './toaster.component.html',
   styles: [`
     :host {

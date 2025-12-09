@@ -27,7 +27,17 @@
     "close": "إغلاق"
     ,"yes": "نعم"
     ,"no": "لا"
-    ,"saveAndClose": "حفظ وإغلاق"
+    ,"saveAndClose": "حفظ وإغلاق",
+    "cmsAdmin": "نظام إدارة المحتوى",
+    "management": "إدارة",
+    "showing": "عرض",
+    "to": "إلى",
+    "of": "من",
+    "results": "النتائج",
+    "name": "الاسم",
+    "status": "الحالة",
+    "active": "نشط",
+    "saving": "جاري الحفظ..."
   },
   "auth": {
     "loginTitle": "تسجيل الدخول",
@@ -287,6 +297,33 @@
     "saveSuccess": "تم حفظ إعدادات النمط بنجاح",
     "saveError": "فشل في حفظ إعدادات النمط",
     "barndColors": "ألوان العلامة التجارية"
+  },
+  "userManagement": {
+    "title": "إدارة المستخدمين",
+    "subtitle": "إدارة وصول المستخدم والأدوار",
+    "addUser": "إضافة مستخدم",
+    "editUser": "تعديل مستخدم",
+    "role": "الدور",
+    "emailHint": "لا يمكن للمستخدم تغيير عنوان بريده الإلكتروني",
+    "deactivate": "إلغاء تنشيط المستخدم",
+    "activate": "تنشيط المستخدم",
+    "confirmDelete": "هل أنت متأكد من حذف هذا المستخدم؟ لا يمكن التراجع عن هذا الإجراء.",
+    "noUsersFound": "لم يتم العثور على مستخدمين",
+    "roles": {
+      "EndUser": "مستخدم",
+      "Developer": "مطور",
+      "Admin": "مسؤول"
+    },
+    "userCreated": "تم إنشاء المستخدم بنجاح",
+    "userUpdated": "تم تحديث المستخدم بنجاح",
+    "userDeleted": "تم حذف المستخدم بنجاح",
+    "userActivated": "تم تفعيل المستخدم بنجاح",
+    "userDeactivated": "تم تعطيل المستخدم بنجاح",
+    "errorLoadingUsers": "فشل في تحميل المستخدمين",
+    "errorCreatingUser": "فشل في إنشاء المستخدم",
+    "errorUpdatingUser": "فشل في تحديث المستخدم",
+    "errorDeletingUser": "فشل في حذف المستخدم",
+    "errorTogglingStatus": "فشل في تغيير حالة المستخدم"
   },
   "errors": {
     "required": "هذا الحقل مطلوب",

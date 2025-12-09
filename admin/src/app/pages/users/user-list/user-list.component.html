@@ -1,0 +1,195 @@
+<div class="space-y-6">
+  <!-- Header & Actions -->
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+        {{ translate.instant('userManagement.title') }}
+      </h1>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        {{ translate.instant('userManagement.subtitle') }}
+      </p>
+    </div>
+    <button
+      (click)="openCreateModal()"
+      class="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors"
+      >
+      <cms-icon name="plus" size="sm"></cms-icon>
+      {{ translate.instant('userManagement.addUser') }}
+    </button>
+  </div>
+
+  <!-- Filters (Simple version) -->
+  <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row gap-4">
+    <div class="flex-1 relative">
+      <cms-icon name="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></cms-icon>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearch()"
+        [placeholder]="translate.instant('common.search')"
+        class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500"
+        />
+      </div>
+      <!-- Add more filters here if needed -->
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden border border-gray-200 dark:border-gray-700">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead class="bg-gray-50 dark:bg-gray-700/50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                {{ translate.instant('common.name') }}
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                {{ translate.instant('common.email') }}
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                {{ translate.instant('userManagement.role') }}
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                {{ translate.instant('common.status') }}
+              </th>
+              <th scope="col" class="relative px-6 py-3">
+                <span class="sr-only">{{ translate.instant('common.actions') }}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            @for (user of users; track user) {
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="h-8 w-8 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 font-bold">
+                      {{ user.firstName[0] }}{{ user.lastName[0] }}
+                    </div>
+                    <div class="ml-4">
+                      <div class="text-sm font-medium text-gray-900 dark:text-white">{{ user.fullName }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-500 dark:text-gray-400">{{ user.email }}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium dark:text-gray-400"
+                [ngClass]="{
+                  'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300': user.role === UserRole.Admin,
+                  'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300': user.role === UserRole.Developer,
+                  'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300': user.role === UserRole.EndUser
+                }">
+                    {{ getUserRoleLabel(user.role) }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                [ngClass]="{
+                  'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300': user.isActive,
+                  'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300': !user.isActive
+                }">
+                    {{ user.isActive ? translate.instant('common.active') : translate.instant('common.inactive') }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <div class="flex items-center justify-end gap-2">
+                    <button
+                      (click)="onEdit(user)"
+                      class="text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300"
+                      [title]="translate.instant('common.edit')"
+                      >
+                      <cms-icon name="edit" size="sm"></cms-icon>
+                    </button>
+                    <!-- Toggle Active Status -->
+                    <button
+                      (click)="onToggleStatus(user)"
+                      [class]="user.isActive ? 'text-orange-600 hover:text-orange-900 dark:text-orange-400' : 'text-green-600 hover:text-green-900 dark:text-green-400'"
+                      [title]="user.isActive ? translate.instant('userManagement.deactivate') : translate.instant('userManagement.activate')"
+                      >
+                      <cms-icon [name]="user.isActive ? 'lock' : 'check'" size="sm"></cms-icon>
+                    </button>
+                    <button
+                      (click)="onDelete(user)"
+                      class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
+                      [title]="translate.instant('common.delete')"
+                      >
+                      <cms-icon name="trash" size="sm"></cms-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+            <!-- Empty State -->
+            @if (users.length === 0) {
+              <tr>
+                <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                  {{ translate.instant('userManagement.noUsersFound') }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <!-- Pagination (Simple) -->
+      <div class="bg-gray-50 dark:bg-gray-700/50 px-4 py-3 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between sm:px-6">
+        <div class="flex-1 flex justify-between sm:hidden">
+          <button
+            [disabled]="pageNumber === 1"
+            (click)="changePage(pageNumber - 1)"
+            class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+            >
+            {{ translate.instant('common.previous') }}
+          </button>
+          <button
+            [disabled]="!hasNextPage"
+            (click)="changePage(pageNumber + 1)"
+            class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+            >
+            {{ translate.instant('common.next') }}
+          </button>
+        </div>
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm text-gray-700 dark:text-gray-400">
+              {{ translate.instant('common.showing') }} <span class="font-medium">{{ (pageNumber - 1) * pageSize + 1 }}</span> {{ translate.instant('common.to') }} <span class="font-medium">{{ Math.min(pageNumber * pageSize, totalCount) }}</span> {{ translate.instant('common.of') }} <span class="font-medium">{{ totalCount }}</span> {{ translate.instant('common.results') }}
+            </p>
+          </div>
+          <div>
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+              <button
+                [disabled]="pageNumber === 1"
+                (click)="changePage(pageNumber - 1)"
+                class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50"
+                >
+                <span class="sr-only">{{ translate.instant('common.previous') }}</span>
+                <cms-icon name="chevron-left" size="sm"></cms-icon>
+              </button>
+              <button
+                [disabled]="!hasNextPage"
+                (click)="changePage(pageNumber + 1)"
+                class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50"
+                >
+                <span class="sr-only">{{ translate.instant('common.next') }}</span>
+                <cms-icon name="chevron-right" size="sm"></cms-icon>
+              </button>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create/Edit Modal -->
+  <cms-dialog
+    [isOpen]="isModalOpen"
+    [title]="selectedUser ? translate.instant('userManagement.editUser') : translate.instant('userManagement.addUser')"
+    (dismiss)="closeModal()"
+    >
+    @if (isModalOpen) {
+      <cms-user-form
+        [user]="selectedUser"
+        (cancelled)="closeModal()"
+        (saved)="onUserSaved()"
+      ></cms-user-form>
+    }
+  </cms-dialog>

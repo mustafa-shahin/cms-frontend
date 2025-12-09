@@ -7,3 +7,5 @@ export * from './lib/footer/footer.component';
 export * from './lib/color-picker/color-picker.component';
 export * from './lib/toaster/toaster.service';
 export * from './lib/toaster/toaster.component';
+export * from './lib/input/input.component';
+export * from './lib/dialog/dialog.component';

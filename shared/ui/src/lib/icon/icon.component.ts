@@ -34,6 +34,7 @@ import {
   faUndo,
   faRedo,
   faLanguage,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faUser as farUser,
@@ -74,6 +75,7 @@ export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
       }
       .icon-xs {
         font-size: 0.75rem;
+        line-height: 1; /* Ensure line-height doesn't mess up alignment */
       }
       .icon-sm {
         font-size: 0.875rem;
@@ -103,6 +105,7 @@ export class IconComponent {
 
   private readonly solidIcons: Record<string, IconDefinition> = {
     user: faUser,
+    users: faUsers,
     lock: faLock,
     eye: faEye,
     'eye-slash': faEyeSlash,

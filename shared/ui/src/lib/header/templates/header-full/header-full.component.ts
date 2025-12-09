@@ -1,5 +1,5 @@
 import { Component, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 export interface NavItem {
@@ -17,7 +17,7 @@ export interface NavItem {
 @Component({
   selector: 'app-header-full',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     <!-- Top Bar (optional announcements, language selector, etc.) -->
     @if (showTopBar()) {

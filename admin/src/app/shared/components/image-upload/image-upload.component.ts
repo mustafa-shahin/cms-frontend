@@ -1,5 +1,5 @@
 import { Component, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HttpEventType } from '@angular/common/http';
 import { ImageUploadService, UploadImageResponse } from '../../../core/services/image-upload.service';
 
@@ -17,7 +17,7 @@ interface UploadState {
 @Component({
   selector: 'app-image-upload',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   providers: [ImageUploadService],
   template: `
     <div class="image-upload">

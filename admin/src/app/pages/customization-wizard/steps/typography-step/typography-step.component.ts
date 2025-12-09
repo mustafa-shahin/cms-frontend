@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { TranslationService } from '@cms/shared/utils';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { CustomizationStateService } from '@cms/shared/customization-services';
 import {
@@ -20,7 +20,7 @@ interface FontFamily {
 @Component({
   selector: 'cms-typography-step',
   standalone: true,
-  imports: [CommonModule, FormsModule, IconComponent],
+  imports: [FormsModule, IconComponent],
   templateUrl: './typography-step.component.html',
   styleUrls: ['./typography-step.component.scss']
 })
