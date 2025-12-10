@@ -52,19 +52,17 @@
   </div>
 
   <div class="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700 mt-6">
-    <button
-      type="button"
-      (click)="cancelled.emit()"
-      class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600"
-      >
-      {{ translate.instant('common.cancel') }}
-    </button>
-    <button
+    <cms-button
+      [label]="translate.instant('common.cancel')"
+      color="secondary"
+      (pressed)="cancelled.emit()"
+    ></cms-button>
+    <cms-button
+      [label]="isSubmitting ? translate.instant('common.saving') : translate.instant('common.save')"
+      color="primary"
       type="submit"
       [disabled]="form.invalid || isSubmitting"
-      class="px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-      {{ isSubmitting ? translate.instant('common.saving') : translate.instant('common.save') }}
-    </button>
+      [loading]="isSubmitting"
+    ></cms-button>
   </div>
 </form>

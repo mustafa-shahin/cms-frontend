@@ -1,58 +1,44 @@
 <div class="space-y-6">
   <!-- Header & Actions -->
-  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-    <div>
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-        {{ translate.instant('fileManagement.imagesTitle') }}
-      </h1>
-      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-        {{ translate.instant('fileManagement.imagesSubtitle') }}
-      </p>
-    </div>
-    <button
-      (click)="openUploadModal()"
-      class="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors shadow-sm hover:shadow-md"
-    >
-      <cms-icon name="upload" size="sm"></cms-icon>
-      {{ translate.instant('fileManagement.uploadImage') }}
-    </button>
-  </div>
+  <cms-page-header 
+    [title]="translate.instant('fileManagement.imagesTitle')" 
+    [subtitle]="translate.instant('fileManagement.imagesSubtitle')"
+  >
+    <cms-button 
+      [label]="translate.instant('fileManagement.uploadImage')" 
+      iconName="upload" 
+      color="primary"
+      (pressed)="openUploadModal()"
+    ></cms-button>
+  </cms-page-header>
 
-  <!-- Filters -->
-  <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row gap-4">
-    <div class="flex-1 relative">
-      <cms-icon name="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></cms-icon>
-      <input
-        type="text"
-        [(ngModel)]="searchTerm"
-        (ngModelChange)="onSearch()"
-        [placeholder]="translate.instant('fileManagement.searchImages')"
-        class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-      />
-    </div>
-  </div>
+  <!-- Search -->
+  <cms-card padding="md">
+    <cms-search-bar 
+      [(value)]="searchTerm" 
+      [placeholder]="translate.instant('fileManagement.searchImages')"
+      (searchChange)="onSearch()"
+    ></cms-search-bar>
+  </cms-card>
 
   <!-- Image Grid -->
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+  <cms-card padding="lg">
     <!-- Loading State -->
     @if (isLoading) {
-      <div class="flex items-center justify-center py-12">
-        <cms-icon name="spinner" class="animate-spin text-primary-500" size="lg"></cms-icon>
-        <span class="ml-2 text-gray-500 dark:text-gray-400">{{ translate.instant('common.loading') }}</span>
-      </div>
+      <cms-loading-spinner [message]="translate.instant('common.loading')" size="lg"></cms-loading-spinner>
     } @else if (images.length === 0) {
-      <div class="text-center py-12">
-        <cms-icon name="image" class="text-gray-300 dark:text-gray-600 mx-auto mb-4" size="2xl"></cms-icon>
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">{{ translate.instant('fileManagement.noImagesFound') }}</h3>
-        <p class="text-gray-500 dark:text-gray-400 mb-4">{{ translate.instant('fileManagement.noImagesDescription') }}</p>
-        <button
-          (click)="openUploadModal()"
-          class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors"
-        >
-          <cms-icon name="upload" size="sm"></cms-icon>
-          {{ translate.instant('fileManagement.uploadFirstImage') }}
-        </button>
-      </div>
+      <cms-empty-state 
+        iconName="image" 
+        [title]="translate.instant('fileManagement.noImagesFound')"
+        [description]="translate.instant('fileManagement.noImagesDescription')"
+      >
+        <cms-button 
+          [label]="translate.instant('fileManagement.uploadFirstImage')" 
+          iconName="upload" 
+          color="primary"
+          (pressed)="openUploadModal()"
+        ></cms-button>
+      </cms-empty-state>
     } @else {
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         @for (image of images; track image.id) {
@@ -104,37 +90,17 @@
 
     <!-- Pagination -->
     @if (!isLoading && images.length > 0) {
-      <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-        <p class="text-sm text-gray-700 dark:text-gray-400">
-          {{ translate.instant('common.showing') }} 
-          <span class="font-medium">{{ (pageNumber - 1) * pageSize + 1 }}</span> 
-          {{ translate.instant('common.to') }} 
-          <span class="font-medium">{{ Math.min(pageNumber * pageSize, totalCount) }}</span> 
-          {{ translate.instant('common.of') }} 
-          <span class="font-medium">{{ totalCount }}</span> 
-          {{ translate.instant('common.results') }}
-        </p>
-        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-          <button
-            [disabled]="pageNumber === 1"
-            (click)="changePage(pageNumber - 1)"
-            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <span class="sr-only">{{ translate.instant('common.previous') }}</span>
-            <cms-icon name="chevron-left" size="sm"></cms-icon>
-          </button>
-          <button
-            [disabled]="!hasNextPage"
-            (click)="changePage(pageNumber + 1)"
-            class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <span class="sr-only">{{ translate.instant('common.next') }}</span>
-            <cms-icon name="chevron-right" size="sm"></cms-icon>
-          </button>
-        </nav>
+      <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <cms-pagination
+          [currentPage]="pageNumber"
+          [totalPages]="Math.ceil(totalCount / pageSize)"
+          [pageSize]="pageSize"
+          [totalCount]="totalCount"
+          (pageChange)="changePage($event)"
+        ></cms-pagination>
       </div>
     }
-  </div>
+  </cms-card>
 </div>
 
 <!-- Upload/Edit Modal -->

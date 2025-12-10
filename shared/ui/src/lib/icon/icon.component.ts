@@ -187,9 +187,9 @@ export class IconComponent {
     const icon = iconMap[this.name];
 
     if (!icon) {
-      console.warn(
-        `Icon "${this.name}" not found for style "${this.style}". Falling back to solid.`
-      );
+      // console.warn(
+      //   `Icon "${this.name}" not found for style "${this.style}". Falling back to solid.`
+      // );
       return this.solidIcons[this.name] || faInfoCircle;
     }
 

@@ -2,13 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output, inject, OnChanges } fro
 
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService, TranslationService, ToasterService } from '@cms/shared/utils';
-import { InputComponent } from '@cms/shared/ui';
+import { InputComponent, ButtonComponent } from '@cms/shared/ui';
 import { UserListDto, UserRole, CreateUserDto, UpdateUserDto } from '@cms/shared/api-interfaces';
 
 @Component({
   selector: 'cms-user-form',
   standalone: true,
-  imports: [ReactiveFormsModule, InputComponent],
+  imports: [ReactiveFormsModule, InputComponent, ButtonComponent],
   templateUrl: './user-form.component.html',
 })
 export class UserFormComponent implements OnInit, OnChanges {

@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ImageService, TranslationService, ToasterService } from '@cms/shared/utils';
 import { ImageUploadService } from '@cms/shared/utils';
-import { IconComponent } from '@cms/shared/ui';
+import { IconComponent, ButtonComponent } from '@cms/shared/ui';
 import { ImageListDto, UpdateImageDto } from '@cms/shared/api-interfaces';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'cms-image-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconComponent],
+  imports: [CommonModule, ReactiveFormsModule, IconComponent, ButtonComponent],
   templateUrl: './image-form.component.html',
 })
 export class ImageFormComponent implements OnInit, OnChanges {

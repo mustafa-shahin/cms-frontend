@@ -1,15 +1,36 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { ImageService, TranslationService, ToasterService } from '@cms/shared/utils';
 import { ImageListDto } from '@cms/shared/api-interfaces';
-import { IconComponent, DialogComponent } from '@cms/shared/ui';
+import { 
+  IconComponent, 
+  DialogComponent, 
+  ButtonComponent, 
+  CardComponent, 
+  PageHeaderComponent, 
+  SearchBarComponent,
+  EmptyStateComponent,
+  LoadingSpinnerComponent,
+  PaginationComponent 
+} from '@cms/shared/ui';
 import { ImageFormComponent } from '../image-form/image-form.component';
 
 @Component({
   selector: 'cms-image-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, IconComponent, DialogComponent, ImageFormComponent],
+  imports: [
+    CommonModule, 
+    IconComponent, 
+    DialogComponent, 
+    ImageFormComponent,
+    ButtonComponent,
+    CardComponent,
+    PageHeaderComponent,
+    SearchBarComponent,
+    EmptyStateComponent,
+    LoadingSpinnerComponent,
+    PaginationComponent
+  ],
   templateUrl: './image-list.component.html',
 })
 export class ImageListComponent implements OnInit {
