@@ -7,7 +7,7 @@ import {
   FontOption,
   GoogleFontInfo,
   GoogleFontVariant
-} from '../models/font-config';
+} from '@cms/shared/customization-models';
 
 const DEFAULT_FONT_WEIGHTS: FontConfigWeight[] = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 const DEFAULT_FONT_STYLES: FontConfigStyle[] = ['normal', 'italic'];

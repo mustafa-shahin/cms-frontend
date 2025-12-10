@@ -1,9 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '@cms/shared/auth/data-access';
-import { TranslationService } from '@cms/shared/utils';
-import { CustomizationStateService } from '@cms/shared/customization-services';
+import { AuthService, TranslationService, CustomizationStateService } from '@cms/shared/utils';
 import {
   IconComponent,
   LanguageSelectorComponent,

@@ -1,5 +1,5 @@
 import { Component, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 export interface NavItem {
@@ -15,7 +15,7 @@ export interface NavItem {
 @Component({
   selector: 'app-header-standard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     <header class="border-b" [class.sticky]="isSticky()" [class.top-0]="isSticky()" [class.z-50]="isSticky()" [class.bg-white]="isSticky()">
       <div class="mx-auto px-4 sm:px-6 lg:px-8" [style.max-width.px]="maxWidth()">

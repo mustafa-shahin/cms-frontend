@@ -20,7 +20,7 @@ export interface ApiErrorResponse {
 export interface PaginatedResponse<T> {
   success: boolean;
   statusCode: number;
-  data: T[];
+  items: T[];
   pageNumber: number;
   pageSize: number;
   totalCount: number;

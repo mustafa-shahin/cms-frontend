@@ -1,15 +1,14 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
-import { CustomizationStateService } from '@cms/shared/customization-services';
+
 import { ThemeStepComponent } from './steps/theme-step/theme-step.component';
 import { TypographyStepComponent } from './steps/typography-step/typography-step.component';
 import { LayoutStepComponent } from './steps/layout-step/layout-step.component';
 import { DeveloperStepComponent } from './steps/developer-step/developer-step.component';
 import { SystemInfoStepComponent } from './steps/system-info-step/system-info-step.component';
-import { IconComponent, ToasterService, LanguageSelectorComponent } from '@cms/shared/ui';
-import { ThemeService, TranslationService } from '@cms/shared/utils';
-import { AuthService } from '@cms/shared/auth/data-access';
+import { IconComponent, LanguageSelectorComponent } from '@cms/shared/ui';
+import { ThemeService, TranslationService, CustomizationStateService, ToasterService, AuthService } from '@cms/shared/utils';
 
 export type WizardStep = 'theme' | 'typography' | 'layout' | 'developer' | 'system-info';
 
@@ -25,7 +24,6 @@ interface IWizardStep {
   selector: 'cms-customization-wizard',
   standalone: true,
   imports: [
-    CommonModule,
     ThemeStepComponent,
     TypographyStepComponent,
     LayoutStepComponent,
@@ -33,7 +31,7 @@ interface IWizardStep {
     SystemInfoStepComponent,
     IconComponent,
     LanguageSelectorComponent
-  ],
+],
   templateUrl: './customization-wizard.component.html',
   styleUrls: ['./customization-wizard.component.scss']
 })
@@ -92,7 +90,6 @@ export class CustomizationWizardComponent implements OnInit {
     }
 
     this.customizationState.resetToSaved();
-    await this.router.navigate(['/dashboard']);
   }
 
   toggleTheme(): void {

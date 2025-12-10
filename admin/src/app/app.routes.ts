@@ -23,6 +23,17 @@ export const appRoutes: Route[] = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/dashboard/overview/dashboard-overview.component').then(m => m.DashboardOverviewComponent),
+      },
+      {
+        path: 'users',
+        loadComponent: () => import('./pages/users/user-list/user-list.component').then(m => m.UserListComponent),
+      },
+      // Add other feature routes here in the future
+    ]
   },
   {
     path: 'configurator',

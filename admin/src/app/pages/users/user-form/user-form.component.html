@@ -1,0 +1,70 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <cms-input
+      [label]="translate.instant('common.firstName')"
+      formControlName="firstName"
+      [required]="true"
+      [error]="getErrorMessage('firstName')"
+    ></cms-input>
+
+    <cms-input
+      [label]="translate.instant('common.lastName')"
+      formControlName="lastName"
+      [required]="true"
+      [error]="getErrorMessage('lastName')"
+    ></cms-input>
+  </div>
+
+  <cms-input
+    [label]="translate.instant('common.email')"
+    type="email"
+    formControlName="email"
+    [required]="true"
+    [error]="getErrorMessage('email')"
+    [hint]="user ? translate.instant('userManagement.emailHint') : ''"
+  ></cms-input>
+
+  @if (!user) {
+    <div>
+      <cms-input
+        [label]="translate.instant('common.password')"
+        type="password"
+        formControlName="password"
+        [required]="true"
+        [error]="getErrorMessage('password')"
+      ></cms-input>
+    </div>
+  }
+
+  <div class="flex flex-col gap-1.5 w-full">
+    <label for="role-select" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+      {{ translate.instant('userManagement.role') }} <span class="text-red-500">*</span>
+    </label>
+    <select
+      id="role-select"
+      formControlName="role"
+      class="w-full px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white transition-colors duration-200"
+      >
+      <option [ngValue]="UserRole.EndUser">{{ translate.instant('userManagement.roles.EndUser') }}</option>
+      <option [ngValue]="UserRole.Developer">{{ translate.instant('userManagement.roles.Developer') }}</option>
+      <option [ngValue]="UserRole.Admin">{{ translate.instant('userManagement.roles.Admin') }}</option>
+    </select>
+  </div>
+
+  <div class="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700 mt-6">
+    <button
+      type="button"
+      (click)="cancelled.emit()"
+      class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600"
+      >
+      {{ translate.instant('common.cancel') }}
+    </button>
+    <button
+      type="submit"
+      [disabled]="form.invalid || isSubmitting"
+      class="px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+      {{ isSubmitting ? translate.instant('common.saving') : translate.instant('common.save') }}
+    </button>
+  </div>
+</form>

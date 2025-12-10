@@ -27,7 +27,18 @@
     "close": "Schließen"
     ,"yes": "Ja"
     ,"no": "Nein"
-    ,"saveAndClose": "Speichern & Schließen"
+    ,"saveAndClose": "Speichern & Schließen",
+    "cmsAdmin": "CMS Admin",
+    "management": "Verwaltung",
+    "showing": "Zeige",
+    "to": "bis",
+    "of": "von",
+    "results": "Ergebnisse",
+    "name": "Name",
+    "status": "Status",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "saving": "Wird gespeichert..."
   },
   "auth": {
     "loginTitle": "Anmelden",
@@ -287,6 +298,33 @@
     "saveSuccess": "Stileinstellungen erfolgreich gespeichert",
     "saveError": "Fehler beim Speichern der Stileinstellungen",
     "barndColors": "Markenfarben"
+  },
+  "userManagement": {
+    "title": "Benutzerverwaltung",
+    "subtitle": "Verwalten Sie Benutzerzugriff und Rollen",
+    "addUser": "Benutzer hinzufügen",
+    "editUser": "Benutzer bearbeiten",
+    "role": "Rolle",
+    "emailHint": "Benutzer kann seine E-Mail-Adresse nicht ändern",
+    "deactivate": "Benutzer deaktivieren",
+    "activate": "Benutzer aktivieren",
+    "confirmDelete": "Sind Sie sicher, dass Sie diesen Benutzer löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "noUsersFound": "Keine Benutzer gefunden",
+    "roles": {
+      "EndUser": "Benutzer",
+      "Developer": "Entwickler",
+      "Admin": "Administrator"
+    },
+    "userCreated": "Benutzer erfolgreich erstellt",
+    "userUpdated": "Benutzer erfolgreich aktualisiert",
+    "userDeleted": "Benutzer erfolgreich gelöscht",
+    "userActivated": "Benutzer erfolgreich aktiviert",
+    "userDeactivated": "Benutzer erfolgreich deaktiviert",
+    "errorLoadingUsers": "Fehler beim Laden der Benutzer",
+    "errorCreatingUser": "Fehler beim Erstellen des Benutzers",
+    "errorUpdatingUser": "Fehler beim Aktualisieren des Benutzers",
+    "errorDeletingUser": "Fehler beim Löschen des Benutzers",
+    "errorTogglingStatus": "Fehler beim Aktualisieren des Benutzerstatus"
   },
   "errors": {
     "required": "Dieses Feld ist erforderlich",

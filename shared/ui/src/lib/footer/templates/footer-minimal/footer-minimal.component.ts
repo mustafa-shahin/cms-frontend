@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 /**
  * Minimal footer template - simple copyright and links.
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-footer-minimal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <footer class="bg-gray-50 border-t">
       <div class="mx-auto px-4 sm:px-6 lg:px-8 py-8" [style.max-width.px]="maxWidth()">

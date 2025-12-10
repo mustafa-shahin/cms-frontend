@@ -1,64 +1,66 @@
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-  <!-- Header -->
-  <header class="bg-white dark:bg-gray-800 shadow">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-          {{ translate.instant('dashboard.title') }}
-        </h1>
-        <div class="flex items-center space-x-4">
-          <!-- Language Selector -->
-          <cms-language-selector></cms-language-selector>
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
+  <!-- Sidebar -->
+  <cms-sidebar class="hidden md:block fixed inset-y-0 left-0 z-30"></cms-sidebar>
 
-          <!-- Theme Toggle -->
-          <button
-            (click)="toggleTheme()"
-            class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-            [title]="currentTheme() === 'dark' ? translate.instant('common.lightMode') : translate.instant('common.darkMode')"
-          >
-            @if (currentTheme() === 'dark') {
-              <cms-icon name="sun" size="lg"></cms-icon>
-            } @else {
-              <cms-icon name="moon" size="lg"></cms-icon>
-            }
-          </button>
+  <!-- Mobile Sidebar Overlay (TODO) -->
 
-          <!-- User Info -->
-          @if (currentUser(); as user) {
-            <div class="flex items-center space-x-3">
-              <div class="text-right">
-                <p class="text-sm font-medium text-gray-900 dark:text-white">
-                  {{ user.fullName }}
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">
-                  {{ user.email }}
-                </p>
+  <div class="flex-1 flex flex-col md:pl-64 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-20">
+      <div class="px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex justify-between items-center">
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white md:hidden">
+            {{ translate.instant('common.cmsAdmin') }}
+          </h1>
+          
+          <!-- Spacer for desktop to push content right -->
+          <div class="hidden md:block"></div>
+
+          <div class="flex items-center space-x-4">
+            <!-- Language Selector -->
+            <cms-language-selector></cms-language-selector>
+
+            <!-- Theme Toggle -->
+            <button
+              (click)="toggleTheme()"
+              class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              [title]="currentTheme() === 'dark' ? translate.instant('common.lightMode') : translate.instant('common.darkMode')"
+            >
+              @if (currentTheme() === 'dark') {
+                <cms-icon name="sun" size="lg"></cms-icon>
+              } @else {
+                <cms-icon name="moon" size="lg"></cms-icon>
+              }
+            </button>
+
+            <!-- User Info -->
+            @if (currentUser(); as user) {
+              <div class="flex items-center space-x-3">
+                <div class="text-right hidden sm:block">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white">
+                    {{ user.fullName }}
+                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">
+                    {{ user.email }}
+                  </p>
+                </div>
+                <button
+                  (click)="onLogout()"
+                  class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
+                >
+                  <cms-icon name="logout" size="sm"></cms-icon>
+                  <span class="hidden sm:inline">{{ translate.instant('common.logout') }}</span>
+                </button>
               </div>
-              <button
-                (click)="onLogout()"
-                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
-              >
-                <cms-icon name="logout" size="sm"></cms-icon>
-                {{ translate.instant('common.logout') }}
-              </button>
-            </div>
-          }
+            }
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-        @if (currentUser(); as user) {
-          {{ translate.instant('dashboard.welcome', { name: user.firstName }) }}
-        }
-      </h2>
-      <p class="text-gray-600 dark:text-gray-300">
-        {{ translate.instant('dashboard.description') }}
-      </p>
-    </div>
-  </main>
+    <!-- Main Content -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-8">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>
