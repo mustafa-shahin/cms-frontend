@@ -32,6 +32,10 @@ export const appRoutes: Route[] = [
         path: 'users',
         loadComponent: () => import('./pages/users/user-list/user-list.component').then(m => m.UserListComponent),
       },
+      {
+        path: 'files/images',
+        loadComponent: () => import('./pages/files/image-list/image-list.component').then(m => m.ImageListComponent),
+      },
       // Add other feature routes here in the future
     ]
   },

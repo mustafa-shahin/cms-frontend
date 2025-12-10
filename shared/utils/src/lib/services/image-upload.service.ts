@@ -91,10 +91,14 @@ export class ImageUploadService {
    * Get the URL for an image by ID and variant.
    */
   getImageUrl(imageId: number, variant: ImageVariant = 'original'): string {
-    if (variant === 'original') {
-      return `${this.apiUrl}/${imageId}`;
+    switch (variant) {
+      case 'thumbnail':
+        return `${this.apiUrl}/${imageId}/thumbnail`;
+      case 'medium':
+        return `${this.apiUrl}/${imageId}/medium`;
+      default:
+        return `${this.apiUrl}/${imageId}/file`;
     }
-    return `${this.apiUrl}/${imageId}/${variant}`;
   }
 
   /**
