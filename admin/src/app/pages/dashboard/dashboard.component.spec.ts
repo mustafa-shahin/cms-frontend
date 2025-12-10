@@ -4,7 +4,7 @@ import { AuthService, TranslationService, ThemeService } from '@cms/shared/utils
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { CurrentUserDto } from '@cms/shared/api-interfaces';
-import { signal } from '@angular/core';
+import { NO_ERRORS_SCHEMA, signal } from '@angular/core';
 
 // Test interface to access protected members
 interface DashboardComponentTest {
@@ -27,7 +27,9 @@ describe('DashboardComponent', () => {
     };
 
     mockTranslationService = {
-      instant: jest.fn((key: string) => key)
+      instant: jest.fn((key: string) => key),
+      currentLanguage: signal('en'),
+      setLanguage: jest.fn()
     };
 
     mockThemeService = {
@@ -46,8 +48,16 @@ describe('DashboardComponent', () => {
         { provide: TranslationService, useValue: mockTranslationService },
         { provide: ThemeService, useValue: mockThemeService },
         { provide: Router, useValue: mockRouter }
-      ]
-    }).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+    .overrideComponent(DashboardComponent, {
+      set: {
+        imports: [], // Remove child components for isolated testing
+        schemas: [NO_ERRORS_SCHEMA]
+      }
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;

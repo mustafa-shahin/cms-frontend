@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ImageFormComponent } from './image-form.component';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { ImageService, ImageUploadService, TranslationService, ToasterService } from '@cms/shared/utils';
@@ -31,9 +31,25 @@ describe('ImageFormComponent', () => {
 
   const mockFile = new File([''], 'test.png', { type: 'image/png' });
 
+  // Mock URL API since it doesn't exist in Jest
+  const mockBlobUrl = 'blob:http://localhost/mock-blob-url';
+  const originalCreateObjectURL = global.URL.createObjectURL;
+  const originalRevokeObjectURL = global.URL.revokeObjectURL;
+
+  beforeAll(() => {
+    global.URL.createObjectURL = jest.fn().mockReturnValue(mockBlobUrl);
+    global.URL.revokeObjectURL = jest.fn();
+  });
+
+  afterAll(() => {
+    global.URL.createObjectURL = originalCreateObjectURL;
+    global.URL.revokeObjectURL = originalRevokeObjectURL;
+  });
+
   beforeEach(async () => {
     mockImageService = {
       getImageUrl: jest.fn().mockReturnValue('http://example.com/preview.jpg'),
+      getImageBlob: jest.fn().mockReturnValue(of(new Blob(['test'], { type: 'image/jpeg' }))),
       updateImage: jest.fn().mockReturnValue(of(void 0))
     };
 
@@ -78,15 +94,16 @@ describe('ImageFormComponent', () => {
       expect(component.previewUrl).toBeNull();
     });
 
-    it('should initialize form with image data for editing', () => {
+    it('should initialize form with image data for editing', fakeAsync(() => {
       component.image = mockImage;
-      component.ngOnInit(); // Manually trigger since ngOnChanges handles initial setup too if inputs binding changed
+      component.ngOnInit();
+      tick(); // Wait for async getImageBlob subscription
       
       expect(component.form.get('altText')?.value).toBe(mockImage.altText);
       expect(component.form.get('caption')?.value).toBe(mockImage.caption);
       expect(component.form.get('file')).toBeNull(); // File control not added for existing images
-      expect(component.previewUrl).toBe('http://example.com/preview.jpg');
-    });
+      expect(component.previewUrl).toBe(mockBlobUrl);
+    }));
   });
 
   describe('ngOnChanges', () => {

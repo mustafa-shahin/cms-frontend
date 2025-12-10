@@ -47,7 +47,8 @@
             <img 
               [src]="getImageUrl(image)" 
               [alt]="image.altText || image.originalName"
-              class="w-full h-full object-cover"
+              [ngClass]="'image.id.' + image.id"
+              class="w-full h-full object-cover"   
               loading="lazy"
             />
             

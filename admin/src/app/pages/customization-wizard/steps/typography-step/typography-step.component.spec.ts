@@ -2,28 +2,24 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TypographyStepComponent } from './typography-step.component';
 import { CustomizationStateService, TranslationService } from '@cms/shared/utils';
 import { signal } from '@angular/core';
-import { TextStyleType, TextTransformType } from '@cms/shared/customization-models';
+import { TextStyleType, DEFAULT_TYPOGRAPHY_SETTINGS, TypographySettings } from '@cms/shared/customization-models';
 
 describe('TypographyStepComponent', () => {
   let component: TypographyStepComponent;
   let fixture: ComponentFixture<TypographyStepComponent>;
-  let mockCustomizationStateService: any;
-  let mockTranslationService: any;
+  let mockCustomizationStateService: {
+    typography: ReturnType<typeof signal<TypographySettings | null>>;
+    setTypographyLocal: jest.Mock;
+  };
+  let mockTranslationService: {
+    instant: jest.Mock;
+    currentLanguage: ReturnType<typeof signal<string>>;
+  };
 
   beforeEach(async () => {
     mockCustomizationStateService = {
       typography: signal({
-        primaryFontFamily: 'Inter',
-        textStyles: {
-          [TextStyleType.BodyMedium]: {
-            fontFamily: 'Inter',
-            fontSize: 1,
-            fontWeight: 400,
-            lineHeight: 1.5,
-            letterSpacing: 0,
-            textTransform: TextTransformType.None
-          }
-        }
+        ...DEFAULT_TYPOGRAPHY_SETTINGS
       }),
       setTypographyLocal: jest.fn()
     };

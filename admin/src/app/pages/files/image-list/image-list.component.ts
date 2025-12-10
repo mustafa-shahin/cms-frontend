@@ -87,7 +87,7 @@ export class ImageListComponent implements OnInit, OnDestroy {
 
   loadImageThumbnails(): void {
     this.images.forEach(image => {
-      this.imageService.getImageBlob(image.id, 'thumbnail').subscribe({
+      this.imageService.getImageBlob(image.id, 'medium').subscribe({
         next: (blob) => {
           const url = URL.createObjectURL(blob);
           this.imageUrls.set(image.id, url);

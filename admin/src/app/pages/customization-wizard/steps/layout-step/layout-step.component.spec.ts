@@ -1,14 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LayoutStepComponent } from './layout-step.component';
 import { CustomizationStateService, TranslationService } from '@cms/shared/utils';
-import { signal } from '@angular/core';
-import { HeaderTemplate, FooterTemplate, Placement } from '@cms/shared/customization-models';
+import { Signal, signal, WritableSignal } from '@angular/core';
+import { HeaderTemplate, FooterTemplate, Placement, LayoutSettings } from '@cms/shared/customization-models';
+
+interface MockCustomizationStateService {
+  layout: WritableSignal<LayoutSettings | null>;
+  setLayoutLocal: jest.Mock;
+}
+
+interface MockTranslationService {
+  instant: jest.Mock;
+  currentLanguage: Signal<string>;
+}
 
 describe('LayoutStepComponent', () => {
   let component: LayoutStepComponent;
   let fixture: ComponentFixture<LayoutStepComponent>;
-  let mockCustomizationStateService: any;
-  let mockTranslationService: any;
+  let mockCustomizationStateService: MockCustomizationStateService;
+  let mockTranslationService: MockTranslationService;
 
   beforeEach(async () => {
     mockCustomizationStateService = {
@@ -27,8 +37,8 @@ describe('LayoutStepComponent', () => {
         },
         spacing: {
           containerMaxWidth: 1200,
-          sectionPadding: '4rem',
-          componentGap: '2rem'
+          sectionPadding: 4,
+          componentGap: 2
         }
       }),
       setLayoutLocal: jest.fn()

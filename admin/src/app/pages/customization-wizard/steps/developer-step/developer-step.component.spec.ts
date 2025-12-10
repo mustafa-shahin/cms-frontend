@@ -88,18 +88,21 @@ describe('DeveloperStepComponent', () => {
   it('should validate invalid import file type', () => {
     const file = new File(['{}'], 'config.txt', { type: 'text/plain' });
     
-    // Create a mock event with the correct structure
-    const dataTransfer = new DataTransfer();
-    dataTransfer.items.add(file);
+    // Create a mock FileList since DataTransfer is not available in jsdom
+    const mockFileList = {
+      0: file,
+      length: 1,
+      item: (index: number) => (index === 0 ? file : null)
+    } as unknown as FileList;
     
-    const inputElement = document.createElement('input');
-    inputElement.type = 'file';
-    
-    // Set files property if supported, otherwise mock it
-    Object.defineProperty(inputElement, 'files', {
-      value: dataTransfer.files
-    });
-    inputElement.value = 'C:\\fakepath\\config.txt';
+    // Create a mock input element with mocked properties for file testing
+    let inputValue = 'C:\\fakepath\\config.txt';
+    const inputElement = {
+      type: 'file',
+      files: mockFileList,
+      get value() { return inputValue; },
+      set value(v: string) { inputValue = v; }
+    } as unknown as HTMLInputElement;
 
     const event = { target: inputElement } as unknown as Event;
 
@@ -107,28 +110,29 @@ describe('DeveloperStepComponent', () => {
 
     expect(component.actionMessage()?.type).toBe('error');
     expect(component.actionMessage()?.text).toContain('Invalid file type');
-    expect(inputElement.value).toBe('');
+    expect(inputValue).toBe('');
   });
 
   it('should validate invalid import file size', () => {
-    // 6MB buffer
-    const largeContent = new Array(6 * 1024 * 1024).fill('a').join('');
-    const file = new File([largeContent], 'config.json', { type: 'application/json' });
-    
-    // Manually mock size if needed, but File usually sets it correctly. 
-    // To be safe and consistent with previous behavior:
-    Object.defineProperty(file, 'size', { value: 6 * 1024 * 1024 }); 
+    // Create a file and mock its size to be 6MB
+    const file = new File(['content'], 'config.json', { type: 'application/json' });
+    Object.defineProperty(file, 'size', { value: 6 * 1024 * 1024 });
 
-    const dataTransfer = new DataTransfer();
-    dataTransfer.items.add(file);
+    // Create a mock FileList since DataTransfer is not available in jsdom
+    const mockFileList = {
+      0: file,
+      length: 1,
+      item: (index: number) => (index === 0 ? file : null)
+    } as unknown as FileList;
 
-    const inputElement = document.createElement('input');
-    inputElement.type = 'file';
-    Object.defineProperty(inputElement, 'files', {
-      value: dataTransfer.files,
-      writable: true
-    });
-    inputElement.value = 'config.json';
+    // Create a mock input element with mocked properties for file testing
+    let inputValue = 'C:\\fakepath\\config.json';
+    const inputElement = {
+      type: 'file',
+      files: mockFileList,
+      get value() { return inputValue; },
+      set value(v: string) { inputValue = v; }
+    } as unknown as HTMLInputElement;
     
     const event = { target: inputElement } as unknown as Event;
 

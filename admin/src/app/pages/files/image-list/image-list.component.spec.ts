@@ -3,17 +3,10 @@ import { ImageListComponent } from './image-list.component';
 import { ImageService, TranslationService, ToasterService } from '@cms/shared/utils';
 import { ImageListDto, ImageListResponse } from '@cms/shared/api-interfaces';
 import { of, throwError } from 'rxjs';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 // Mock child components to avoid dependency issues
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-@Component({ selector: 'cms-image-form', standalone: true, template: '' })
-class MockImageFormComponent {
-  @Input() image: ImageListDto | null = null;
-  @Output() cancelled = new EventEmitter<void>();
-  @Output() saved = new EventEmitter<void>();
-}
 
 describe('ImageListComponent', () => {
   let component: ImageListComponent;
@@ -60,7 +53,14 @@ describe('ImageListComponent', () => {
     hasPreviousPage: false
   };
 
+  // Mock URL API since it doesn't exist in Jest
+  const mockBlobUrl = 'blob:http://localhost/mock-blob-url';
+
   beforeEach(async () => {
+    // Setup URL mocks before each test
+    global.URL.createObjectURL = jest.fn().mockReturnValue(mockBlobUrl);
+    global.URL.revokeObjectURL = jest.fn();
+
     mockImageService = {
       getImages: jest.fn().mockReturnValue(of(mockResponse)),
       deleteImage: jest.fn().mockReturnValue(of(void 0)),
@@ -79,16 +79,19 @@ describe('ImageListComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [ImageListComponent, NoopAnimationsModule],
+      imports: [ImageListComponent],
       providers: [
         { provide: ImageService, useValue: mockImageService },
         { provide: TranslationService, useValue: mockTranslationService },
         { provide: ToasterService, useValue: mockToasterService }
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .overrideComponent(ImageListComponent, {
-      remove: { imports: [MockImageFormComponent] },
-      add: { imports: [MockImageFormComponent] }
+      set: {
+        imports: [],
+        schemas: [NO_ERRORS_SCHEMA]
+      }
     })
     .compileComponents();
 
@@ -208,27 +211,31 @@ describe('ImageListComponent', () => {
   });
 
   describe('Download Operation', () => {
-    beforeEach(() => {
-      // Mock window.URL methods
-      global.URL.createObjectURL = jest.fn(() => 'blob:url');
-      global.URL.revokeObjectURL = jest.fn();
+    let createElementSpy: jest.SpyInstance;
+
+    afterEach(() => {
+      // Restore createElement mock after each test to avoid affecting other tests
+      if (createElementSpy) {
+        createElementSpy.mockRestore();
+      }
     });
 
     it('should download image successfully', () => {
       const image = mockImages[0];
       
-      // Spy on document methods for link click
+      // Create a real link element and spy on it
       const link = document.createElement('a');
-      jest.spyOn(document, 'createElement').mockReturnValue(link);
-      jest.spyOn(document.body, 'appendChild');
-      jest.spyOn(document.body, 'removeChild');
-      jest.spyOn(link, 'click');
+      createElementSpy = jest.spyOn(document, 'createElement').mockImplementation((tagName: string) => {
+        if (tagName === 'a') return link;
+        return document.createElement.call(document, tagName);
+      });
+      const clickSpy = jest.spyOn(link, 'click').mockImplementation(() => undefined);
 
       component.onDownload(image);
 
       expect(mockImageService.downloadImage).toHaveBeenCalledWith(image.id);
       expect(global.URL.createObjectURL).toHaveBeenCalled();
-      expect(link.click).toHaveBeenCalled();
+      expect(clickSpy).toHaveBeenCalled();
       expect(global.URL.revokeObjectURL).toHaveBeenCalled();
     });
 
@@ -243,9 +250,14 @@ describe('ImageListComponent', () => {
   });
 
   describe('Helpers', () => {
-    it('should get image url', () => {
-      component.getImageUrl(mockImages[0]);
-      expect(mockImageService.getImageUrl).toHaveBeenCalledWith(mockImages[0].id, 'thumbnail');
+    it('should get image url from imageUrls map', () => {
+      // The component stores blob URLs in imageUrls Map
+      const testUrl = 'blob:test-url';
+      component.imageUrls.set(mockImages[0].id, testUrl);
+      
+      const result = component.getImageUrl(mockImages[0]);
+      
+      expect(result).toBe(testUrl);
     });
 
     it('should format file size', () => {

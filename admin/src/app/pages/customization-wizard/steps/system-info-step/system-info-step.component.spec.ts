@@ -1,7 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SystemInfoStepComponent, SystemInfo } from './system-info-step.component';
 import { CustomizationStateService, TranslationService, AuthService } from '@cms/shared/utils';
-import { ThemeSettings, TypographySettings, LayoutSettings } from '@cms/shared/customization-models';
+import { 
+  DEFAULT_THEME_SETTINGS, 
+  DEFAULT_TYPOGRAPHY_SETTINGS, 
+  DEFAULT_LAYOUT_SETTINGS 
+} from '@cms/shared/customization-models';
 import { CurrentUserDto } from '@cms/shared/api-interfaces';
 import { signal, WritableSignal } from '@angular/core';
 
@@ -20,10 +24,42 @@ describe('SystemInfoStepComponent', () => {
   let mockAuthService: Partial<AuthService>;
 
   beforeEach(async () => {
+    // Mock performance API
+    Object.defineProperty(global, 'performance', {
+      writable: true,
+      value: {
+        getEntriesByType: jest.fn().mockReturnValue([{
+          loadEventEnd: 100,
+          startTime: 0,
+          domContentLoadedEventEnd: 50
+        } as unknown as PerformanceNavigationTiming])
+      }
+    });
+
+    // Mock localStorage
+    const localStorageMock = {
+      getItem: jest.fn(),
+      setItem: jest.fn(),
+      removeItem: jest.fn(),
+      clear: jest.fn(),
+      length: 0
+    };
+    Object.defineProperty(window, 'localStorage', { value: localStorageMock, writable: true });
+
+    // Mock sessionStorage
+    const sessionStorageMock = {
+      getItem: jest.fn(),
+      setItem: jest.fn(),
+      removeItem: jest.fn(),
+      clear: jest.fn(),
+      length: 0
+    };
+    Object.defineProperty(window, 'sessionStorage', { value: sessionStorageMock, writable: true });
+
     mockCustomizationStateService = {
-      theme: signal({} as ThemeSettings),
-      typography: signal({} as TypographySettings),
-      layout: signal({} as LayoutSettings),
+      theme: signal({ ...DEFAULT_THEME_SETTINGS }),
+      typography: signal({ ...DEFAULT_TYPOGRAPHY_SETTINGS }),
+      layout: signal({ ...DEFAULT_LAYOUT_SETTINGS }),
       hasUnsavedChanges: signal(false)
     };
 

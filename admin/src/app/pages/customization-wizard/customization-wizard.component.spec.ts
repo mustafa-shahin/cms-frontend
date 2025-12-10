@@ -1,12 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CustomizationWizardComponent } from './customization-wizard.component';
 import { CustomizationStateService, AuthService, ThemeService, ToasterService, TranslationService } from '@cms/shared/utils';
-import { ThemeSettings, TypographySettings, LayoutSettings } from '@cms/shared/customization-models';
+import {
+  DEFAULT_THEME_SETTINGS,
+  DEFAULT_TYPOGRAPHY_SETTINGS,
+  DEFAULT_LAYOUT_SETTINGS
+} from '@cms/shared/customization-models';
 import { CurrentUserDto } from '@cms/shared/api-interfaces';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { signal, WritableSignal } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CustomizationWizardComponent', () => {
   let component: CustomizationWizardComponent;
@@ -24,9 +27,9 @@ describe('CustomizationWizardComponent', () => {
       hasUnsavedChanges: signal(false),
       loading: signal(false),
       error: signal(null),
-      theme: signal({} as ThemeSettings),
-      typography: signal({} as TypographySettings),
-      layout: signal({} as LayoutSettings),
+      theme: signal(DEFAULT_THEME_SETTINGS),
+      typography: signal(DEFAULT_TYPOGRAPHY_SETTINGS),
+      layout: signal(DEFAULT_LAYOUT_SETTINGS),
       updateTheme: jest.fn(),
       updateTypography: jest.fn(),
       updateLayout: jest.fn(),
@@ -58,7 +61,7 @@ describe('CustomizationWizardComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [CustomizationWizardComponent, NoopAnimationsModule],
+      imports: [CustomizationWizardComponent],
       providers: [
         { provide: CustomizationStateService, useValue: mockCustomizationStateService },
         { provide: AuthService, useValue: mockAuthService },
