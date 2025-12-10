@@ -60,19 +60,14 @@
               <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
                 Load the latest configuration from the backend server, discarding any local changes.
               </p>
-              <button
-                (click)="loadNewestConfig()"
-                [disabled]="loading()"
-                class="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-blue-600/20 font-medium text-sm flex items-center justify-center gap-2"
+              <cms-button
+                (pressed)="loadNewestConfig()"
+                [loading]="loading()"
+                color="primary"
+                iconName="download"
               >
-                @if (loading()) {
-                  <cms-icon name="loader" class="w-4 h-4 animate-spin" />
-                  <span>{{ translate.instant("common.loading") }}</span>
-                } @else {
-                  <cms-icon name="download" class="w-4 h-4" />
-                  <span>{{ translate.instant("customization.developer.actions.loadConfig") }}</span>
-                }
-              </button>
+                <span>{{ translate.instant("customization.developer.actions.loadConfig") }}</span>
+              </cms-button>
             </div>
           </div>
         </div>
@@ -88,19 +83,14 @@
               <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
                 Save the current configuration to the backend server.
               </p>
-              <button
-                (click)="saveCurrentConfig()"
-                [disabled]="loading()"
-                class="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-green-600/20 font-medium text-sm flex items-center justify-center gap-2"
+              <cms-button
+                (pressed)="saveCurrentConfig()"
+                [loading]="loading()"
+                color="success"
+                iconName="save"
               >
-                @if (loading()) {
-                  <cms-icon name="loader" class="w-4 h-4 animate-spin" />
-                  <span>{{ translate.instant("customization.saving") }}</span>
-                } @else {
-                  <cms-icon name="save" class="w-4 h-4" />
-                  <span>{{ translate.instant("customization.developer.actions.saveConfig") }}</span>
-                }
-              </button>
+                <span>{{ translate.instant("customization.developer.actions.saveConfig") }}</span>
+              </cms-button>
             </div>
           </div>
         </div>
@@ -116,14 +106,14 @@
               <p class="text-xs text-red-700 dark:text-red-300 mb-4">
                 <strong>Warning:</strong> This will permanently reset all configuration to default values. This action cannot be undone.
               </p>
-              <button
-                (click)="showResetConfirmation()"
+              <cms-button
+                (pressed)="showResetConfirmation()"
                 [disabled]="loading()"
-                class="w-full sm:w-auto px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-red-600/20 font-medium text-sm flex items-center justify-center gap-2"
+                color="danger"
+                iconName="alert-triangle"
               >
-                <cms-icon name="alert-triangle" class="w-4 h-4" />
                 <span>Reset Configuration</span>
-              </button>
+              </cms-button>
             </div>
           </div>
         </div>
@@ -274,18 +264,18 @@
             </ul>
           </div>
           <div class="flex gap-3 justify-end">
-            <button
-              (click)="cancelReset()"
-              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium transition-colors"
+            <cms-button
+              (pressed)="cancelReset()"
+              color="secondary"
             >
               Cancel
-            </button>
-            <button
-              (click)="confirmReset()"
-              class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium transition-colors shadow-lg shadow-red-600/20"
+            </cms-button>
+            <cms-button
+              (pressed)="confirmReset()"
+              color="danger"
             >
               Yes, Reset Configuration
-            </button>
+            </cms-button>
           </div>
         </div>
       </div>

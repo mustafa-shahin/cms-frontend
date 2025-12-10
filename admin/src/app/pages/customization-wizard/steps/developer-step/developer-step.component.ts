@@ -1,12 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { CustomizationStateService, TranslationService } from '@cms/shared/utils';
-import { IconComponent } from '@cms/shared/ui';
+import { ButtonComponent, IconComponent } from '@cms/shared/ui';
 
 @Component({
   selector: 'cms-developer-step',
   standalone: true,
-  imports: [IconComponent],
+  imports: [CommonModule, IconComponent, ButtonComponent], // Modified imports array
   templateUrl: './developer-step.component.html',
 })
 export class DeveloperStepComponent {

@@ -8,20 +8,20 @@
       </p>
     </div>
     <div class="flex gap-3">
-      <button
-        (click)="refresh()"
-        class="group flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:shadow-md"
+      <cms-button
+        (pressed)="refresh()"
+        color="secondary"
+        iconName="refresh-cw"
       >
-        <cms-icon name="refresh-cw" class="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
         <span>{{ translate.instant("customization.systemInfo.actions.refresh") }}</span>
-      </button>
-      <button
-        (click)="copyToClipboard()"
-        class="group flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all font-medium shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30"
+      </cms-button>
+      <cms-button
+        (pressed)="copyToClipboard()"
+        color="primary"
+        iconName="copy"
       >
-        <cms-icon name="copy" class="w-4 h-4 group-hover:scale-110 transition-transform" />
         <span>{{ translate.instant("customization.systemInfo.actions.copyAll") }}</span>
-      </button>
+      </cms-button>
     </div>
   </div>
 

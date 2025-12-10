@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { TranslationService, CustomizationStateService } from '@cms/shared/utils';
 import { FormsModule } from '@angular/forms';
-import { IconComponent } from '@cms/shared/ui';
+import { IconComponent, ToggleComponent, SelectComponent } from '@cms/shared/ui';
 import {
   LayoutSettings,
   HeaderTemplate,
@@ -19,7 +19,7 @@ interface TemplateOption<T> {
 @Component({
   selector: 'cms-layout-step',
   standalone: true,
-  imports: [FormsModule, IconComponent],
+  imports: [FormsModule, IconComponent, ToggleComponent, SelectComponent],
   templateUrl: './layout-step.component.html',
   styleUrls: ['./layout-step.component.scss']
 })
@@ -145,7 +145,23 @@ export class LayoutStepComponent {
     this.customizationState.setLayoutLocal(updatedLayout);
   }
 
-  updateSpacing(key: keyof LayoutSettings['spacing'], value: number) {
+  get paddingOptions() {
+    return [
+      { value: '2rem 1rem', label: (this.t('common.compact') || 'Compact') + ' (2rem)' },
+      { value: '4rem 1.5rem', label: (this.t('common.comfortable') || 'Comfortable') + ' (4rem)' },
+      { value: '6rem 2rem', label: (this.t('common.spacious') || 'Spacious') + ' (6rem)' }
+    ];
+  }
+
+  get gapOptions() {
+    return [
+      { value: '1rem', label: (this.t('common.compact') || 'Compact') + ' (1rem)' },
+      { value: '2rem', label: (this.t('common.comfortable') || 'Comfortable') + ' (2rem)' },
+      { value: '3rem', label: (this.t('common.spacious') || 'Spacious') + ' (3rem)' }
+    ];
+  }
+
+  updateSpacing(key: keyof LayoutSettings['spacing'], value: number | string) {
     const currentLayout = this.layout();
     if (!currentLayout) return;
 

@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TranslationService, CustomizationStateService, AuthService } from '@cms/shared/utils';
-import { IconComponent } from '@cms/shared/ui';
+import { ButtonComponent, IconComponent } from '@cms/shared/ui';
 
 interface SystemInfo {
   category: string;
@@ -10,7 +11,7 @@ interface SystemInfo {
 @Component({
   selector: 'cms-system-info-step',
   standalone: true,
-  imports: [IconComponent],
+  imports: [CommonModule, IconComponent, ButtonComponent],
   templateUrl: './system-info-step.component.html',
 })
 export class SystemInfoStepComponent implements OnInit {
