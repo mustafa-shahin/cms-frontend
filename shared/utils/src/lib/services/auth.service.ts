@@ -82,7 +82,7 @@ export class AuthService {
           this.setTokens(response.accessToken, response.refreshToken);
         }),
         catchError((error) => {
-          this.logout();
+          this.clearAuthData();
           return throwError(() => error);
         })
       );
