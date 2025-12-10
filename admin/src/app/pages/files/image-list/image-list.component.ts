@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageService, TranslationService, ToasterService } from '@cms/shared/utils';
 import { ImageListDto } from '@cms/shared/api-interfaces';
@@ -33,7 +33,7 @@ import { ImageFormComponent } from '../image-form/image-form.component';
   ],
   templateUrl: './image-list.component.html',
 })
-export class ImageListComponent implements OnInit {
+export class ImageListComponent implements OnInit, OnDestroy {
   protected readonly translate = inject(TranslationService);
   private readonly imageService = inject(ImageService);
   private readonly toaster = inject(ToasterService);
@@ -45,23 +45,37 @@ export class ImageListComponent implements OnInit {
   searchTerm = '';
   hasNextPage = false;
   isLoading = false;
-  
+
   isModalOpen = false;
   selectedImage: ImageListDto | null = null;
   Math = Math;
+
+  // Map to store blob URLs for images
+  imageUrls = new Map<number, string>();
 
   ngOnInit(): void {
     this.loadImages();
   }
 
+  ngOnDestroy(): void {
+    this.cleanupBlobUrls();
+  }
+
   loadImages(): void {
     this.isLoading = true;
+
+    // Clean up old blob URLs before loading new images
+    this.cleanupBlobUrls();
+
     this.imageService.getImages(this.pageNumber, this.pageSize, this.searchTerm).subscribe({
       next: (response) => {
         this.images = response.items;
         this.totalCount = response.totalCount;
         this.hasNextPage = response.hasNextPage;
         this.isLoading = false;
+
+        // Load thumbnail blobs for each image
+        this.loadImageThumbnails();
       },
       error: (err) => {
         console.error('Failed to load images', err);
@@ -69,6 +83,25 @@ export class ImageListComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  loadImageThumbnails(): void {
+    this.images.forEach(image => {
+      this.imageService.getImageBlob(image.id, 'thumbnail').subscribe({
+        next: (blob) => {
+          const url = URL.createObjectURL(blob);
+          this.imageUrls.set(image.id, url);
+        },
+        error: (err) => {
+          console.error(`Failed to load thumbnail for image ${image.id}`, err);
+        }
+      });
+    });
+  }
+
+  cleanupBlobUrls(): void {
+    this.imageUrls.forEach(url => URL.revokeObjectURL(url));
+    this.imageUrls.clear();
   }
 
   onSearch(): void {
@@ -116,8 +149,8 @@ export class ImageListComponent implements OnInit {
     }
   }
 
-  getImageUrl(image: ImageListDto): string {
-    return this.imageService.getImageUrl(image.id, 'thumbnail');
+  getImageUrl(image: ImageListDto): string | undefined {
+    return this.imageUrls.get(image.id);
   }
 
   formatFileSize(bytes: number): string {

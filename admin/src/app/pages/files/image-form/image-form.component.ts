@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ImageService, TranslationService, ToasterService } from '@cms/shared/utils';
@@ -13,7 +13,7 @@ import { HttpEventType } from '@angular/common/http';
   imports: [CommonModule, ReactiveFormsModule, IconComponent, ButtonComponent],
   templateUrl: './image-form.component.html',
 })
-export class ImageFormComponent implements OnInit, OnChanges {
+export class ImageFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() image: ImageListDto | null = null;
   @Output() cancelled = new EventEmitter<void>();
   @Output() saved = new EventEmitter<void>();
@@ -40,7 +40,7 @@ export class ImageFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.initForm();
     if (this.image) {
-      this.previewUrl = this.imageService.getImageUrl(this.image.id, 'medium');
+      this.loadImagePreview(this.image.id);
     }
   }
 
@@ -48,11 +48,35 @@ export class ImageFormComponent implements OnInit, OnChanges {
     if (this.form) {
       this.initForm();
       if (this.image) {
-        this.previewUrl = this.imageService.getImageUrl(this.image.id, 'medium');
+        this.loadImagePreview(this.image.id);
       } else {
+        this.cleanupPreviewUrl();
         this.previewUrl = null;
         this.selectedFile = null;
       }
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.cleanupPreviewUrl();
+  }
+
+  loadImagePreview(imageId: number): void {
+    this.cleanupPreviewUrl();
+    this.imageService.getImageBlob(imageId, 'medium').subscribe({
+      next: (blob) => {
+        this.previewUrl = URL.createObjectURL(blob);
+      },
+      error: (err) => {
+        console.error('Failed to load image preview', err);
+        this.toaster.error(this.translate.instant('fileManagement.errorLoadingImage'));
+      }
+    });
+  }
+
+  cleanupPreviewUrl(): void {
+    if (this.previewUrl && this.previewUrl.startsWith('blob:')) {
+      URL.revokeObjectURL(this.previewUrl);
     }
   }
 
@@ -126,6 +150,7 @@ export class ImageFormComponent implements OnInit, OnChanges {
 
   removeFile(): void {
     this.selectedFile = null;
+    this.cleanupPreviewUrl();
     this.previewUrl = null;
     this.form.get('file')?.setValue(null);
   }

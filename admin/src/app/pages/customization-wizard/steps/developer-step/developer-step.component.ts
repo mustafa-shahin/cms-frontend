@@ -3,6 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { CustomizationStateService, TranslationService } from '@cms/shared/utils';
 import { ButtonComponent, IconComponent } from '@cms/shared/ui';
+import { ThemeSettings, TypographySettings, LayoutSettings } from '@cms/shared/customization-models';
+
+interface ImportedConfig {
+  theme?: ThemeSettings;
+  typography?: TypographySettings;
+  layout?: LayoutSettings;
+  [key: string]: unknown;
+}
 
 @Component({
   selector: 'cms-developer-step',
@@ -215,10 +223,10 @@ export class DeveloperStepComponent {
         }
 
         // Try-catch around JSON.parse
-        let config: any;
+        let config: ImportedConfig;
         try {
           config = JSON.parse(content);
-        } catch (parseError) {
+        } catch {
           throw new Error('Invalid JSON format');
         }
 

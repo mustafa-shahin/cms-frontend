@@ -102,12 +102,18 @@ export class LayoutStepComponent {
     }
   ];
 
-  updateHeader(key: string, value: any) {
-    this.updateHeaderConfig({ [key]: value });
+  updateHeader<K extends keyof LayoutSettings['headerConfiguration']>(
+    key: K,
+    value: LayoutSettings['headerConfiguration'][K]
+  ) {
+    this.updateHeaderConfig({ [key]: value } as Partial<LayoutSettings['headerConfiguration']>);
   }
 
-  updateFooter(key: string, value: any) {
-    this.updateFooterConfig({ [key]: value });
+  updateFooter<K extends keyof LayoutSettings['footerConfiguration']>(
+    key: K,
+    value: LayoutSettings['footerConfiguration'][K]
+  ) {
+    this.updateFooterConfig({ [key]: value } as Partial<LayoutSettings['footerConfiguration']>);
   }
 
   removePx(value: string | number): number {

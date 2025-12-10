@@ -27,7 +27,7 @@
           <div class="space-y-6">
             <!-- Header Template -->
             <div>
-              <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.headerTemplate") }}</label>
+              <span class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.headerTemplate") }}</span>
               <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <button
                   (click)="updateHeader('template', 0)"
@@ -71,7 +71,7 @@
 
             <!-- Logo Placement -->
             <div>
-              <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.logoPlacement") }}</label>
+              <span class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.logoPlacement") }}</span>
               <div class="flex rounded-lg bg-gray-100 dark:bg-gray-900/50 p-1">
                 <button
                   (click)="updateHeader('logoPlacement', 0)"
@@ -124,7 +124,7 @@
                 </div>
                 <cms-toggle
                   [ngModel]="currentLayout.headerConfiguration.stickyHeader"
-                  (ngModelChange)="updateHeader('sticky', $event)"
+                  (ngModelChange)="updateHeader('stickyHeader', $event)"
                 ></cms-toggle>
               </div>
 
@@ -134,7 +134,7 @@
                 </div>
                 <cms-toggle
                   [ngModel]="currentLayout.headerConfiguration.showSearch"
-                  (ngModelChange)="updateHeader('showSearchBar', $event)"
+                  (ngModelChange)="updateHeader('showSearch', $event)"
                 ></cms-toggle>
               </div>
             </div>
@@ -156,7 +156,7 @@
           <div class="space-y-6">
             <!-- Footer Template -->
             <div>
-              <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.footerTemplate") }}</label>
+              <span class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.footerTemplate") }}</span>
               <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <button
                   (click)="updateFooter('template', 0)"
@@ -215,7 +215,7 @@
                 max="4"
                 step="1"
                 [value]="currentLayout.footerConfiguration.columnCount"
-                (input)="updateFooter('columns', +$any($event.target).value)"
+                (input)="updateFooter('columnCount', +$any($event.target).value)"
                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-purple-600"
               />
               <div class="mt-1 flex justify-between text-xs text-gray-400">

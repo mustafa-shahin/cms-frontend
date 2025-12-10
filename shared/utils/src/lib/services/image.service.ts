@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { EnvironmentService } from './environment.service';
 import { ImageVariant } from './image-upload.service';
@@ -10,6 +10,18 @@ import {
   UpdateImageDto,
   PaginatedResponse,
 } from '@cms/shared/api-interfaces';
+
+/**
+ * Request body for searching images.
+ * Matches the backend SearchImagesQuery structure.
+ */
+export interface SearchImagesRequest {
+  searchTerm?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  sortBy?: string;
+  sortDescending?: boolean;
+}
 
 /**
  * Service for managing images in the CMS.
@@ -24,7 +36,8 @@ export class ImageService {
   private readonly endpoint = 'images';
 
   /**
-   * Get a paginated list of images.
+   * Search and get a paginated list of images.
+   * Uses POST /images/search endpoint.
    */
   getImages(
     pageNumber = 1,
@@ -33,15 +46,36 @@ export class ImageService {
     sortBy?: string,
     sortDescending = false
   ): Observable<PaginatedResponse<ImageListDto>> {
-    let params = new HttpParams()
-      .set('pageNumber', pageNumber)
-      .set('pageSize', pageSize)
-      .set('sortDescending', sortDescending);
+    const request: SearchImagesRequest = {
+      pageNumber,
+      pageSize,
+      sortDescending,
+    };
 
-    if (searchTerm) params = params.set('searchTerm', searchTerm);
-    if (sortBy) params = params.set('sortBy', sortBy);
+    if (searchTerm) request.searchTerm = searchTerm;
+    if (sortBy) request.sortBy = sortBy;
 
-    return this.apiService.getPaginated<ImageListDto>(this.endpoint, { params });
+    return this.apiService.post<any>(
+      `${this.endpoint}/search`,
+      request
+    ).pipe(
+      map((searchResult) => {
+        const items = searchResult.items?.map((item: any) => item.data || item) || [];
+
+        return {
+          success: true,
+          statusCode: 200,
+          items: items,
+          pageNumber: searchResult.pageNumber,
+          pageSize: searchResult.pageSize,
+          totalCount: searchResult.totalCount,
+          totalPages: searchResult.totalPages || Math.ceil(searchResult.totalCount / searchResult.pageSize),
+          hasPreviousPage: searchResult.hasPreviousPage,
+          hasNextPage: searchResult.hasNextPage,
+          timestamp: new Date().toISOString()
+        } as PaginatedResponse<ImageListDto>;
+      })
+    );
   }
 
   /**
@@ -89,9 +123,32 @@ export class ImageService {
   /**
    * Download an image as a blob.
    * Uses authenticated request to get the file data.
+   * Downloads the original (full-size) version.
    */
   downloadImage(id: number): Observable<Blob> {
-    return this.apiService.getBlob(`${this.endpoint}/${id}/download`);
+    return this.apiService.getBlob(`${this.endpoint}/${id}`);
+  }
+
+  /**
+   * Get an image as a blob for display.
+   * Uses authenticated request to get the image data.
+   * @param id Image ID
+   * @param variant Image variant (original, thumbnail, medium)
+   * @returns Observable of Blob containing the image data
+   */
+  getImageBlob(id: number, variant: ImageVariant = 'original'): Observable<Blob> {
+    let endpoint = `${this.endpoint}/${id}`;
+
+    switch (variant) {
+      case 'thumbnail':
+        endpoint = `${this.endpoint}/${id}/thumbnail`;
+        break;
+      case 'medium':
+        endpoint = `${this.endpoint}/${id}/medium`;
+        break;
+    }
+
+    return this.apiService.getBlob(endpoint);
   }
 
   /**
@@ -102,27 +159,29 @@ export class ImageService {
    */
   getImageUrl(id: number, variant: ImageVariant = 'original'): string {
     const baseUrl = this.environmentService.apiUrl;
-    const base = `${baseUrl}/${this.endpoint}/${id}`;
-    
+    const version = this.environmentService.apiVersion;
+    const base = `${baseUrl}/${version}/${this.endpoint}/${id}`;
+
     switch (variant) {
       case 'thumbnail':
         return `${base}/thumbnail`;
       case 'medium':
         return `${base}/medium`;
       default:
-        return `${base}/file`;
+        return base;
     }
   }
 
   /**
    * Generate the URL for downloading an image.
-   * This endpoint returns the file with Content-Disposition: attachment header.
+   * Downloads the original (full-size) version.
    * @param id Image ID
    * @returns Full URL for downloading the image
    */
   getDownloadUrl(id: number): string {
     const baseUrl = this.environmentService.apiUrl;
-    return `${baseUrl}/${this.endpoint}/${id}/download`;
+    const version = this.environmentService.apiVersion;
+    return `${baseUrl}/${version}/${this.endpoint}/${id}`;
   }
 
   /**

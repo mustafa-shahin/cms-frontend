@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
-import { tap, catchError, map } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import {
   LoginRequest,
   RegisterRequest,
@@ -102,6 +102,7 @@ export class AuthService {
       tap(() => this.clearAuthData()),
       catchError((error) => {
         // Clear auth data even if logout request fails
+        console.error('Logout error:', error);
         this.clearAuthData();
         return of(void 0);
       })
@@ -245,7 +246,7 @@ export class AuthService {
           .join('')
       );
       return JSON.parse(jsonPayload);
-    } catch (error) {
+    } catch {
       throw new Error('Invalid token');
     }
   }

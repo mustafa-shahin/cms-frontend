@@ -97,7 +97,7 @@ export class ImageUploadService {
       case 'medium':
         return `${this.apiUrl}/${imageId}/medium`;
       default:
-        return `${this.apiUrl}/${imageId}/file`;
+        return `${this.apiUrl}/${imageId}`;
     }
   }
 
