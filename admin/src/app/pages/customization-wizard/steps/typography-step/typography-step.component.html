@@ -31,22 +31,14 @@
           </label>
           <p class="mb-4 text-xs text-gray-500 dark:text-gray-400">{{ t("customization.typography.primaryFontDescription") }}</p>
           <div class="relative">
-            <select
-              id="primary-font"
-              [value]="currentTypography.primaryFontFamily"
-              (change)="updateFontFamily('primaryFontFamily', $any($event.target).value); loadGoogleFont($any($event.target).value)"
-              class="dark:text-white w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-            >
-              @for (font of getFontsForCategory('sans-serif'); track font.name) {
-                <option class="dark:text-white" [value]="font.name">{{ font.name }}</option>
-              }
-              @for (font of getFontsForCategory('serif'); track font.name) {
-                <option class="dark:text-white" [value]="font.name">{{ font.name }} (Serif)</option>
-              }
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-              <cms-icon name="chevron-down" size="sm"></cms-icon>
-            </div>
+            <cms-select
+              [options]="primaryFontOptions"
+              [ngModel]="currentTypography.primaryFontFamily"
+              (ngModelChange)="updateFontFamily('primaryFontFamily', $event); loadGoogleFont($event)"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select a font"
+            ></cms-select>
           </div>
           <div class="mt-4 rounded-lg bg-gray-50 dark:bg-gray-950 p-4 text-center border border-gray-100 dark:border-gray-800" [style.font-family]="currentTypography.primaryFontFamily">
             <span class="text-2xl font-bold text-gray-800 dark:text-gray-200">AaBbCc 123</span>
@@ -63,22 +55,14 @@
           </label>
           <p class="mb-4 text-xs text-gray-500 dark:text-gray-400">{{ t("customization.typography.secondaryFontDescription") }}</p>
           <div class="relative">
-            <select
-              id="secondary-font"
-              [value]="currentTypography.secondaryFontFamily"
-              (change)="updateFontFamily('secondaryFontFamily', $any($event.target).value); loadGoogleFont($any($event.target).value)"
-              class="dark:text-white w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
-            >
-              @for (font of getFontsForCategory('sans-serif'); track font.name) {
-                <option class="dark:text-white" [value]="font.name">{{ font.name }}</option>
-              }
-              @for (font of getFontsForCategory('serif'); track font.name) {
-                <option class="dark:text-white" [value]="font.name">{{ font.name }} (Serif)</option>
-              }
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-               <cms-icon name="chevron-down" size="sm"></cms-icon>
-            </div>
+            <cms-select
+              [options]="secondaryFontOptions"
+              [ngModel]="currentTypography.secondaryFontFamily"
+              (ngModelChange)="updateFontFamily('secondaryFontFamily', $event); loadGoogleFont($event)"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select a font"
+            ></cms-select>
           </div>
           <div class="mt-4 rounded-lg bg-gray-50 dark:bg-gray-950 p-4 text-center border border-gray-100 dark:border-gray-800" [style.font-family]="currentTypography.secondaryFontFamily">
             <span class="text-lg text-gray-700 dark:text-gray-300">The quick brown fox jumps over the lazy dog.</span>
@@ -95,19 +79,14 @@
           </label>
           <p class="mb-4 text-xs text-gray-500 dark:text-gray-400">{{ t("customization.typography.monospaceFontDescription") }}</p>
           <div class="relative">
-            <select
-              id="monospace-font"
-              [value]="currentTypography.monoFontFamily"
-              (change)="updateFontFamily('monoFontFamily', $any($event.target).value); loadGoogleFont($any($event.target).value)"
-               class=" dark:text-white w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm focus:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500/20"
-            >
-              @for (font of getFontsForCategory('monospace'); track font.name) {
-                <option class="dark:text-white" [value]="font.name">{{ font.name }}</option>
-              }
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-               <cms-icon name="chevron-down" size="sm"></cms-icon>
-            </div>
+            <cms-select
+              [options]="monoFontOptions"
+              [ngModel]="currentTypography.monoFontFamily"
+              (ngModelChange)="updateFontFamily('monoFontFamily', $event); loadGoogleFont($event)"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select a font"
+            ></cms-select>
           </div>
           <div class="mt-4 rounded-lg bg-gray-900 p-4 text-center border border-gray-800" [style.font-family]="currentTypography.monoFontFamily">
             <span class="text-sm font-mono text-green-400">console.log("Hello World");</span>
@@ -228,22 +207,16 @@
                     <!-- Text Transform -->
                     <div>
                       <span class="mb-1 block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">{{ t("customization.typography.textTransform") }}</span>
-                      <div class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+                      <div class="flex flex-wrap gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-2">
                         @for (transform of textTransformOptions; track transform.value) {
-                          <button
-                            (click)="updateTextStyle(style.key, { textTransform: transform.value })"
-                            class="flex-1 py-1.5 px-2 text-xs font-medium rounded-md transition-all"
-                            [class.bg-white]="getTextStyle(style.key).textTransform === transform.value"
-                            [class.dark:bg-gray-700]="getTextStyle(style.key).textTransform === transform.value"
-                            [class.text-blue-600]="getTextStyle(style.key).textTransform === transform.value"
-                            [class.dark:text-blue-400]="getTextStyle(style.key).textTransform === transform.value"
-                            [class.shadow-sm]="getTextStyle(style.key).textTransform === transform.value"
-                            [class.text-gray-500]="getTextStyle(style.key).textTransform !== transform.value"
-                            [class.hover:text-gray-900]="getTextStyle(style.key).textTransform !== transform.value"
-                             [class.dark:hover:text-gray-300]="getTextStyle(style.key).textTransform !== transform.value"
+                          <cms-button
+                            (pressed)="updateTextStyle(style.key, { textTransform: transform.value })"
+                            [color]="getTextStyle(style.key).textTransform === transform.value ? 'primary' : 'secondary'"
+                            size="xs"
+                            class="flex-1"
                           >
                             {{ t(transform.label) || transform.label }}
-                          </button>
+                          </cms-button>
                         }
                       </div>
                     </div>

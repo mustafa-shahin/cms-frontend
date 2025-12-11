@@ -80,7 +80,10 @@ export class ImageUploadService {
     return this.uploadImage(request).pipe(
       map(event => {
         if (event.type === HttpEventType.Response) {
-          return event.body!;
+          if (!event.body) {
+            throw new Error('Response body is empty');
+          }
+          return event.body;
         }
         throw new Error('Upload not complete');
       })
@@ -91,10 +94,14 @@ export class ImageUploadService {
    * Get the URL for an image by ID and variant.
    */
   getImageUrl(imageId: number, variant: ImageVariant = 'original'): string {
-    if (variant === 'original') {
-      return `${this.apiUrl}/${imageId}`;
+    switch (variant) {
+      case 'thumbnail':
+        return `${this.apiUrl}/${imageId}/thumbnail`;
+      case 'medium':
+        return `${this.apiUrl}/${imageId}/medium`;
+      default:
+        return `${this.apiUrl}/${imageId}`;
     }
-    return `${this.apiUrl}/${imageId}/${variant}`;
   }
 
   /**
@@ -150,7 +157,7 @@ export class ImageUploadService {
   /**
    * Calculate upload progress percentage from HttpEvent.
    */
-  calculateProgress(event: HttpEvent<any>): UploadProgress | null {
+  calculateProgress(event: HttpEvent<unknown>): UploadProgress | null {
     if (event.type === HttpEventType.UploadProgress) {
       const progressEvent = event as HttpProgressEvent;
       const progress = progressEvent.total

@@ -1,0 +1,90 @@
+<div class="image-upload w-full">
+  <!-- Upload Area -->
+  @if (!uploadState()) {
+    <div
+      class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center cursor-pointer transition-all duration-200 bg-gray-50 hover:bg-blue-50 hover:border-blue-500"
+      [class.border-blue-500]="isDragging()"
+      [class.bg-blue-50]="isDragging()"
+      (drop)="onDrop($event)"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (click)="fileInput.click()"
+      (keydown.enter)="fileInput.click()"
+      (keydown.space)="fileInput.click()"
+      tabindex="0"
+      role="button"
+      aria-label="Upload image"
+    >
+      <div class="flex justify-center mb-4">
+        <cms-icon name="cloud-upload" class="text-gray-400" size="2xl"></cms-icon>
+      </div>
+      <p class="text-lg font-medium text-gray-700 mb-2">{{ uploadText() }}</p>
+      <p class="text-sm text-gray-500 mb-2">or click to browse</p>
+      <p class="text-xs text-gray-400">Supported formats: JPEG, PNG, WebP, GIF (max 10 MB)</p>
+    </div>
+
+    <input
+      #fileInput
+      type="file"
+      accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+      (change)="onFileSelected($event)"
+      class="hidden"
+    />
+  }
+
+  <!-- Upload Progress -->
+  @if (uploadState() && uploadState()!.uploading) {
+    <div class="p-8 border border-gray-200 rounded-lg bg-white">
+      <div class="mb-4">
+        <p class="font-medium text-gray-900 mb-1">{{ uploadState()!.file.name }}</p>
+        <p class="text-sm text-gray-500">Uploading... {{ uploadState()!.progress }}%</p>
+      </div>
+      <div class="h-2 bg-gray-200 rounded overflow-hidden">
+        <div class="h-full bg-blue-500 transition-[width] duration-300" [style.width.%]="uploadState()!.progress"></div>
+      </div>
+    </div>
+  }
+
+  <!-- Upload Success -->
+  @if (uploadState() && uploadState()!.result) {
+    <div class="p-8 border border-gray-200 rounded-lg bg-white text-center">
+      <div class="flex justify-center mb-4">
+        <cms-icon name="check-circle" class="text-green-500" size="2xl"></cms-icon>
+      </div>
+      <div class="mb-4">
+        <p class="text-lg font-semibold text-green-600 mb-2">Upload Complete!</p>
+        <p class="text-gray-700 mb-1">{{ uploadState()!.result!.originalName }} ({{ formatFileSize(uploadState()!.result!.size) }})</p>
+        <p class="text-sm text-gray-500 mb-4">{{ uploadState()!.result!.width }} × {{ uploadState()!.result!.height }} pixels</p>
+      </div>
+      @if (showPreview()) {
+        <img
+          [src]="getImageUrl(uploadState()!.result!.id)"
+          [alt]="uploadState()!.result!.altText || 'Uploaded image'"
+          class="max-w-full max-h-[200px] object-contain mx-auto rounded-md shadow-sm mb-4"
+        />
+      }
+      @if (allowMultiple()) {
+        <cms-button
+          label="Upload Another"
+          color="primary"
+          (click)="reset()"
+        ></cms-button>
+      }
+    </div>
+  }
+
+  <!-- Upload Error -->
+  @if (uploadState() && uploadState()!.error) {
+    <div class="p-8 border border-gray-200 rounded-lg bg-white text-center">
+      <div class="flex justify-center mb-4">
+        <cms-icon name="exclamation-triangle" class="text-red-500" size="2xl"></cms-icon>
+      </div>
+      <p class="text-red-600 mb-4">{{ uploadState()!.error }}</p>
+      <cms-button
+        label="Try Again"
+        color="primary"
+        (click)="reset()"
+      ></cms-button>
+    </div>
+  }
+</div>

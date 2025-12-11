@@ -126,6 +126,21 @@ export class ApiService {
   }
 
   /**
+   * GET request for binary data (blob)
+   * Used for file downloads with authentication
+   */
+  getBlob(endpoint: string, options?: RequestOptions): Observable<Blob> {
+    const url = this.envService.getApiUrl(endpoint);
+    return this.http
+      .get(url, {
+        headers: options?.headers,
+        params: options?.params,
+        responseType: 'blob',
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  /**
    * Handle HTTP errors
    */
   private handleError(error: HttpErrorResponse): Observable<never> {

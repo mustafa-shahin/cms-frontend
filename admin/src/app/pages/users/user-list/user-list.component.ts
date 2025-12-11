@@ -1,15 +1,34 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { UserService, TranslationService, ToasterService } from '@cms/shared/utils';
 import { UserListDto, UserRole } from '@cms/shared/api-interfaces';
-import { IconComponent, DialogComponent } from '@cms/shared/ui';
+import { 
+  IconComponent, 
+  DialogComponent,
+  ButtonComponent,
+  CardComponent,
+  PageHeaderComponent,
+  SearchBarComponent,
+  BadgeComponent,
+  PaginationComponent
+} from '@cms/shared/ui';
 import { UserFormComponent } from '../user-form';
 
 @Component({
   selector: 'cms-user-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, IconComponent, DialogComponent, UserFormComponent],
+  imports: [
+    CommonModule, 
+    IconComponent, 
+    DialogComponent, 
+    UserFormComponent,
+    ButtonComponent,
+    CardComponent,
+    PageHeaderComponent,
+    SearchBarComponent,
+    BadgeComponent,
+    PaginationComponent
+  ],
   templateUrl: './user-list.component.html',
 })
 export class UserListComponent implements OnInit {

@@ -27,7 +27,7 @@
           <div class="space-y-6">
             <!-- Header Template -->
             <div>
-              <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.headerTemplate") }}</label>
+              <span class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.headerTemplate") }}</span>
               <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <button
                   (click)="updateHeader('template', 0)"
@@ -71,7 +71,7 @@
 
             <!-- Logo Placement -->
             <div>
-              <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.logoPlacement") }}</label>
+              <span class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.logoPlacement") }}</span>
               <div class="flex rounded-lg bg-gray-100 dark:bg-gray-900/50 p-1">
                 <button
                   (click)="updateHeader('logoPlacement', 0)"
@@ -122,40 +122,20 @@
                   <span class="block text-sm font-medium text-gray-900 dark:text-white">{{ t("customization.layout.stickyHeader") }}</span>
                   <span class="text-xs text-gray-500 dark:text-gray-400">{{ t("customization.layout.stickyHeaderDescription") }}</span>
                 </div>
-                <button
-                  type="button"
-                  (click)="updateHeader('sticky', !currentLayout.headerConfiguration.stickyHeader)"
-                  class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  [class.bg-blue-600]="currentLayout.headerConfiguration.stickyHeader"
-                  [class.bg-gray-200]="!currentLayout.headerConfiguration.stickyHeader"
-                  [class.dark:bg-gray-700]="!currentLayout.headerConfiguration.stickyHeader"
-                >
-                  <span
-                    class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-                    [class.translate-x-5]="currentLayout.headerConfiguration.stickyHeader"
-                    [class.translate-x-0]="!currentLayout.headerConfiguration.stickyHeader"
-                  ></span>
-                </button>
+                <cms-toggle
+                  [ngModel]="currentLayout.headerConfiguration.stickyHeader"
+                  (ngModelChange)="updateHeader('stickyHeader', $event)"
+                ></cms-toggle>
               </div>
 
               <div class="flex items-center justify-between">
                 <div>
                    <span class="block text-sm font-medium text-gray-900 dark:text-white">{{ t("customization.layout.showSearchBar") }}</span>
                 </div>
-                <button
-                  type="button"
-                  (click)="updateHeader('showSearchBar', !currentLayout.headerConfiguration.showSearch)"
-                  class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  [class.bg-blue-600]="currentLayout.headerConfiguration.showSearch"
-                  [class.bg-gray-200]="!currentLayout.headerConfiguration.showSearch"
-                  [class.dark:bg-gray-700]="!currentLayout.headerConfiguration.showSearch"
-                >
-                  <span
-                    class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-                    [class.translate-x-5]="currentLayout.headerConfiguration.showSearch"
-                    [class.translate-x-0]="!currentLayout.headerConfiguration.showSearch"
-                  ></span>
-                </button>
+                <cms-toggle
+                  [ngModel]="currentLayout.headerConfiguration.showSearch"
+                  (ngModelChange)="updateHeader('showSearch', $event)"
+                ></cms-toggle>
               </div>
             </div>
           </div>
@@ -176,7 +156,7 @@
           <div class="space-y-6">
             <!-- Footer Template -->
             <div>
-              <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.footerTemplate") }}</label>
+              <span class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.footerTemplate") }}</span>
               <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <button
                   (click)="updateFooter('template', 0)"
@@ -235,7 +215,7 @@
                 max="4"
                 step="1"
                 [value]="currentLayout.footerConfiguration.columnCount"
-                (input)="updateFooter('columns', +$any($event.target).value)"
+                (input)="updateFooter('columnCount', +$any($event.target).value)"
                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-purple-600"
               />
               <div class="mt-1 flex justify-between text-xs text-gray-400">
@@ -250,40 +230,21 @@
                 <div>
                   <span class="block text-sm font-medium text-gray-900 dark:text-white">{{ t("customization.layout.showSocialLinks") }}</span>
                 </div>
-                <button
-                  type="button"
-                  (click)="updateFooter('showSocialLinks', !currentLayout.footerConfiguration.showSocialLinks)"
-                  class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                  [class.bg-purple-600]="currentLayout.footerConfiguration.showSocialLinks"
-                  [class.bg-gray-200]="!currentLayout.footerConfiguration.showSocialLinks"
-                  [class.dark:bg-gray-700]="!currentLayout.footerConfiguration.showSocialLinks"
-                >
-                  <span
-                    class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-                    [class.translate-x-5]="currentLayout.footerConfiguration.showSocialLinks"
-                    [class.translate-x-0]="!currentLayout.footerConfiguration.showSocialLinks"
-                  ></span>
-                </button>
+                <cms-toggle
+                  [ngModel]="currentLayout.footerConfiguration.showSocialLinks"
+                  (ngModelChange)="updateFooter('showSocialLinks', $event)"
+                  [class.accent-purple-600]="true"
+                ></cms-toggle>
               </div>
 
                <div class="flex items-center justify-between">
                 <div>
                    <span class="block text-sm font-medium text-gray-900 dark:text-white">{{ t("customization.layout.showNewsletter") }}</span>
                 </div>
-                <button
-                  type="button"
-                  (click)="updateFooter('showNewsletter', !currentLayout.footerConfiguration.showNewsletter)"
-                   class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                  [class.bg-purple-600]="currentLayout.footerConfiguration.showNewsletter"
-                  [class.bg-gray-200]="!currentLayout.footerConfiguration.showNewsletter"
-                  [class.dark:bg-gray-700]="!currentLayout.footerConfiguration.showNewsletter"
-                >
-                  <span
-                    class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-                    [class.translate-x-5]="currentLayout.footerConfiguration.showNewsletter"
-                    [class.translate-x-0]="!currentLayout.footerConfiguration.showNewsletter"
-                  ></span>
-                </button>
+                <cms-toggle
+                  [ngModel]="currentLayout.footerConfiguration.showNewsletter"
+                  (ngModelChange)="updateFooter('showNewsletter', $event)"
+                ></cms-toggle>
               </div>
             </div>
           </div>
@@ -326,16 +287,14 @@
                 <label for="section-padding" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.sectionPadding") }}</label>
                 <span class="text-sm font-bold text-green-600 dark:text-green-400">{{ currentLayout.spacing.sectionPadding }}</span>
               </div>
-              <select
+              <cms-select
                 id="section-padding"
-                [value]="currentLayout.spacing.sectionPadding"
-                (change)="updateSpacing('sectionPadding', $any($event.target).value)"
-                class="dark:text-white w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
-              >
-                <option class="dark:text-white" value="2rem 1rem">{{ t("common.compact") || 'Compact' }} (2rem)</option>
-                <option class="dark:text-white" value="4rem 1.5rem">{{ t("common.comfortable") || 'Comfortable' }} (4rem)</option>
-                <option class="dark:text-white" value="6rem 2rem">{{ t("common.spacious") || 'Spacious' }} (6rem)</option>
-              </select>
+                [ngModel]="currentLayout.spacing.sectionPadding"
+                (ngModelChange)="updateSpacing('sectionPadding', $event)"
+                [options]="paddingOptions"
+                optionLabel="label"
+                optionValue="value"
+              ></cms-select>
             </div>
 
             <!-- Component Gap -->
@@ -344,16 +303,15 @@
                 <label for="component-gap" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ t("customization.layout.componentGap") }}</label>
                 <span class="text-sm font-bold text-green-600 dark:text-green-400">{{ currentLayout.spacing.componentGap }}</span>
               </div>
-              <select
+              <cms-select
                  id="component-gap"
-                 [value]="currentLayout.spacing.componentGap"
-                (change)="updateSpacing('componentGap', $any($event.target).value)"
-                 class="dark:text-white w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                 [ngModel]="currentLayout.spacing.componentGap"
+                 (ngModelChange)="updateSpacing('componentGap', $event)"
+                 [options]="gapOptions"
+                 optionLabel="label"
+                 optionValue="value"
               >
-                <option class="dark:text-white" value="1rem">{{ t("common.compact") || 'Compact' }} (1rem)</option>
-                <option class="dark:text-white" value="2rem">{{ t("common.comfortable") || 'Comfortable' }} (2rem)</option>
-                <option class="dark:text-white" value="3rem">{{ t("common.spacious") || 'Spacious' }} (3rem)</option>
-              </select>
+              </cms-select>
             </div>
           </div>
         </div>

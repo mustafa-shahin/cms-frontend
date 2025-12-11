@@ -1,8 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TranslationService, CustomizationStateService, AuthService } from '@cms/shared/utils';
-import { IconComponent } from '@cms/shared/ui';
+import { ButtonComponent, IconComponent } from '@cms/shared/ui';
 
-interface SystemInfo {
+export interface SystemInfo {
   category: string;
   items: Array<{ label: string; value: string | number | boolean; type?: 'text' | 'boolean' | 'date' | 'number' }>;
 }
@@ -10,7 +11,7 @@ interface SystemInfo {
 @Component({
   selector: 'cms-system-info-step',
   standalone: true,
-  imports: [IconComponent],
+  imports: [CommonModule, IconComponent, ButtonComponent],
   templateUrl: './system-info-step.component.html',
 })
 export class SystemInfoStepComponent implements OnInit {
@@ -220,9 +221,11 @@ export class SystemInfoStepComponent implements OnInit {
    * Get page load time
    */
   private getPageLoadTime(): string {
-    if (performance && performance.timing) {
-      const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-      return loadTime > 0 ? `${loadTime} ms` : 'Calculating...';
+    const navigationEntries = performance.getEntriesByType('navigation');
+    if (navigationEntries.length > 0) {
+      const timing = navigationEntries[0] as PerformanceNavigationTiming;
+      const loadTime = timing.loadEventEnd - timing.startTime;
+      return loadTime > 0 ? `${Math.round(loadTime)} ms` : 'Calculating...';
     }
     return 'N/A';
   }
@@ -231,9 +234,11 @@ export class SystemInfoStepComponent implements OnInit {
    * Get DOM content loaded time
    */
   private getDOMContentLoadedTime(): string {
-    if (performance && performance.timing) {
-      const domTime = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
-      return domTime > 0 ? `${domTime} ms` : 'Calculating...';
+    const navigationEntries = performance.getEntriesByType('navigation');
+    if (navigationEntries.length > 0) {
+      const timing = navigationEntries[0] as PerformanceNavigationTiming;
+      const domTime = timing.domContentLoadedEventEnd - timing.startTime;
+      return domTime > 0 ? `${Math.round(domTime)} ms` : 'Calculating...';
     }
     return 'N/A';
   }

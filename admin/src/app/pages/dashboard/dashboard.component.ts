@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService, TranslationService, ThemeService } from '@cms/shared/utils';
-import { IconComponent, LanguageSelectorComponent } from '@cms/shared/ui';
+import { ButtonComponent, LanguageSelectorComponent } from '@cms/shared/ui';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 
 @Component({
   selector: 'cms-dashboard',
   standalone: true,
-  imports: [RouterOutlet, IconComponent, LanguageSelectorComponent, SidebarComponent],
+  imports: [CommonModule, RouterOutlet, LanguageSelectorComponent, SidebarComponent, ButtonComponent],
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent {
@@ -24,6 +25,9 @@ export class DashboardComponent {
       next: () => {
         this.router.navigate(['/login']);
       },
+      error: () => {
+        this.router.navigate(['/login']);
+      }
     });
   }
 

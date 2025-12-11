@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
-import { tap, catchError, map } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import {
   LoginRequest,
   RegisterRequest,
@@ -16,6 +16,13 @@ import { ApiService } from './api.service';
 const TOKEN_KEY = 'cms_access_token';
 const REFRESH_TOKEN_KEY = 'cms_refresh_token';
 const USER_KEY = 'cms_user';
+
+interface JwtPayload {
+  exp: number;
+  iat?: number;
+  sub?: string;
+  [key: string]: unknown;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -102,6 +109,7 @@ export class AuthService {
       tap(() => this.clearAuthData()),
       catchError((error) => {
         // Clear auth data even if logout request fails
+        console.error('Logout error:', error);
         this.clearAuthData();
         return of(void 0);
       })
@@ -234,7 +242,7 @@ export class AuthService {
   /**
    * Parse JWT token
    */
-  private parseJwt(token: string): any {
+  private parseJwt(token: string): JwtPayload {
     try {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -245,7 +253,7 @@ export class AuthService {
           .join('')
       );
       return JSON.parse(jsonPayload);
-    } catch (error) {
+    } catch {
       throw new Error('Invalid token');
     }
   }

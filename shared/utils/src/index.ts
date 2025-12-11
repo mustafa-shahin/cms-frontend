@@ -14,3 +14,4 @@ export * from './lib/services/theme.service';
 export * from './lib/services/toaster.service';
 export * from './lib/services/translation.service';
 export * from './lib/services/user.service';
+export * from './lib/services/image.service';

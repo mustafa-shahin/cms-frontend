@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { TranslationService, CustomizationStateService } from '@cms/shared/utils';
 import { FormsModule } from '@angular/forms';
-import { IconComponent } from '@cms/shared/ui';
+import { ButtonComponent, IconComponent, SelectComponent } from '@cms/shared/ui';
 import {
   TypographySettings,
   TextStyle,
@@ -18,7 +18,7 @@ interface FontFamily {
 @Component({
   selector: 'cms-typography-step',
   standalone: true,
-  imports: [FormsModule, IconComponent],
+  imports: [FormsModule, IconComponent, SelectComponent, ButtonComponent],
   templateUrl: './typography-step.component.html',
   styleUrls: ['./typography-step.component.scss']
 })
@@ -153,6 +153,22 @@ export class TypographyStepComponent {
     { label: '8xl', value: 6, class: 'text-8xl' },
     { label: '9xl', value: 8, class: 'text-9xl' },
   ];
+
+  get primaryFontOptions() {
+    return [
+      ...this.getFontsForCategory('sans-serif').map((f) => ({ label: f.name, value: f.name })),
+      ...this.getFontsForCategory('serif').map((f) => ({ label: `${f.name} (Serif)`, value: f.name })),
+    ];
+  }
+
+  get secondaryFontOptions() {
+    // Same as primary for now
+    return this.primaryFontOptions;
+  }
+
+  get monoFontOptions() {
+    return this.getFontsForCategory('monospace').map((f) => ({ label: f.name, value: f.name }));
+  }
 
   /* ... */
 

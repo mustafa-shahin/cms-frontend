@@ -35,6 +35,16 @@ import {
   faRedo,
   faLanguage,
   faUsers,
+  faFolder,
+  faFolderOpen,
+  faImage,
+  faFile,
+  faFileAlt,
+  faVideo,
+  faMusic,
+  faUpload,
+  faDownload,
+  faCloudUploadAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faUser as farUser,
@@ -141,6 +151,19 @@ export class IconComponent {
     save: faSave,
     undo: faUndo,
     redo: faRedo,
+    folder: faFolder,
+    'folder-open': faFolderOpen,
+    image: faImage,
+    photo: faImage,
+    file: faFile,
+    'file-alt': faFileAlt,
+    document: faFileAlt,
+    video: faVideo,
+    music: faMusic,
+    audio: faMusic,
+    upload: faUpload,
+    download: faDownload,
+    'cloud-upload': faCloudUploadAlt,
   };
 
   private readonly regularIcons: Record<string, IconDefinition> = {
@@ -164,9 +187,9 @@ export class IconComponent {
     const icon = iconMap[this.name];
 
     if (!icon) {
-      console.warn(
-        `Icon "${this.name}" not found for style "${this.style}". Falling back to solid.`
-      );
+      // console.warn(
+      //   `Icon "${this.name}" not found for style "${this.style}". Falling back to solid.`
+      // );
       return this.solidIcons[this.name] || faInfoCircle;
     }
 

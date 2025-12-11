@@ -173,7 +173,7 @@ describe('CustomizationApiService', () => {
       it('should handle null textStyles', () => {
         const responseWithNullStyles = {
           ...mockTypographySettings,
-          textStyles: null as any
+          textStyles: null as unknown
         };
         apiServiceSpy.get.mockReturnValue(of(responseWithNullStyles));
 
@@ -208,7 +208,7 @@ describe('CustomizationApiService', () => {
 
         service.updateTypographySettings(settingsWithNumericKeys).subscribe();
 
-        const calledPayload = apiServiceSpy.put.mock.calls[0][1] as any;
+        const calledPayload = apiServiceSpy.put.mock.calls[0][1] as { typographySettings: { textStyles: Record<string, unknown> } };
         const textStyles = calledPayload.typographySettings.textStyles;
         
         // Should have string keys like 'Heading1', 'Body'
@@ -277,7 +277,7 @@ describe('CustomizationApiService', () => {
 
   describe('edge cases', () => {
     it('should handle undefined settings in transformResponse', () => {
-      apiServiceSpy.get.mockReturnValue(of(undefined as any));
+      apiServiceSpy.get.mockReturnValue(of(undefined as unknown));
 
       service.getTypographySettings().subscribe(settings => {
         expect(settings).toBeUndefined();
