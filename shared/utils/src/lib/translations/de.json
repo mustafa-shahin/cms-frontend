@@ -104,7 +104,19 @@
       "dark": "Dunkel",
       "contrast": "Kontrast",
       "autoGenerate": "Farbvarianten automatisch aus Basisfarbe generieren",
-      "livePreview": "Live-Vorschau"
+      "livePreview": "Live-Vorschau",
+      "previewDescription": "Vorschau, wie Ihre Farben in der Anwendungsoberfläche aussehen werden.",
+      "preview": {
+        "primaryButton": "Primäre Schaltfläche",
+        "secondary": "Sekundär",
+        "accent": "Akzent",
+        "background": "Hintergrund",
+        "surface": "Oberfläche",
+        "dark": "Dunkel",
+        "successMessage": "Erfolgsmeldung",
+        "warningAlert": "Warnhinweis",
+        "errorToast": "Fehler-Toast"
+      }
     },
     "typography": {
       "title": "Typografie",
@@ -159,7 +171,22 @@
       "uppercase": "GROSSBUCHSTABEN",
       "lowercase": "kleinbuchstaben",
       "capitalize": "Groß Schreiben",
-      "completePreview": "Vollständige Typografie-Vorschau"
+      "completePreview": "Vollständige Typografie-Vorschau",
+      "preview": {
+        "heading1": "Der schnelle braune Fuchs springt",
+        "heading2": "Der schnelle braune Fuchs",
+        "heading3": "Schneller brauner Fuchs",
+        "heading4": "Brauner Fuchs springt",
+        "heading5": "Fuchs springt über",
+        "heading6": "Springt über faulen",
+        "bodyLarge": "Der schnelle braune Fuchs springt über den faulen Hund. Dies ist ein Beispiel für Fließtext.",
+        "bodyMedium": "Der schnelle braune Fuchs springt über den faulen Hund.",
+        "bodySmall": "Der schnelle braune Fuchs springt.",
+        "caption": "Foto von Max Mustermann",
+        "overline": "KATEGORIE LABEL",
+        "buttonText": "Klick Mich",
+        "linkText": "Dies ist ein Link"
+      }
     },
     "layout": {
       "title": "Layout & Struktur",
@@ -334,22 +361,92 @@
     },
     "systemInfo": {
       "title": "Systeminformationen",
-      "description": "Systemdiagnose anzeigen",
-      "categories": {
-        "application": "Anwendungsinformationen",
-        "user": "Benutzerinformationen",
-        "configStatus": "Konfigurationsstatus",
-        "theme": "Design-Konfiguration",
-        "typography": "Typografie-Konfiguration",
-        "layout": "Layout-Konfiguration",
-        "browser": "Browserinformationen",
-        "storage": "Speicherinformationen",
-        "performance": "Leistungsmetriken"
-      },
+      "subtitle": "Diagnoseinformationen und Systemstatus.",
       "actions": {
         "refresh": "Aktualisieren",
-        "copyAll": "Alles kopieren",
-        "copied": "In Zwischenablage kopiert"
+        "copyAll": "Alles kopieren"
+      },
+      "legend": {
+        "title": "Information",
+        "description": "Diese Seite zeigt schreibgeschützte Diagnoseinformationen über Ihr System, Ihren Browser und die aktuelle Konfiguration an. Verwenden Sie die Schaltfläche \"Aktualisieren\", um die Informationen zu aktualisieren, oder \"Alles kopieren\", um alle Details zur Fehlerbehebung in Ihre Zwischenablage zu kopieren."
+      },
+      "categories": {
+        "appInfo": "Anwendungsinformationen",
+        "userInfo": "Benutzerinformationen",
+        "configStatus": "Konfigurationsstatus",
+        "themeConfig": "Themenkonfiguration",
+        "typographyConfig": "Typografiekonfiguration",
+        "layoutConfig": "Layoutkonfiguration",
+        "browserInfo": "Browserinformationen",
+        "storageInfo": "Speicherinformationen",
+        "performance": "Leistungsmetriken"
+      },
+      "labels": {
+        "appName": "Anwendungsname",
+        "version": "Version",
+        "env": "Umgebung",
+        "buildDate": "Erstellungsdatum",
+        "userId": "Benutzer-ID",
+        "username": "Benutzername",
+        "email": "E-Mail",
+        "role": "Rolle",
+        "authenticated": "Authentifiziert",
+        "themeConfigured": "Thema konfiguriert",
+        "typographyConfigured": "Typografie konfiguriert",
+        "layoutConfigured": "Layout konfiguriert",
+        "hasUnsavedChanges": "Ungespeicherte Änderungen",
+        "themeLastMod": "Thema zuletzt geändert",
+        "typographyLastMod": "Typografie zuletzt geändert",
+        "layoutLastMod": "Layout zuletzt geändert",
+        "brandPrimary": "Markenprimärfarbe",
+        "brandSecondary": "Markensekundärfarbe",
+        "brandAccent": "Markenakzentfarbe",
+        "lastModBy": "Zuletzt geändert von",
+        "status": "Status",
+        "primaryFont": "Primäre Schriftart",
+        "secondaryFont": "Sekundäre Schriftart",
+        "monoFont": "Monospaced Schriftart",
+        "textStylesCount": "Anzahl Textstile",
+        "headerTemplate": "Header-Vorlage",
+        "headerLogoPlacement": "Header-Logoplatzierung",
+        "headerShowSearch": "Header-Suche anzeigen",
+        "headerSticky": "Header fixieren",
+        "footerTemplate": "Footer-Vorlage",
+        "footerColumns": "Footer-Spalten",
+        "footerShowSocial": "Footer-Social-Links anzeigen",
+        "footerShowNewsletter": "Footer-Newsletter anzeigen",
+        "containerMaxWidth": "Maximale Inhaltsbreite",
+        "sectionPadding": "Abschnittsabstand",
+        "componentGap": "Komponentenabstand",
+        "userAgent": "User Agent",
+        "platform": "Plattform",
+        "language": "Sprache",
+        "online": "Online",
+        "cookiesEnabled": "Cookies aktiviert",
+        "localStorageAvail": "localStorage verfügbar",
+        "localStorageUsage": "localStorage Nutzung",
+        "sessionStorageAvail": "sessionStorage verfügbar",
+        "pageLoadTime": "Seitenladezeit",
+        "domContentLoaded": "DOM-Inhalt geladen",
+        "windowWidth": "Fensterbreite",
+        "windowHeight": "Fensterhöhe",
+        "pixelRatio": "Geräte-Pixelverhältnis"
+      },
+      "values": {
+        "yes": "Ja",
+        "no": "Nein",
+        "na": "N/V",
+        "never": "Nie",
+        "system": "System",
+        "calculating": "Berechne...",
+        "development": "Entwicklung",
+        "production": "Produktion",
+        "notConfigured": "Nicht konfiguriert",
+        "unknown": "Unbekannt"
+      },
+      "messages": {
+        "copied": "Systeminformationen in die Zwischenablage kopiert!",
+        "copyFailed": "Kopieren in die Zwischenablage fehlgeschlagen"
       }
     }
   },

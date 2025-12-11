@@ -104,7 +104,19 @@
       "dark": "داكن",
       "contrast": "تباين",
       "autoGenerate": "إنشاء متغيرات الألوان تلقائيًا من اللون الأساسي",
-      "livePreview": "معاينة مباشرة"
+      "livePreview": "معاينة مباشرة",
+      "previewDescription": "معاينة كيف ستظهر ألوانك في واجهة التطبيق.",
+      "preview": {
+        "primaryButton": "زر أساسي",
+        "secondary": "ثانوي",
+        "accent": "تمييز",
+        "background": "خلفية",
+        "surface": "سطح",
+        "dark": "داكن",
+        "successMessage": "رسالة نجاح",
+        "warningAlert": "تنبيه تحذير",
+        "errorToast": "إشعار خطأ"
+      }
     },
     "typography": {
       "title": "الطباعة",
@@ -159,7 +171,22 @@
       "uppercase": "أحرف كبيرة",
       "lowercase": "أحرف صغيرة",
       "capitalize": "أحرف كبيرة في البداية",
-      "completePreview": "معاينة الطباعة الكاملة"
+      "completePreview": "معاينة الطباعة الكاملة",
+      "preview": {
+        "heading1": "الأرنب السريع البني يقفز",
+        "heading2": "الأرنب السريع البني",
+        "heading3": "أرنب بني سريع",
+        "heading4": "أرنب بني يقفز",
+        "heading5": "أرنب يقفز فوق",
+        "heading6": "يقفز فوق الكسول",
+        "bodyLarge": "الأرنب السريع البني يقفز فوق الكلب الكسول. هذا مثال للنص الأساسي.",
+        "bodyMedium": "الأرنب السريع البني يقفز فوق الكلب الكسول.",
+        "bodySmall": "الأرنب السريع البني يقفز.",
+        "caption": "صورة بواسطة اسم المستخدم",
+        "overline": "تسمية الفئة",
+        "buttonText": "اضغط هنا",
+        "linkText": "هذا رابط"
+      }
     },
     "layout": {
       "title": "التخطيط والبنية",
@@ -334,22 +361,92 @@
     },
     "systemInfo": {
       "title": "معلومات النظام",
-      "description": "عرض تشخيص النظام",
-      "categories": {
-        "application": "معلومات التطبيق",
-        "user": "معلومات المستخدم",
-        "configStatus": "حالة التكوين",
-        "theme": "تكوين التصميم",
-        "typography": "تكوين الطباعة",
-        "layout": "تكوين التخطيط",
-        "browser": "معلومات المتصفح",
-        "storage": "معلومات التخزين",
-        "performance": "مقاييس الأداء"
-      },
+      "subtitle": "معلومات التشخيص وحالة النظام.",
       "actions": {
         "refresh": "تحديث",
-        "copyAll": "نسخ الكل",
-        "copied": "تم النسخ إلى الحافظة"
+        "copyAll": "نسخ الكل"
+      },
+      "legend": {
+        "title": "معلومات",
+        "description": "تعرض هذه الصفحة معلومات تشخيصية للقراءة فقط حول نظامك ومتصفحك والتكوين الحالي. استخدم زر \"تحديث\" لتحديث المعلومات، أو \"نسخ الكل\" لنسخ جميع التفاصيل إلى الحافظة لاستكشاف الأخطاء وإصلاحها."
+      },
+      "categories": {
+        "appInfo": "معلومات التطبيق",
+        "userInfo": "معلومات المستخدم",
+        "configStatus": "حالة التكوين",
+        "themeConfig": "تكوين السمة",
+        "typographyConfig": "تكوين الطباعة",
+        "layoutConfig": "تكوين التخطيط",
+        "browserInfo": "معلومات المتصفح",
+        "storageInfo": "معلومات التخزين",
+        "performance": "مقاييس الأداء"
+      },
+      "labels": {
+        "appName": "اسم التطبيق",
+        "version": "الإصدار",
+        "env": "البيئة",
+        "buildDate": "تاريخ البناء",
+        "userId": "معرف المستخدم",
+        "username": "اسم المستخدم",
+        "email": "البريد الإلكتروني",
+        "role": "الدور",
+        "authenticated": "تمت المصادقة",
+        "themeConfigured": "تم تكوين السمة",
+        "typographyConfigured": "تم تكوين الطباعة",
+        "layoutConfigured": "تم تكوين التخطيط",
+        "hasUnsavedChanges": "يوجد تغييرات غير محفوظة",
+        "themeLastMod": "آخر تعديل للسمة",
+        "typographyLastMod": "آخر تعديل للطباعة",
+        "layoutLastMod": "آخر تعديل للتخطيط",
+        "brandPrimary": "اللون الأساسي للعلامة التجارية",
+        "brandSecondary": "اللون الثانوي للعلامة التجارية",
+        "brandAccent": "لون التمييز للعلامة التجارية",
+        "lastModBy": "آخر تعديل بواسطة",
+        "status": "الحالة",
+        "primaryFont": "عائلة الخط الأساسي",
+        "secondaryFont": "عائلة الخط الثانوي",
+        "monoFont": "عائلة الخط الأحادي",
+        "textStylesCount": "عدد أنماط النص",
+        "headerTemplate": "نموذج الرأس",
+        "headerLogoPlacement": "موضع الشعار في الرأس",
+        "headerShowSearch": "إظهار بحث الرأس",
+        "headerSticky": "تثبيت الرأس",
+        "footerTemplate": "نموذج التذييل",
+        "footerColumns": "أعمدة التذييل",
+        "footerShowSocial": "إظهار روابط التواصل الاجتماعي في التذييل",
+        "footerShowNewsletter": "إظهار النشرة البريدية في التذييل",
+        "containerMaxWidth": "أقصى عرض للحاوية",
+        "sectionPadding": "حشو القسم",
+        "componentGap": "فجوة المكونات",
+        "userAgent": "وكيل المستخدم",
+        "platform": "المنصة",
+        "language": "اللغة",
+        "online": "متصل",
+        "cookiesEnabled": "ملفات تعريف الارتباط ممكّنة",
+        "localStorageAvail": "التخزين المحلي متاح",
+        "localStorageUsage": "استخدام التخزين المحلي",
+        "sessionStorageAvail": "تخزين الجلسة متاح",
+        "pageLoadTime": "وقت تحميل الصفحة",
+        "domContentLoaded": "تم تحميل محتوى DOM",
+        "windowWidth": "عرض النافذة",
+        "windowHeight": "ارتفاع النافذة",
+        "pixelRatio": "نسبة بكسل الجهاز"
+      },
+      "values": {
+        "yes": "نعم",
+        "no": "لا",
+        "na": "غير متوفر",
+        "never": "أبداً",
+        "system": "النظام",
+        "calculating": "جاري الحساب...",
+        "development": "تطوير",
+        "production": "إنتاج",
+        "notConfigured": "غير مكون",
+        "unknown": "غير معروف"
+      },
+      "messages": {
+        "copied": "تم نسخ معلومات النظام إلى الحافظة!",
+        "copyFailed": "فشل النسخ إلى الحافظة"
       }
     }
   },

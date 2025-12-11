@@ -4,7 +4,7 @@
     <div>
       <h2 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ translate.instant("customization.systemInfo.title") }}</h2>
       <p class="mt-2 text-lg text-gray-600 dark:text-gray-300">
-        {{ translate.instant("customization.systemInfo.subtitle") || "Diagnostic information and diagnostics." }}
+        {{ translate.instant("customization.systemInfo.subtitle") }}
       </p>
     </div>
     <div class="flex gap-3">
@@ -65,10 +65,9 @@
       </div>
     </div>
     <div>
-      <h4 class="font-bold text-blue-900 dark:text-blue-200 mb-2">Information</h4>
+      <h4 class="font-bold text-blue-900 dark:text-blue-200 mb-2">{{ translate.instant("customization.systemInfo.legend.title") }}</h4>
       <p class="text-sm text-blue-800 dark:text-blue-300">
-        This page displays read-only diagnostic information about your system, browser, and current configuration.
-        Use the "Refresh" button to update the information, or "Copy All" to copy all details to your clipboard for troubleshooting.
+        {{ translate.instant("customization.systemInfo.legend.description") }}
       </p>
     </div>
   </div>

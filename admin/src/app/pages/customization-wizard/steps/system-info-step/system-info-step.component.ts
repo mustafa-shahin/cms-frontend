@@ -36,104 +36,104 @@ export class SystemInfoStepComponent implements OnInit {
 
     const info: SystemInfo[] = [
       {
-        category: 'Application Information',
+        category: this.translate.instant('customization.systemInfo.categories.appInfo'),
         items: [
-          { label: 'Application Name', value: 'CMS Frontend', type: 'text' },
-          { label: 'Version', value: '1.0.0', type: 'text' },
-          { label: 'Environment', value: this.getEnvironment(), type: 'text' },
-          { label: 'Build Date', value: new Date().toISOString(), type: 'date' }
+          { label: this.translate.instant('customization.systemInfo.labels.appName'), value: 'CMS Frontend', type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.version'), value: '1.0.0', type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.env'), value: this.getEnvironment(), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.buildDate'), value: new Date().toISOString(), type: 'date' }
         ]
       },
       {
-        category: 'User Information',
+        category: this.translate.instant('customization.systemInfo.categories.userInfo'),
         items: [
-          { label: 'User ID', value: currentUser?.id || 'N/A', type: 'text' },
-          { label: 'Username', value: currentUser?.fullName || 'N/A', type: 'text' },
-          { label: 'Email', value: currentUser?.email || 'N/A', type: 'text' },
-          { label: 'Role', value: currentUser?.role || 'N/A', type: 'text' },
-          { label: 'Authenticated', value: !!currentUser, type: 'boolean' }
+          { label: this.translate.instant('customization.systemInfo.labels.userId'), value: currentUser?.id || this.translate.instant('customization.systemInfo.values.na'), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.username'), value: currentUser?.fullName || this.translate.instant('customization.systemInfo.values.na'), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.email'), value: currentUser?.email || this.translate.instant('customization.systemInfo.values.na'), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.role'), value: currentUser?.role || this.translate.instant('customization.systemInfo.values.na'), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.authenticated'), value: !!currentUser, type: 'boolean' }
         ]
       },
       {
-        category: 'Configuration Status',
+        category: this.translate.instant('customization.systemInfo.categories.configStatus'),
         items: [
-          { label: 'Theme Configured', value: !!theme, type: 'boolean' },
-          { label: 'Typography Configured', value: !!typography, type: 'boolean' },
-          { label: 'Layout Configured', value: !!layout, type: 'boolean' },
-          { label: 'Has Unsaved Changes', value: this.customizationState.hasUnsavedChanges(), type: 'boolean' },
-          { label: 'Theme Last Modified', value: theme?.lastModifiedAt || 'Never', type: 'text' },
-          { label: 'Typography Last Modified', value: typography?.lastModifiedAt || 'Never', type: 'text' },
-          { label: 'Layout Last Modified', value: layout?.lastModifiedAt || 'Never', type: 'text' }
+          { label: this.translate.instant('customization.systemInfo.labels.themeConfigured'), value: !!theme, type: 'boolean' },
+          { label: this.translate.instant('customization.systemInfo.labels.typographyConfigured'), value: !!typography, type: 'boolean' },
+          { label: this.translate.instant('customization.systemInfo.labels.layoutConfigured'), value: !!layout, type: 'boolean' },
+          { label: this.translate.instant('customization.systemInfo.labels.hasUnsavedChanges'), value: this.customizationState.hasUnsavedChanges(), type: 'boolean' },
+          { label: this.translate.instant('customization.systemInfo.labels.themeLastMod'), value: theme?.lastModifiedAt || this.translate.instant('customization.systemInfo.values.never'), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.typographyLastMod'), value: typography?.lastModifiedAt || this.translate.instant('customization.systemInfo.values.never'), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.layoutLastMod'), value: layout?.lastModifiedAt || this.translate.instant('customization.systemInfo.values.never'), type: 'text' }
         ]
       },
       {
-        category: 'Theme Configuration',
+        category: this.translate.instant('customization.systemInfo.categories.themeConfig'),
         items: theme ? [
-          { label: 'Brand Primary Color', value: theme.brandPalette.primary.base, type: 'text' },
-          { label: 'Brand Secondary Color', value: theme.brandPalette.secondary.base, type: 'text' },
-          { label: 'Brand Accent Color', value: theme.brandPalette.accent.base, type: 'text' },
-          { label: 'Last Modified By', value: theme.lastModifiedBy || 'System', type: 'text' }
+          { label: this.translate.instant('customization.systemInfo.labels.brandPrimary'), value: theme.brandPalette.primary.base, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.brandSecondary'), value: theme.brandPalette.secondary.base, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.brandAccent'), value: theme.brandPalette.accent.base, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.lastModBy'), value: theme.lastModifiedBy || this.translate.instant('customization.systemInfo.values.system'), type: 'text' }
         ] : [
-          { label: 'Status', value: 'Not Configured', type: 'text' }
+          { label: this.translate.instant('customization.systemInfo.labels.status'), value: this.translate.instant('customization.systemInfo.values.notConfigured'), type: 'text' }
         ]
       },
       {
-        category: 'Typography Configuration',
+        category: this.translate.instant('customization.systemInfo.categories.typographyConfig'),
         items: typography ? [
-          { label: 'Primary Font Family', value: typography.primaryFontFamily, type: 'text' },
-          { label: 'Secondary Font Family', value: typography.secondaryFontFamily, type: 'text' },
-          { label: 'Mono Font Family', value: typography.monoFontFamily, type: 'text' },
-          { label: 'Text Styles Count', value: Object.keys(typography.textStyles).length, type: 'number' },
-          { label: 'Last Modified By', value: typography.lastModifiedBy || 'System', type: 'text' }
+          { label: this.translate.instant('customization.systemInfo.labels.primaryFont'), value: typography.primaryFontFamily, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.secondaryFont'), value: typography.secondaryFontFamily, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.monoFont'), value: typography.monoFontFamily, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.textStylesCount'), value: Object.keys(typography.textStyles).length, type: 'number' },
+          { label: this.translate.instant('customization.systemInfo.labels.lastModBy'), value: typography.lastModifiedBy || this.translate.instant('customization.systemInfo.values.system'), type: 'text' }
         ] : [
-          { label: 'Status', value: 'Not Configured', type: 'text' }
+          { label: this.translate.instant('customization.systemInfo.labels.status'), value: this.translate.instant('customization.systemInfo.values.notConfigured'), type: 'text' }
         ]
       },
       {
-        category: 'Layout Configuration',
+        category: this.translate.instant('customization.systemInfo.categories.layoutConfig'),
         items: layout ? [
-          { label: 'Header Template', value: this.getHeaderTemplateName(layout.headerConfiguration.template), type: 'text' },
-          { label: 'Header Logo Placement', value: this.getPlacementName(layout.headerConfiguration.logoPlacement), type: 'text' },
-          { label: 'Header Show Search', value: layout.headerConfiguration.showSearch, type: 'boolean' },
-          { label: 'Header Sticky', value: layout.headerConfiguration.stickyHeader, type: 'boolean' },
-          { label: 'Footer Template', value: this.getFooterTemplateName(layout.footerConfiguration.template), type: 'text' },
-          { label: 'Footer Columns', value: layout.footerConfiguration.columnCount, type: 'number' },
-          { label: 'Footer Show Social Links', value: layout.footerConfiguration.showSocialLinks, type: 'boolean' },
-          { label: 'Footer Show Newsletter', value: layout.footerConfiguration.showNewsletter, type: 'boolean' },
-          { label: 'Container Max Width', value: `${layout.spacing.containerMaxWidth}px`, type: 'text' },
-          { label: 'Section Padding', value: `${layout.spacing.sectionPadding}rem`, type: 'text' },
-          { label: 'Component Gap', value: `${layout.spacing.componentGap}rem`, type: 'text' },
-          { label: 'Last Modified By', value: layout.lastModifiedBy || 'System', type: 'text' }
+          { label: this.translate.instant('customization.systemInfo.labels.headerTemplate'), value: this.getHeaderTemplateName(layout.headerConfiguration.template), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.headerLogoPlacement'), value: this.getPlacementName(layout.headerConfiguration.logoPlacement), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.headerShowSearch'), value: layout.headerConfiguration.showSearch, type: 'boolean' },
+          { label: this.translate.instant('customization.systemInfo.labels.headerSticky'), value: layout.headerConfiguration.stickyHeader, type: 'boolean' },
+          { label: this.translate.instant('customization.systemInfo.labels.footerTemplate'), value: this.getFooterTemplateName(layout.footerConfiguration.template), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.footerColumns'), value: layout.footerConfiguration.columnCount, type: 'number' },
+          { label: this.translate.instant('customization.systemInfo.labels.footerShowSocial'), value: layout.footerConfiguration.showSocialLinks, type: 'boolean' },
+          { label: this.translate.instant('customization.systemInfo.labels.footerShowNewsletter'), value: layout.footerConfiguration.showNewsletter, type: 'boolean' },
+          { label: this.translate.instant('customization.systemInfo.labels.containerMaxWidth'), value: `${layout.spacing.containerMaxWidth}px`, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.sectionPadding'), value: `${layout.spacing.sectionPadding}rem`, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.componentGap'), value: `${layout.spacing.componentGap}rem`, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.lastModBy'), value: layout.lastModifiedBy || this.translate.instant('customization.systemInfo.values.system'), type: 'text' }
         ] : [
-          { label: 'Status', value: 'Not Configured', type: 'text' }
+          { label: this.translate.instant('customization.systemInfo.labels.status'), value: this.translate.instant('customization.systemInfo.values.notConfigured'), type: 'text' }
         ]
       },
       {
-        category: 'Browser Information',
+        category: this.translate.instant('customization.systemInfo.categories.browserInfo'),
         items: [
-          { label: 'User Agent', value: navigator.userAgent, type: 'text' },
-          { label: 'Platform', value: navigator.platform, type: 'text' },
-          { label: 'Language', value: navigator.language, type: 'text' },
-          { label: 'Online', value: navigator.onLine, type: 'boolean' },
-          { label: 'Cookies Enabled', value: navigator.cookieEnabled, type: 'boolean' }
+          { label: this.translate.instant('customization.systemInfo.labels.userAgent'), value: navigator.userAgent, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.platform'), value: navigator.platform, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.language'), value: navigator.language, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.online'), value: navigator.onLine, type: 'boolean' },
+          { label: this.translate.instant('customization.systemInfo.labels.cookiesEnabled'), value: navigator.cookieEnabled, type: 'boolean' }
         ]
       },
       {
-        category: 'Storage Information',
+        category: this.translate.instant('customization.systemInfo.categories.storageInfo'),
         items: [
-          { label: 'localStorage Available', value: this.isLocalStorageAvailable(), type: 'boolean' },
-          { label: 'localStorage Usage', value: this.getLocalStorageUsage(), type: 'text' },
-          { label: 'sessionStorage Available', value: this.isSessionStorageAvailable(), type: 'boolean' }
+          { label: this.translate.instant('customization.systemInfo.labels.localStorageAvail'), value: this.isLocalStorageAvailable(), type: 'boolean' },
+          { label: this.translate.instant('customization.systemInfo.labels.localStorageUsage'), value: this.getLocalStorageUsage(), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.sessionStorageAvail'), value: this.isSessionStorageAvailable(), type: 'boolean' }
         ]
       },
       {
-        category: 'Performance Metrics',
+        category: this.translate.instant('customization.systemInfo.categories.performance'),
         items: [
-          { label: 'Page Load Time', value: this.getPageLoadTime(), type: 'text' },
-          { label: 'DOM Content Loaded', value: this.getDOMContentLoadedTime(), type: 'text' },
-          { label: 'Window Width', value: `${window.innerWidth}px`, type: 'text' },
-          { label: 'Window Height', value: `${window.innerHeight}px`, type: 'text' },
-          { label: 'Device Pixel Ratio', value: window.devicePixelRatio, type: 'number' }
+          { label: this.translate.instant('customization.systemInfo.labels.pageLoadTime'), value: this.getPageLoadTime(), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.domContentLoaded'), value: this.getDOMContentLoadedTime(), type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.windowWidth'), value: `${window.innerWidth}px`, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.windowHeight'), value: `${window.innerHeight}px`, type: 'text' },
+          { label: this.translate.instant('customization.systemInfo.labels.pixelRatio'), value: window.devicePixelRatio, type: 'number' }
         ]
       }
     ];
@@ -145,7 +145,9 @@ export class SystemInfoStepComponent implements OnInit {
    * Get environment (production, development, etc.)
    */
   private getEnvironment(): string {
-    return window.location.hostname === 'localhost' ? 'Development' : 'Production';
+    return window.location.hostname === 'localhost'
+      ? this.translate.instant('customization.systemInfo.values.development')
+      : this.translate.instant('customization.systemInfo.values.production');
   }
 
   /**
@@ -189,7 +191,7 @@ export class SystemInfoStepComponent implements OnInit {
       }
       return `${(totalSize / 1024).toFixed(2)} KB`;
     } catch {
-      return 'N/A';
+      return this.translate.instant('customization.systemInfo.values.na');
     }
   }
 
@@ -197,24 +199,36 @@ export class SystemInfoStepComponent implements OnInit {
    * Get header template name
    */
   private getHeaderTemplateName(template: number): string {
-    const names = ['Minimal', 'Standard', 'Full'];
-    return names[template] || 'Unknown';
+    const names = [
+      this.translate.instant('customization.layout.headerMinimal'),
+      this.translate.instant('customization.layout.headerStandard'),
+      this.translate.instant('customization.layout.headerFull')
+    ];
+    return names[template] || this.translate.instant('customization.systemInfo.values.unknown');
   }
 
   /**
    * Get footer template name
    */
   private getFooterTemplateName(template: number): string {
-    const names = ['Minimal', 'Standard', 'Full'];
-    return names[template] || 'Unknown';
+    const names = [
+      this.translate.instant('customization.layout.footerMinimal'),
+      this.translate.instant('customization.layout.footerStandard'),
+      this.translate.instant('customization.layout.footerFull')
+    ];
+    return names[template] || this.translate.instant('customization.systemInfo.values.unknown');
   }
 
   /**
    * Get placement name
    */
   private getPlacementName(placement: number): string {
-    const names = ['Left', 'Center', 'Right'];
-    return names[placement] || 'Unknown';
+    const names = [
+      this.translate.instant('customization.layout.left'),
+      this.translate.instant('customization.layout.center'),
+      this.translate.instant('customization.layout.right')
+    ];
+    return names[placement] || this.translate.instant('customization.systemInfo.values.unknown');
   }
 
   /**
@@ -225,9 +239,9 @@ export class SystemInfoStepComponent implements OnInit {
     if (navigationEntries.length > 0) {
       const timing = navigationEntries[0] as PerformanceNavigationTiming;
       const loadTime = timing.loadEventEnd - timing.startTime;
-      return loadTime > 0 ? `${Math.round(loadTime)} ms` : 'Calculating...';
+      return loadTime > 0 ? `${Math.round(loadTime)} ms` : this.translate.instant('customization.systemInfo.values.calculating');
     }
-    return 'N/A';
+    return this.translate.instant('customization.systemInfo.values.na');
   }
 
   /**
@@ -238,9 +252,9 @@ export class SystemInfoStepComponent implements OnInit {
     if (navigationEntries.length > 0) {
       const timing = navigationEntries[0] as PerformanceNavigationTiming;
       const domTime = timing.domContentLoadedEventEnd - timing.startTime;
-      return domTime > 0 ? `${Math.round(domTime)} ms` : 'Calculating...';
+      return domTime > 0 ? `${Math.round(domTime)} ms` : this.translate.instant('customization.systemInfo.values.calculating');
     }
-    return 'N/A';
+    return this.translate.instant('customization.systemInfo.values.na');
   }
 
   /**
@@ -248,7 +262,9 @@ export class SystemInfoStepComponent implements OnInit {
    */
   protected formatValue(value: string | number | boolean, type?: string): string {
     if (type === 'boolean') {
-      return value ? 'Yes' : 'No';
+      return value
+        ? this.translate.instant('customization.systemInfo.values.yes')
+        : this.translate.instant('customization.systemInfo.values.no');
     }
     if (type === 'date' && typeof value === 'string') {
       try {
@@ -290,10 +306,10 @@ export class SystemInfoStepComponent implements OnInit {
       }).join('\n');
 
       await navigator.clipboard.writeText(text);
-      alert('System information copied to clipboard!');
+      alert(this.translate.instant('customization.systemInfo.messages.copied'));
     } catch (error) {
       console.error('Failed to copy to clipboard:', error);
-      alert('Failed to copy to clipboard');
+      alert(this.translate.instant('customization.systemInfo.messages.copyFailed'));
     }
   }
 }

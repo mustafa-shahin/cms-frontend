@@ -49,46 +49,46 @@ export class TypographyStepComponent {
 
   readonly textStyleGroups = [
     {
-      title: 'Headings',
-      description: 'Page titles and section headers',
+      title: 'customization.typography.headings',
+      description: 'customization.typography.headingsDescription',
       icon: 'heading',
       styles: [
-        { key: TextStyleType.Heading1, label: 'Heading 1', description: 'Main page title' },
-        { key: TextStyleType.Heading2, label: 'Heading 2', description: 'Section titles' },
-        { key: TextStyleType.Heading3, label: 'Heading 3', description: 'Subsections' },
-        { key: TextStyleType.Heading4, label: 'Heading 4', description: 'Card headers' },
-        { key: TextStyleType.Heading5, label: 'Heading 5', description: 'Small headers' },
-        { key: TextStyleType.Heading6, label: 'Heading 6', description: 'Smallest headers' }
+        { key: TextStyleType.Heading1, label: 'customization.typography.heading1', description: 'customization.typography.heading1Description' },
+        { key: TextStyleType.Heading2, label: 'customization.typography.heading2', description: 'customization.typography.heading2Description' },
+        { key: TextStyleType.Heading3, label: 'customization.typography.heading3', description: 'customization.typography.heading3Description' },
+        { key: TextStyleType.Heading4, label: 'customization.typography.heading4', description: 'customization.typography.heading4Description' },
+        { key: TextStyleType.Heading5, label: 'customization.typography.heading5', description: 'customization.typography.heading5Description' },
+        { key: TextStyleType.Heading6, label: 'customization.typography.heading6', description: 'customization.typography.heading6Description' }
       ]
     },
     {
-      title: 'Body Text',
-      description: 'Content and paragraphs',
+      title: 'customization.typography.bodyText',
+      description: 'customization.typography.bodyTextDescription',
       icon: 'align-left',
       styles: [
-        { key: TextStyleType.BodyLarge, label: 'Body Large', description: 'Intro paragraphs' },
-        { key: TextStyleType.BodyMedium, label: 'Body Medium', description: 'Standard text' },
-        { key: TextStyleType.BodySmall, label: 'Body Small', description: 'Compact text' }
+        { key: TextStyleType.BodyLarge, label: 'customization.typography.bodyLarge', description: 'customization.typography.bodyLargeDescription' },
+        { key: TextStyleType.BodyMedium, label: 'customization.typography.bodyMedium', description: 'customization.typography.bodyMediumDescription' },
+        { key: TextStyleType.BodySmall, label: 'customization.typography.bodySmall', description: 'customization.typography.bodySmallDescription' }
       ]
     },
     {
-      title: 'Special Styles',
-      description: 'UI elements and labels',
+      title: 'customization.typography.specialStyles',
+      description: 'customization.typography.specialStylesDescription',
       icon: 'star',
       styles: [
-        { key: TextStyleType.Caption, label: 'Caption', description: 'Image captions' },
-        { key: TextStyleType.Overline, label: 'Overline', description: 'Category labels' },
-        { key: TextStyleType.ButtonText, label: 'Button Text', description: 'Button text' },
-        { key: TextStyleType.LinkText, label: 'Link Text', description: 'Hyperlink text' }
+        { key: TextStyleType.Caption, label: 'customization.typography.caption', description: 'customization.typography.captionDescription' },
+        { key: TextStyleType.Overline, label: 'customization.typography.overline', description: 'customization.typography.overlineDescription' },
+        { key: TextStyleType.ButtonText, label: 'customization.typography.button', description: 'customization.typography.buttonDescription' },
+        { key: TextStyleType.LinkText, label: 'customization.typography.linkText', description: 'customization.typography.linkTextDescription' }
       ]
     }
   ];
 
   readonly textTransformOptions: Array<{ value: TextTransformType; label: string }> = [
-    { value: TextTransformType.None, label: 'None' },
-    { value: TextTransformType.Uppercase, label: 'UPPERCASE' },
-    { value: TextTransformType.Lowercase, label: 'lowercase' },
-    { value: TextTransformType.Capitalize, label: 'Capitalize' }
+    { value: TextTransformType.None, label: 'customization.typography.transforms.none' },
+    { value: TextTransformType.Uppercase, label: 'customization.typography.transforms.uppercase' },
+    { value: TextTransformType.Lowercase, label: 'customization.typography.transforms.lowercase' },
+    { value: TextTransformType.Capitalize, label: 'customization.typography.transforms.capitalize' }
   ];
 
   readonly fontWeightOptions = [
@@ -169,8 +169,6 @@ export class TypographyStepComponent {
   get monoFontOptions() {
     return this.getFontsForCategory('monospace').map((f) => ({ label: f.name, value: f.name }));
   }
-
-  /* ... */
 
   // Tailwind Font Weights
   readonly fontWeights = [
@@ -269,7 +267,6 @@ export class TypographyStepComponent {
     return item ? `${item.label} (${item.value})` : `${value}`;
   }
 
-
   // --- Line Height Helpers ---
   getLineHeightIndex(value: number): number {
     return this.findClosestIndex(this.lineHeights, value);
@@ -289,7 +286,6 @@ export class TypographyStepComponent {
     const item = this.lineHeights[this.getLineHeightIndex(value)];
     return item ? `${item.label} (${item.value})` : `${value}`;
   }
-
 
   // --- Letter Spacing Helpers ---
   getLetterSpacingIndex(value: number | null | undefined): number {
@@ -311,7 +307,7 @@ export class TypographyStepComponent {
   }
 
   // --- Utility ---
-  private findClosestIndex(collection: any[], targetValue: number): number {
+  private findClosestIndex(collection: { value: number }[], targetValue: number): number {
     const index = collection.findIndex(item => Math.abs(item.value - targetValue) < 0.01);
     if (index !== -1) return index;
 
@@ -341,23 +337,24 @@ export class TypographyStepComponent {
   }
 
   getPreviewText(styleType: TextStyleType): string {
-    const previews: Record<TextStyleType, string> = {
-      [TextStyleType.Heading1]: 'The quick brown fox jumps',
-      [TextStyleType.Heading2]: 'The quick brown fox',
-      [TextStyleType.Heading3]: 'Quick brown fox',
-      [TextStyleType.Heading4]: 'Brown fox jumps',
-      [TextStyleType.Heading5]: 'Fox jumps over',
-      [TextStyleType.Heading6]: 'Jumps over lazy',
-      [TextStyleType.BodyLarge]: 'The quick brown fox jumps over the lazy dog. This is a sample of body text.',
-      [TextStyleType.BodyMedium]: 'The quick brown fox jumps over the lazy dog.',
-      [TextStyleType.BodySmall]: 'The quick brown fox jumps.',
-      [TextStyleType.Caption]: 'Photo by John Doe',
-      [TextStyleType.Overline]: 'CATEGORY LABEL',
-      [TextStyleType.ButtonText]: 'Click Me',
-      [TextStyleType.LinkText]: 'This is a hyperlink'
+    const keyMap: Record<TextStyleType, string> = {
+      [TextStyleType.Heading1]: 'heading1',
+      [TextStyleType.Heading2]: 'heading2',
+      [TextStyleType.Heading3]: 'heading3',
+      [TextStyleType.Heading4]: 'heading4',
+      [TextStyleType.Heading5]: 'heading5',
+      [TextStyleType.Heading6]: 'heading6',
+      [TextStyleType.BodyLarge]: 'bodyLarge',
+      [TextStyleType.BodyMedium]: 'bodyMedium',
+      [TextStyleType.BodySmall]: 'bodySmall',
+      [TextStyleType.Caption]: 'caption',
+      [TextStyleType.Overline]: 'overline',
+      [TextStyleType.ButtonText]: 'buttonText',
+      [TextStyleType.LinkText]: 'linkText'
     };
 
-    return previews[styleType];
+    const key = keyMap[styleType];
+    return key ? this.translate.instant(`customization.typography.preview.${key}`) : 'Preview Text';
   }
 
   loadGoogleFont(fontFamily: string) {

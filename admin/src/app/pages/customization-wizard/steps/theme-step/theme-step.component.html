@@ -107,7 +107,7 @@
     <div class="mt-12 rounded-2xl bg-white/60 dark:bg-gray-800/60 p-6 md:p-8 shadow-xl shadow-gray-200/50 dark:shadow-black/20 backdrop-blur-md border border-white/20 dark:border-gray-700/50">
       <div class="mb-6">
         <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.theme.livePreview") }}</h3>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Preview how your colors will look in the application interface.</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">{{ translate.instant("customization.theme.previewDescription") }}</p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -116,14 +116,14 @@
           <p class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ translate.instant("customization.theme.brandColors") }}</p>
           <div class="rounded-xl overflow-hidden shadow-lg ring-1 ring-black/5 dark:ring-white/10">
             <div class="h-20 flex items-center justify-center" [style.background-color]="currentTheme.brandPalette.primary.base">
-              <span class="text-white font-medium drop-shadow-md">Primary Button</span>
+              <span class="text-white font-medium drop-shadow-md">{{ translate.instant("customization.theme.preview.primaryButton") }}</span>
             </div>
             <div class="grid grid-cols-2 h-16">
                <div class="flex items-center justify-center" [style.background-color]="currentTheme.brandPalette.secondary.base">
-                  <span class="text-xs text-white/90 font-medium">Secondary</span>
+                  <span class="text-xs text-white/90 font-medium">{{ translate.instant("customization.theme.preview.secondary") }}</span>
                </div>
                <div class="flex items-center justify-center" [style.background-color]="currentTheme.brandPalette.accent.base">
-                  <span class="text-xs text-white/90 font-medium">Accent</span>
+                  <span class="text-xs text-white/90 font-medium">{{ translate.instant("customization.theme.preview.accent") }}</span>
                </div>
             </div>
           </div>
@@ -134,14 +134,14 @@
            <p class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ translate.instant("customization.theme.neutralColors") }}</p>
            <div class="rounded-xl overflow-hidden shadow-lg ring-1 ring-black/5 dark:ring-white/10">
             <div class="h-20 flex items-center justify-center" [style.background-color]="currentTheme.neutralPalette.primary.base">
-              <span class="text-xs font-medium px-3 py-1 rounded bg-white/20 backdrop-blur-md">Background</span>
+              <span class="text-xs font-medium px-3 py-1 rounded bg-white/20 backdrop-blur-md">{{ translate.instant("customization.theme.preview.background") }}</span>
             </div>
             <div class="grid grid-cols-2 h-16">
                <div class="flex items-center justify-center" [style.background-color]="currentTheme.neutralPalette.secondary.base">
-                  <span class="text-xs opacity-70">Surface</span>
+                  <span class="text-xs opacity-70">{{ translate.instant("customization.theme.preview.surface") }}</span>
                </div>
                <div class="flex items-center justify-center" [style.background-color]="currentTheme.neutralPalette.accent.base">
-                  <span class="text-xs text-white opacity-70">Dark</span>
+                  <span class="text-xs text-white opacity-70">{{ translate.instant("customization.theme.preview.dark") }}</span>
                </div>
             </div>
           </div>
@@ -152,13 +152,13 @@
            <p class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">{{ translate.instant("customization.theme.semanticColors") }}</p>
            <div class="flex flex-col gap-2">
              <div class="h-10 rounded-lg flex items-center px-4 text-sm font-medium text-white shadow-sm" [style.background-color]="currentTheme.semanticPalette.primary.base">
-                <cms-icon name="check-circle" class="mr-2 h-4 w-4"></cms-icon> Success Message
+                <cms-icon name="check-circle" class="mr-2 h-4 w-4"></cms-icon> {{ translate.instant("customization.theme.preview.successMessage") }}
              </div>
              <div class="h-10 rounded-lg flex items-center px-4 text-sm font-medium text-white shadow-sm" [style.background-color]="currentTheme.semanticPalette.secondary.base">
-                <cms-icon name="exclamation-triangle" class="mr-2 h-4 w-4"></cms-icon> Warning Alert
+                <cms-icon name="exclamation-triangle" class="mr-2 h-4 w-4"></cms-icon> {{ translate.instant("customization.theme.preview.warningAlert") }}
              </div>
              <div class="h-10 rounded-lg flex items-center px-4 text-sm font-medium text-white shadow-sm" [style.background-color]="currentTheme.semanticPalette.accent.base">
-                <cms-icon name="times-circle" class="mr-2 h-4 w-4"></cms-icon> Error Toast
+                <cms-icon name="times-circle" class="mr-2 h-4 w-4"></cms-icon> {{ translate.instant("customization.theme.preview.errorToast") }}
              </div>
            </div>
         </div>
