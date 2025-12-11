@@ -341,7 +341,7 @@
                     [class.justify-end]="currentLayout.headerConfiguration.logoPlacement === 2">
                      <div class="flex items-center gap-2">
                          <div class="h-8 w-8 rounded-lg bg-blue-600"></div>
-                         <span class="text-lg font-bold text-gray-900 dark:text-white">Brand</span>
+                         <span class="text-lg font-bold text-gray-900 dark:text-white">{{ t("customization.layout.preview.brand") }}</span>
                      </div>
                   </div>
                 </header>
@@ -356,20 +356,20 @@
                   <!-- Logo -->
                   <div class="flex items-center gap-2">
                     <div class="h-8 w-8 rounded-lg bg-blue-600"></div>
-                    <span class="font-bold text-gray-900 dark:text-white">Brand</span>
+                    <span class="font-bold text-gray-900 dark:text-white">{{ t("customization.layout.preview.brand") }}</span>
                   </div>
                   <!-- Nav -->
                   <div class="hidden md:flex gap-4 text-sm font-medium text-gray-600 dark:text-gray-300">
-                    <span>Home</span>
-                    <span>Products</span>
-                    <span>About</span>
+                    <span>{{ t("customization.layout.preview.home") }}</span>
+                    <span>{{ t("customization.layout.preview.products") }}</span>
+                    <span>{{ t("customization.layout.preview.about") }}</span>
                   </div>
                   <!-- Actions (Search Input) -->
                   <div class="flex items-center gap-2">
                     @if (currentLayout.headerConfiguration.showSearch) {
                       <!-- Matches w-48 input style -->
                       <div class="hidden sm:block relative">
-                         <div class="h-8 w-32 lg:w-48 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 py-1.5 text-xs text-gray-400">Search...</div>
+                         <div class="h-8 w-32 lg:w-48 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 py-1.5 text-xs text-gray-400">{{ t("customization.layout.preview.searchPlaceholder") }}</div>
                       </div>
                       <!-- Mobile fallback icon -->
                       <div class="sm:hidden h-8 w-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
@@ -388,8 +388,8 @@
                 <div class="flex flex-col">
                   <!-- Top Bar -->
                   <div class="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 py-1 px-4 flex justify-between text-[10px] text-gray-500">
-                    <span>Welcome to our site!</span>
-                    <div class="flex gap-2"><span>Contact</span><span>Help</span></div>
+                    <span>{{ t("customization.layout.preview.welcome") }}</span>
+                    <div class="flex gap-2"><span>{{ t("customization.layout.preview.contact") }}</span><span>{{ t("customization.layout.preview.help") }}</span></div>
                   </div>
                   <!-- Main Header -->
                   <header class="h-20 border-b border-gray-100 bg-white px-4 flex items-center justify-between dark:border-gray-700 dark:bg-gray-800"
@@ -400,28 +400,28 @@
                      <div class="flex items-center gap-3">
                         <div class="h-10 w-10 rounded-lg bg-blue-600"></div>
                         <div>
-                           <div class="font-bold text-gray-900 dark:text-white leading-tight">Brand</div>
-                           <div class="text-[10px] text-gray-500 leading-tight">Best in class</div>
+                           <div class="font-bold text-gray-900 dark:text-white leading-tight">{{ t("customization.layout.preview.brand") }}</div>
+                           <div class="text-[10px] text-gray-500 leading-tight">{{ t("customization.layout.preview.tagline") }}</div>
                         </div>
                      </div>
                      <!-- Mega Menu Nav -->
                      <div class="hidden lg:flex gap-6 text-sm font-medium text-gray-700 dark:text-gray-200">
-                        <div class="flex items-center gap-1">Products <cms-icon name="chevron-down" size="xs"></cms-icon></div>
-                        <div class="flex items-center gap-1">Solutions <cms-icon name="chevron-down" size="xs"></cms-icon></div>
-                        <div>Pricing</div>
+                        <div class="flex items-center gap-1">{{ t("customization.layout.preview.products") }} <cms-icon name="chevron-down" size="xs"></cms-icon></div>
+                        <div class="flex items-center gap-1">{{ t("customization.layout.preview.solutions") }} <cms-icon name="chevron-down" size="xs"></cms-icon></div>
+                        <div>{{ t("customization.layout.preview.pricing") }}</div>
                      </div>
                      <!-- Actions -->
                      <div class="flex items-center gap-3">
                         @if (currentLayout.headerConfiguration.showSearch) {
                            <div class="hidden md:flex items-center border rounded px-3 py-1.5 bg-white border-gray-300 dark:bg-gray-900 dark:border-gray-600 w-40">
-                              <span class="text-xs text-gray-400 mr-2 flex-1">Search...</span>
+                              <span class="text-xs text-gray-400 mr-2 flex-1">{{ t("customization.layout.preview.searchPlaceholder") }}</span>
                               <cms-icon name="search" size="xs" class="text-gray-400"></cms-icon>
                            </div>
                         }
                         <!-- Auth Buttons (Sign In + Sign Up) -->
                         <div class="hidden md:flex items-center gap-2">
-                           <button class="text-xs font-semibold px-2 text-gray-600 dark:text-gray-300">Sign In</button>
-                           <button class="text-xs font-semibold px-3 py-1.5 rounded bg-blue-600 text-white">Sign Up</button>
+                           <button class="text-xs font-semibold px-2 text-gray-600 dark:text-gray-300">{{ t("customization.layout.preview.signIn") }}</button>
+                           <button class="text-xs font-semibold px-3 py-1.5 rounded bg-blue-600 text-white">{{ t("customization.layout.preview.signUp") }}</button>
                         </div>
                      </div>
                   </header>
@@ -436,8 +436,8 @@
               >
                 <!-- Hero Section -->
                  <div class="mb-8 rounded-2xl bg-gray-50 dark:bg-gray-800 p-8 text-center" [style.margin-bottom]="currentLayout.spacing.componentGap">
-                    <h1 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Hero Section</h1>
-                    <p class="mx-auto max-w-lg text-sm text-gray-500 dark:text-gray-400">This padding and spacing is controlled by your settings.</p>
+                    <h1 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{{ t("customization.layout.preview.heroTitle") }}</h1>
+                    <p class="mx-auto max-w-lg text-sm text-gray-500 dark:text-gray-400">{{ t("customization.layout.preview.heroText") }}</p>
                  </div>
 
                  <!-- Grid Section -->
@@ -452,10 +452,10 @@
               @if (currentLayout.footerConfiguration.template === 0) {
                 <footer class="bg-gray-50 border-t py-6 dark:bg-gray-900 dark:border-gray-800">
                   <div class="mx-auto px-4 flex flex-col items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                    <div>© 2024 Brand. All rights reserved.</div>
+                    <div>{{ t("customization.layout.preview.copyright") }}</div>
                     <div class="flex gap-4">
-                       <span class="hover:text-gray-900 dark:hover:text-white">Privacy</span>
-                       <span class="hover:text-gray-900 dark:hover:text-white">Terms</span>
+                       <span class="hover:text-gray-900 dark:hover:text-white">{{ t("customization.layout.preview.privacy") }}</span>
+                       <span class="hover:text-gray-900 dark:hover:text-white">{{ t("customization.layout.preview.terms") }}</span>
                     </div>
                   </div>
                 </footer>
@@ -467,8 +467,8 @@
                     <div class="mx-auto px-4" [style.max-width]="currentLayout.spacing.containerMaxWidth">
                        <div class="grid gap-8" [style.grid-template-columns]="'repeat(' + currentLayout.footerConfiguration.columnCount + ', minmax(0, 1fr))'">
                           <div class="space-y-3">
-                             <div class="font-bold text-lg">Brand</div>
-                             <p class="text-xs text-gray-400">Standard footer content area.</p>
+                             <div class="font-bold text-lg">{{ t("customization.layout.preview.brand") }}</div>
+                             <p class="text-xs text-gray-400">{{ t("customization.layout.preview.footerText") }}</p>
                              @if(currentLayout.footerConfiguration.showSocialLinks) {
                                 <div class="flex gap-2">
                                    <!-- Icons -->
@@ -482,32 +482,32 @@
                           @if (currentLayout.footerConfiguration.columnCount >= 2) {
                              <div class="space-y-2 text-xs text-gray-400">
                                 <div class="font-bold text-white mb-2">Links</div>
-                                <div>Overview</div>
-                                <div>Pricing</div>
-                                <div>Services</div>
+                                <div>{{ t("customization.layout.preview.overview") }}</div>
+                                <div>{{ t("customization.layout.preview.pricing") }}</div>
+                                <div>{{ t("customization.layout.preview.services") }}</div>
                              </div>
                           }
                           @if (currentLayout.footerConfiguration.columnCount >= 3) {
                              <div class="space-y-2 text-xs text-gray-400">
-                                <div class="font-bold text-white mb-2">Company</div>
-                                <div>About</div>
-                                <div>Careers</div>
-                                <div>Blog</div>
+                                <div class="font-bold text-white mb-2">{{ t("customization.layout.preview.company") }}</div>
+                                <div>{{ t("customization.layout.preview.about") }}</div>
+                                <div>{{ t("customization.layout.preview.careers") }}</div>
+                                <div>{{ t("customization.layout.preview.blog") }}</div>
                              </div>
                           }
                           @if (currentLayout.footerConfiguration.columnCount >= 4) {
                              <div class="space-y-2 text-xs text-gray-400">
-                                <div class="font-bold text-white mb-2">Support</div>
-                                <div>Help Center</div>
-                                <div>Contact</div>
-                                <div>Status</div>
+                                <div class="font-bold text-white mb-2">{{ t("customization.layout.preview.support") }}</div>
+                                <div>{{ t("customization.layout.preview.helpCenter") }}</div>
+                                <div>{{ t("customization.layout.preview.contact") }}</div>
+                                <div>{{ t("customization.layout.preview.status") }}</div>
                              </div>
                           }
                        </div>
                        <!-- Bottom Bar -->
                        <div class="border-t border-gray-800 mt-8 pt-6 flex flex-col sm:flex-row justify-between text-xs text-gray-500">
-                          <span>© 2024 Brand.</span>
-                          <span class="flex gap-3"><span>Privacy</span><span>Terms</span></span>
+                          <span>{{ t("customization.layout.preview.copyright") }}</span>
+                          <span class="flex gap-3"><span>{{ t("customization.layout.preview.privacy") }}</span><span>{{ t("customization.layout.preview.terms") }}</span></span>
                        </div>
                     </div>
                  </footer>
@@ -519,10 +519,10 @@
                     <!-- Newsletter Section -->
                     @if (currentLayout.footerConfiguration.showNewsletter) {
                        <div class="bg-gray-800 py-8 px-4 text-center">
-                          <h4 class="font-bold mb-2">Subscribe to our newsletter</h4>
+                          <h4 class="font-bold mb-2">{{ t("customization.layout.preview.newsletterTitle") }}</h4>
                           <div class="flex max-w-xs mx-auto gap-2">
-                             <input type="text" disabled placeholder="Enter email" class="w-full rounded bg-gray-700 border-none px-3 py-1.5 text-xs text-white">
-                             <button class="bg-blue-600 rounded px-4 py-1.5 text-xs font-bold">Subscribe</button>
+                             <input type="text" disabled [placeholder]="t('customization.layout.preview.emailPlaceholder')" class="w-full rounded bg-gray-700 border-none px-3 py-1.5 text-xs text-white">
+                             <button class="bg-blue-600 rounded px-4 py-1.5 text-xs font-bold">{{ t("customization.layout.preview.subscribe") }}</button>
                           </div>
                        </div>
                     }
@@ -532,12 +532,12 @@
                           <div class="lg:col-span-1 space-y-4">
                              <div class="flex items-center gap-2">
                                 <div class="h-6 w-6 bg-blue-500 rounded"></div>
-                                <span class="text-xl font-bold">Brand</span>
+                                <span class="text-xl font-bold">{{ t("customization.layout.preview.brand") }}</span>
                              </div>
-                             <p class="text-xs text-gray-400 leading-relaxed">The best solution for your business needs. We provide quality services and support.</p>
+                             <p class="text-xs text-gray-400 leading-relaxed">{{ t("customization.layout.preview.footerText") }}</p>
                              @if(currentLayout.footerConfiguration.showSocialLinks) {
                                 <div>
-                                   <div class="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-2">Follow Us</div>
+                                   <div class="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-2">{{ t("customization.layout.preview.followUs") }}</div>
                                    <div class="flex gap-3">
                                       <div class="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700">f</div>
                                       <div class="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700">t</div>
@@ -549,38 +549,38 @@
                            <!-- Dynamic Columns -->
                           @if (currentLayout.footerConfiguration.columnCount >= 2) {
                              <div class="space-y-3 text-xs text-gray-400">
-                                <div class="font-bold text-white text-sm mb-1">Product</div>
-                                <div>Features</div>
-                                <div>Integrations</div>
-                                <div>Pricing</div>
-                                <div>Changelog</div>
+                                <div class="font-bold text-white text-sm mb-1">{{ t("customization.layout.preview.product") }}</div>
+                                <div>{{ t("customization.layout.preview.features") }}</div>
+                                <div>{{ t("customization.layout.preview.integrations") }}</div>
+                                <div>{{ t("customization.layout.preview.pricing") }}</div>
+                                <div>{{ t("customization.layout.preview.changelog") }}</div>
                              </div>
                           }
                           @if (currentLayout.footerConfiguration.columnCount >= 3) {
                              <div class="space-y-3 text-xs text-gray-400">
-                                <div class="font-bold text-white text-sm mb-1">Resources</div>
-                                <div>Documentation</div>
-                                <div>API Reference</div>
-                                <div>Community</div>
-                                <div>Blog</div>
+                                <div class="font-bold text-white text-sm mb-1">{{ t("customization.layout.preview.resources") }}</div>
+                                <div>{{ t("customization.layout.preview.documentation") }}</div>
+                                <div>{{ t("customization.layout.preview.apiReference") }}</div>
+                                <div>{{ t("customization.layout.preview.community") }}</div>
+                                <div>{{ t("customization.layout.preview.blog") }}</div>
                              </div>
                           }
                           @if (currentLayout.footerConfiguration.columnCount >= 4) {
                              <div class="space-y-3 text-xs text-gray-400">
-                                <div class="font-bold text-white text-sm mb-1">Company</div>
-                                <div>About Us</div>
-                                <div>Careers</div>
-                                <div>Legal</div>
-                                <div>Contact</div>
+                                <div class="font-bold text-white text-sm mb-1">{{ t("customization.layout.preview.company") }}</div>
+                                <div>{{ t("customization.layout.preview.aboutUs") }}</div>
+                                <div>{{ t("customization.layout.preview.careers") }}</div>
+                                <div>{{ t("customization.layout.preview.legal") }}</div>
+                                <div>{{ t("customization.layout.preview.contact") }}</div>
                              </div>
                           }
                        </div>
 
                        <!-- Bottom Bar with Payment Icons -->
                        <div class="border-t border-gray-800 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-                          <div>© 2024 Brand Inc. All rights reserved.</div>
+                          <div>{{ t("customization.layout.preview.copyright") }}</div>
                           <div class="flex items-center gap-2">
-                             <span class="text-[10px]">We accept:</span>
+                             <span class="text-[10px]">{{ t("customization.layout.preview.weAccept") }}</span>
                              <div class="flex gap-1">
                                 <div class="w-8 h-5 bg-white rounded flex items-center justify-center text-[8px] font-bold text-gray-900">VISA</div>
                                 <div class="w-8 h-5 bg-white rounded flex items-center justify-center text-[8px] font-bold text-gray-900">MC</div>
