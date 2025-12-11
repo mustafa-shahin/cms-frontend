@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core';
 
+// Type-safe interface for environment configuration
+interface EnvironmentConfig {
+  apiUrl?: string;
+  apiVersion?: string;
+  production?: boolean;
+  [key: string]: unknown;
+}
+
+interface WindowWithEnv extends Window {
+  __env?: EnvironmentConfig;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class EnvironmentService {
-  private env: any;
+  private env: EnvironmentConfig;
 
   constructor() {
     // Environment will be injected at runtime
-    this.env = (window as any).__env || {};
+    this.env = (window as WindowWithEnv).__env || {};
   }
 
   get apiUrl(): string {
@@ -23,11 +35,11 @@ export class EnvironmentService {
     return this.env.production || false;
   }
 
-  get<T = any>(key: string, defaultValue?: T): T {
-    return this.env[key] ?? defaultValue;
+  get<T = unknown>(key: string, defaultValue?: T): T {
+    return (this.env[key] as T) ?? (defaultValue as T);
   }
 
-  set(key: string, value: any): void {
+  set(key: string, value: unknown): void {
     this.env[key] = value;
   }
 

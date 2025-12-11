@@ -118,9 +118,9 @@ describe('CustomizationStateService', () => {
     });
 
     it('should use defaults when API returns null', async () => {
-      apiServiceSpy.getThemeSettings.mockReturnValue(of(null as any));
-      apiServiceSpy.getTypographySettings.mockReturnValue(of(null as any));
-      apiServiceSpy.getLayoutSettings.mockReturnValue(of(null as any));
+      apiServiceSpy.getThemeSettings.mockReturnValue(of(null as unknown as ThemeSettings));
+      apiServiceSpy.getTypographySettings.mockReturnValue(of(null as unknown as TypographySettings));
+      apiServiceSpy.getLayoutSettings.mockReturnValue(of(null as unknown as LayoutSettings));
 
       await service.loadAllSettings();
 
@@ -246,13 +246,12 @@ describe('CustomizationStateService', () => {
   describe('resetToSaved', () => {
     it('should revert to original values after local changes', async () => {
       await service.loadAllSettings();
-      const originalTheme = service.theme();
 
       // Make local change
       const modifiedTheme = {
-        ...originalTheme!,
+        ...mockThemeSettings,
         brandPalette: {
-          ...originalTheme!.brandPalette,
+          ...mockThemeSettings.brandPalette,
           primary: { base: '#ff0000', light: '#ff3333', dark: '#cc0000', contrast: '#FFFFFF' }
         }
       };
@@ -279,9 +278,9 @@ describe('CustomizationStateService', () => {
       await service.loadAllSettings();
       
       const modified = {
-        ...service.theme()!,
+        ...mockThemeSettings,
         brandPalette: {
-          ...service.theme()!.brandPalette,
+          ...mockThemeSettings.brandPalette,
           primary: { base: '#ff0000', light: '#ff3333', dark: '#cc0000', contrast: '#FFFFFF' }
         }
       };
@@ -294,7 +293,7 @@ describe('CustomizationStateService', () => {
       await service.loadAllSettings();
       
       const modified = {
-        ...service.typography()!,
+        ...mockTypographySettings,
         primaryFontFamily: 'Roboto'
       };
       service.setTypographyLocal(modified);
@@ -306,9 +305,9 @@ describe('CustomizationStateService', () => {
       await service.loadAllSettings();
       
       const modified = {
-        ...service.layout()!,
+        ...mockLayoutSettings,
         spacing: {
-          ...service.layout()!.spacing,
+          ...mockLayoutSettings.spacing,
           containerMaxWidth: 1600
         }
       };
@@ -321,9 +320,9 @@ describe('CustomizationStateService', () => {
       await service.loadAllSettings();
       
       service.setThemeLocal({
-        ...service.theme()!,
+        ...mockThemeSettings,
         brandPalette: {
-          ...service.theme()!.brandPalette,
+          ...mockThemeSettings.brandPalette,
           primary: { base: '#ff0000', light: '#ff3333', dark: '#cc0000', contrast: '#FFFFFF' }
         }
       });

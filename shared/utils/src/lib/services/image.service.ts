@@ -24,6 +24,28 @@ export interface SearchImagesRequest {
 }
 
 /**
+ * Search result item wrapper from the backend.
+ * The actual data can be wrapped in a 'data' property or be the item itself.
+ */
+interface SearchResultItem {
+  data?: ImageListDto;
+  [key: string]: unknown;
+}
+
+/**
+ * Search response from the backend.
+ */
+interface SearchResultResponse {
+  items?: (SearchResultItem | ImageListDto)[];
+  pageNumber: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages?: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+}
+
+/**
  * Service for managing images in the CMS.
  * Handles CRUD operations for image files and metadata.
  */
@@ -55,12 +77,18 @@ export class ImageService {
     if (searchTerm) request.searchTerm = searchTerm;
     if (sortBy) request.sortBy = sortBy;
 
-    return this.apiService.post<any>(
+    return this.apiService.post<SearchResultResponse>(
       `${this.endpoint}/search`,
       request
     ).pipe(
       map((searchResult) => {
-        const items = searchResult.items?.map((item: any) => item.data || item) || [];
+        const items = searchResult.items?.map((item) => {
+          // Handle both wrapped and unwrapped response formats
+          if ('data' in item && item.data) {
+            return item.data;
+          }
+          return item as ImageListDto;
+        }) || [];
 
         return {
           success: true,

@@ -95,10 +95,11 @@ export class CustomizationStateService {
       this.errorSignal.set(null);
 
       const updated = await firstValueFrom(this.api.updateThemeSettings(settings));
-      this.themeSignal.set(updated!);
-      this.originalTheme = JSON.parse(JSON.stringify(updated));
+      const themeResult = updated ?? settings;
+      this.themeSignal.set(themeResult);
+      this.originalTheme = JSON.parse(JSON.stringify(themeResult));
 
-      this.applyThemeToDom(updated!);
+      this.applyThemeToDom(themeResult);
     } catch (error) {
       this.errorSignal.set('Failed to update theme settings');
       console.error('Error updating theme:', error);
@@ -117,10 +118,11 @@ export class CustomizationStateService {
       this.errorSignal.set(null);
 
       const updated = await firstValueFrom(this.api.updateTypographySettings(settings));
-      this.typographySignal.set(updated!);
-      this.originalTypography = JSON.parse(JSON.stringify(updated));
+      const typographyResult = updated ?? settings;
+      this.typographySignal.set(typographyResult);
+      this.originalTypography = JSON.parse(JSON.stringify(typographyResult));
 
-      this.applyTypographyToDom(updated!);
+      this.applyTypographyToDom(typographyResult);
     } catch (error) {
       this.errorSignal.set('Failed to update typography settings');
       console.error('Error updating typography:', error);
@@ -139,10 +141,11 @@ export class CustomizationStateService {
       this.errorSignal.set(null);
 
       const updated = await firstValueFrom(this.api.updateLayoutSettings(settings));
-      this.layoutSignal.set(updated!);
-      this.originalLayout = JSON.parse(JSON.stringify(updated));
+      const layoutResult = updated ?? settings;
+      this.layoutSignal.set(layoutResult);
+      this.originalLayout = JSON.parse(JSON.stringify(layoutResult));
 
-      this.applyLayoutToDom(updated!);
+      this.applyLayoutToDom(layoutResult);
     } catch (error) {
       this.errorSignal.set('Failed to update layout settings');
       console.error('Error updating layout:', error);

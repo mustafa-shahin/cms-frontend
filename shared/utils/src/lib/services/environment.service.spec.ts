@@ -1,12 +1,30 @@
 import { TestBed } from '@angular/core/testing';
 import { EnvironmentService } from './environment.service';
 
+// Type-safe interface for window.__env
+interface WindowEnv {
+  apiUrl?: string;
+  apiVersion?: string;
+  production?: boolean;
+  customKey?: string;
+  nullKey?: null;
+  zeroKey?: number;
+  emptyKey?: string;
+  [key: string]: unknown;
+}
+
+interface WindowWithEnv extends Window {
+  __env?: WindowEnv;
+}
+
+const typedWindow = window as WindowWithEnv;
+
 describe('EnvironmentService', () => {
   let service: EnvironmentService;
 
   beforeEach(() => {
     // Clear window.__env before each test
-    (window as any).__env = {};
+    typedWindow.__env = {};
     
     TestBed.configureTestingModule({
       providers: [EnvironmentService]
@@ -16,7 +34,7 @@ describe('EnvironmentService', () => {
 
   afterEach(() => {
     // Clean up
-    delete (window as any).__env;
+    delete typedWindow.__env;
   });
 
   describe('initialization', () => {
@@ -25,7 +43,7 @@ describe('EnvironmentService', () => {
     });
 
     it('should initialize with empty env when window.__env is undefined', () => {
-      delete (window as any).__env;
+      delete typedWindow.__env;
       const freshService = new EnvironmentService();
       expect(freshService.apiUrl).toBe('https://localhost:7209/api');
     });
@@ -37,7 +55,8 @@ describe('EnvironmentService', () => {
     });
 
     it('should return custom apiUrl when set in env', () => {
-      (window as any).__env.apiUrl = 'https://custom-api.example.com';
+      typedWindow.__env = typedWindow.__env ?? {};
+      typedWindow.__env.apiUrl = 'https://custom-api.example.com';
       const freshService = new EnvironmentService();
       expect(freshService.apiUrl).toBe('https://custom-api.example.com');
     });
@@ -49,7 +68,8 @@ describe('EnvironmentService', () => {
     });
 
     it('should return custom apiVersion when set in env', () => {
-      (window as any).__env.apiVersion = 'v2';
+      typedWindow.__env = typedWindow.__env ?? {};
+      typedWindow.__env.apiVersion = 'v2';
       const freshService = new EnvironmentService();
       expect(freshService.apiVersion).toBe('v2');
     });
@@ -61,7 +81,8 @@ describe('EnvironmentService', () => {
     });
 
     it('should return true when set to true in env', () => {
-      (window as any).__env.production = true;
+      typedWindow.__env = typedWindow.__env ?? {};
+      typedWindow.__env.production = true;
       const freshService = new EnvironmentService();
       expect(freshService.production).toBe(true);
     });
@@ -69,7 +90,8 @@ describe('EnvironmentService', () => {
 
   describe('get', () => {
     it('should return value when key exists', () => {
-      (window as any).__env.customKey = 'customValue';
+      typedWindow.__env = typedWindow.__env ?? {};
+      typedWindow.__env.customKey = 'customValue';
       const freshService = new EnvironmentService();
       expect(freshService.get('customKey')).toBe('customValue');
     });
@@ -83,19 +105,22 @@ describe('EnvironmentService', () => {
     });
 
     it('should return null when key is set to null', () => {
-      (window as any).__env.nullKey = null;
+      typedWindow.__env = typedWindow.__env ?? {};
+      typedWindow.__env.nullKey = null;
       const freshService = new EnvironmentService();
       expect(freshService.get('nullKey', 'default')).toBe('default');
     });
 
     it('should return 0 when key is set to 0 (falsy but valid)', () => {
-      (window as any).__env.zeroKey = 0;
+      typedWindow.__env = typedWindow.__env ?? {};
+      typedWindow.__env.zeroKey = 0;
       const freshService = new EnvironmentService();
       expect(freshService.get('zeroKey', 100)).toBe(0);
     });
 
     it('should return empty string when key is set to empty string', () => {
-      (window as any).__env.emptyKey = '';
+      typedWindow.__env = typedWindow.__env ?? {};
+      typedWindow.__env.emptyKey = '';
       const freshService = new EnvironmentService();
       expect(freshService.get('emptyKey', 'default')).toBe('');
     });
@@ -137,8 +162,9 @@ describe('EnvironmentService', () => {
     });
 
     it('should use custom apiUrl and apiVersion', () => {
-      (window as any).__env.apiUrl = 'https://api.example.com';
-      (window as any).__env.apiVersion = 'v3';
+      typedWindow.__env = typedWindow.__env ?? {};
+      typedWindow.__env.apiUrl = 'https://api.example.com';
+      typedWindow.__env.apiVersion = 'v3';
       const freshService = new EnvironmentService();
       const url = freshService.getApiUrl('data');
       expect(url).toBe('https://api.example.com/v3/data');

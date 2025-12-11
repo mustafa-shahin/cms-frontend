@@ -17,6 +17,13 @@ const TOKEN_KEY = 'cms_access_token';
 const REFRESH_TOKEN_KEY = 'cms_refresh_token';
 const USER_KEY = 'cms_user';
 
+interface JwtPayload {
+  exp: number;
+  iat?: number;
+  sub?: string;
+  [key: string]: unknown;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -235,7 +242,7 @@ export class AuthService {
   /**
    * Parse JWT token
    */
-  private parseJwt(token: string): any {
+  private parseJwt(token: string): JwtPayload {
     try {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

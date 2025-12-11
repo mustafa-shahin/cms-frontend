@@ -79,7 +79,7 @@ export class CustomizationApiService {
         );
         
         if (enumKeyName) {
-          const enumValue = (TextStyleType as any)[enumKeyName];
+          const enumValue = (TextStyleType as unknown as Record<string, number>)[enumKeyName];
           if (typeof enumValue === 'number') {
             transformedTextStyles[enumValue] = value;
           }
@@ -88,7 +88,7 @@ export class CustomizationApiService {
       
       return {
         ...settings,
-        textStyles: transformedTextStyles as any
+        textStyles: transformedTextStyles as unknown as Record<TextStyleType, TextStyle>
       };
     }
     return settings;
