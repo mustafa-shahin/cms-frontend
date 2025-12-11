@@ -207,7 +207,51 @@
       "sectionPaddingDescription": "Vertikaler Abstand für Seitenabschnitte",
       "componentGap": "Komponenten-Abstand",
       "componentGapDescription": "Abstand zwischen UI-Komponenten",
-      "layoutPreview": "Layout-Vorschau"
+      "layoutPreview": "Layout-Vorschau",
+      "preview": {
+        "brand": "Marke",
+        "home": "Startseite",
+        "products": "Produkte",
+        "about": "Über uns",
+        "searchPlaceholder": "Suchen...",
+        "welcome": "Willkommen auf unserer Seite!",
+        "contact": "Kontakt",
+        "help": "Hilfe",
+        "tagline": "Beste ihrer Klasse",
+        "solutions": "Lösungen",
+        "pricing": "Preise",
+        "signIn": "Anmelden",
+        "signUp": "Registrieren",
+        "heroTitle": "Hero-Bereich",
+        "heroText": "Diese Polsterung und Abstände werden durch Ihre Einstellungen gesteuert.",
+        "copyright": "© 2024 Marke. Alle Rechte vorbehalten.",
+        "privacy": "Datenschutz",
+        "terms": "AGB",
+        "overview": "Übersicht",
+        "services": "Dienstleistungen",
+        "company": "Unternehmen",
+        "careers": "Karriere",
+        "blog": "Blog",
+        "support": "Support",
+        "helpCenter": "Hilfe-Center",
+        "status": "Status",
+        "newsletterTitle": "Abonnieren Sie unseren Newsletter",
+        "emailPlaceholder": "E-Mail eingeben",
+        "subscribe": "Abonnieren",
+        "footerText": "Die beste Lösung für Ihre Geschäftsanforderungen. Wir bieten qualitativ hochwertige Dienstleistungen und Support.",
+        "followUs": "Folgen Sie uns",
+        "product": "Produkt",
+        "features": "Funktionen",
+        "integrations": "Integrationen",
+        "changelog": "Änderungsprotokoll",
+        "resources": "Ressourcen",
+        "documentation": "Dokumentation",
+        "apiReference": "API-Referenz",
+        "community": "Community",
+        "aboutUs": "Über uns",
+        "legal": "Rechtliches",
+        "weAccept": "Wir akzeptieren:"
+      }
     },
     "developer": {
       "title": "Entwicklereinstellungen",
@@ -220,15 +264,7 @@
         "importConfig": "Konfiguration importieren",
         "refresh": "Aktualisieren"
       },
-      "status": {
-        "title": "Konfigurationsstatus",
-        "theme": "Design",
-        "typography": "Typografie",
-        "layout": "Layout",
-        "unsavedChanges": "Nicht gespeicherte Änderungen",
-        "configured": "Konfiguriert",
-        "notConfigured": "Nicht konfiguriert"
-      },
+
       "messages": {
         "loadSuccess": "Konfiguration erfolgreich geladen",
         "saveSuccess": "Konfiguration erfolgreich gespeichert",
@@ -253,9 +289,47 @@
       },
       "confirmReset": {
         "title": "Konfiguration zurücksetzen",
-        "message": "Möchten Sie wirklich alle Einstellungen auf die Standardwerte zurücksetzen? Diese Aktion kann nicht rückgängig gemacht werden.",
-        "confirm": "Zurücksetzen",
-        "cancel": "Abbrechen"
+        "message": "Möchten Sie wirklich alle Einstellungen auf die Standardwerte zurücksetzen? Diese Aktion kann nicht rückgängig gemacht werden und wird:",
+        "confirm": "Ja, Konfiguration zurücksetzen",
+        "cancel": "Abbrechen",
+        "impact": {
+          "theme": "Alle Design-Anpassungen entfernen",
+          "typography": "Alle Typografie-Einstellungen entfernen",
+          "layout": "Alle Layout-Konfigurationen entfernen",
+          "cache": "Lokalen Speichercache leeren",
+          "defaults": "Server-Standardwerte laden"
+        }
+      },
+      "configManagementDesc": "Verwalten Sie Ihren Konfigurationsstatus.",
+      "actionDescriptions": {
+        "loadConfig": "Laden Sie die neueste Konfiguration vom Backend-Server und verwerfen Sie lokale Änderungen.",
+        "saveConfig": "Speichern Sie die aktuelle Konfiguration auf dem Backend-Server.",
+        "resetDefaults": "Dies setzt alle Konfigurationen dauerhaft auf Standardwerte zurück. Diese Aktion kann nicht rückgängig gemacht werden."
+      },
+      "status": {
+        "title": "Konfigurationsstatus",
+        "description": "Aktueller Konfigurationszustand.",
+        "theme": "Design",
+        "typography": "Typografie",
+        "layout": "Layout",
+        "unsavedChanges": "Nicht gespeicherte Änderungen",
+        "configured": "Konfiguriert",
+        "notConfigured": "Nicht festgelegt",
+        "yes": "Ja",
+        "no": "Nein"
+      },
+      "importExportDesc": "Konfigurationen übertragen.",
+      "exportJson": "JSON exportieren",
+      "downloadBackup": "Backup herunterladen",
+      "importJson": "JSON importieren",
+      "restoreFromFile": "Aus Datei wiederherstellen",
+      "tips": {
+        "title": "Entwicklertipps",
+        "load": "Verwenden Sie \"Vom Server laden\", um lokale Änderungen zu verwerfen und mit dem Backend zu synchronisieren",
+        "save": "Verwenden Sie \"Auf Server speichern\", um Ihre aktuelle Konfiguration dauerhaft zu speichern",
+        "export": "Exportieren Sie die Konfiguration vor größeren Änderungen, um ein Backup zu erstellen",
+        "import": "Importieren Sie die Konfiguration, um Einstellungen aus einer anderen Umgebung schnell anzuwenden",
+        "reset": "Das Zurücksetzen auf Standardwerte lädt Server-Standards, falls verfügbar, oder verwendet integrierte Standards"
       }
     },
     "systemInfo": {

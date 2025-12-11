@@ -209,7 +209,51 @@
       "spacingSettings": "Spacing Settings",
       "liveLayoutPreview": "Live Layout Preview",
       "previewDescription": "Preview how your changes affect the layout.",
-      "layoutPreview": "Layout Preview"
+      "layoutPreview": "Layout Preview",
+      "preview": {
+        "brand": "Brand",
+        "home": "Home",
+        "products": "Products",
+        "about": "About",
+        "searchPlaceholder": "Search...",
+        "welcome": "Welcome to our site!",
+        "contact": "Contact",
+        "help": "Help",
+        "tagline": "Best in class",
+        "solutions": "Solutions",
+        "pricing": "Pricing",
+        "signIn": "Sign In",
+        "signUp": "Sign Up",
+        "heroTitle": "Hero Section",
+        "heroText": "This padding and spacing is controlled by your settings.",
+        "copyright": "© 2024 Brand. All rights reserved.",
+        "privacy": "Privacy",
+        "terms": "Terms",
+        "overview": "Overview",
+        "services": "Services",
+        "company": "Company",
+        "careers": "Careers",
+        "blog": "Blog",
+        "support": "Support",
+        "helpCenter": "Help Center",
+        "status": "Status",
+        "newsletterTitle": "Subscribe to our newsletter",
+        "emailPlaceholder": "Enter email",
+        "subscribe": "Subscribe",
+        "footerText": "The best solution for your business needs. We provide quality services and support.",
+        "followUs": "Follow Us",
+        "product": "Product",
+        "features": "Features",
+        "integrations": "Integrations",
+        "changelog": "Changelog",
+        "resources": "Resources",
+        "documentation": "Documentation",
+        "apiReference": "API Reference",
+        "community": "Community",
+        "aboutUs": "About Us",
+        "legal": "Legal",
+        "weAccept": "We accept:"
+      }
     },
     "developer": {
     "title": "Developer Settings",
@@ -222,15 +266,7 @@
       "importConfig": "Import Configuration",
       "refresh": "Refresh"
     },
-    "status": {
-      "title": "Configuration Status",
-      "theme": "Theme",
-      "typography": "Typography",
-      "layout": "Layout",
-      "unsavedChanges": "Unsaved Changes",
-      "configured": "Configured",
-      "notConfigured": "Not Configured"
-    },
+
     "messages": {
       "loadSuccess": "Configuration loaded successfully",
       "saveSuccess": "Configuration saved successfully",
@@ -255,9 +291,47 @@
     },
     "confirmReset": {
       "title": "Reset Configuration",
-      "message": "Are you sure you want to reset all settings to their default values? This action cannot be undone.",
-      "confirm": "Reset",
-      "cancel": "Cancel"
+      "message": "Are you sure you want to reset all settings to their default values? This action cannot be undone and will:",
+      "confirm": "Yes, Reset Configuration",
+      "cancel": "Cancel",
+      "impact": {
+        "theme": "Remove all theme customizations",
+        "typography": "Remove all typography settings",
+        "layout": "Remove all layout configurations",
+        "cache": "Clear local storage cache",
+        "defaults": "Load server defaults"
+      }
+    },
+    "configManagementDesc": "Manage your configuration state.",
+    "actionDescriptions": {
+      "loadConfig": "Load the latest configuration from the backend server, discarding any local changes.",
+      "saveConfig": "Save the current configuration to the backend server.",
+      "resetDefaults": "This will permanently reset all configuration to default values. This action cannot be undone."
+    },
+    "status": {
+      "title": "Configuration Status",
+      "description": "Current configuration state.",
+      "theme": "Theme",
+      "typography": "Typography",
+      "layout": "Layout",
+      "unsavedChanges": "Unsaved Changes",
+      "configured": "Configured",
+      "notConfigured": "Not Set",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "importExportDesc": "Transfer configurations.",
+    "exportJson": "Export JSON",
+    "downloadBackup": "Download backup",
+    "importJson": "Import JSON",
+    "restoreFromFile": "Restore from file",
+    "tips": {
+      "title": "Developer Tips",
+      "load": "Use \"Load from Server\" to discard local changes and sync with the backend",
+      "save": "Use \"Save to Server\" to persist your current configuration",
+      "export": "Export configuration before making major changes to create a backup",
+      "import": "Import configuration to quickly apply settings from another environment",
+      "reset": "Reset to defaults will load server defaults if available, or use built-in defaults"
     }
   },
   "systemInfo": {

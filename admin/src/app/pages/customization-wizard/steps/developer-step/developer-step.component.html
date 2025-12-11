@@ -3,7 +3,7 @@
   <div class="mb-8">
     <h2 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ translate.instant("customization.developer.title") }}</h2>
     <p class="mt-2 text-lg text-gray-600 dark:text-gray-300">
-      {{ translate.instant("customization.developer.subtitle") || "Advanced configuration management tools for developers" }}
+      {{ translate.instant("customization.developer.subtitle") || translate.instant("customization.developer.description") }}
     </p>
   </div>
 
@@ -28,7 +28,7 @@
       <div class="bg-red-50/90 dark:bg-red-900/20 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800 p-4 rounded-xl shadow-sm flex items-start gap-3">
         <cms-icon name="alert-triangle" class="w-5 h-5 flex-shrink-0 mt-0.5 text-red-600 dark:text-red-400" />
         <div>
-          <strong class="font-bold block mb-1">Error</strong>
+          <strong class="font-bold block mb-1">{{ translate.instant("common.error") }}</strong>
           <span>{{ error() }}</span>
         </div>
       </div>
@@ -44,7 +44,7 @@
         </div>
         <div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.developer.configManagement") || "Configuration Management" }}</h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400">Manage your configuration state.</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">{{ translate.instant("customization.developer.configManagementDesc") }}</p>
         </div>
       </div>
 
@@ -58,7 +58,7 @@
             <div class="flex-1">
               <h4 class="font-bold text-gray-900 dark:text-white mb-1">{{ translate.instant("customization.developer.actions.loadConfig") }}</h4>
               <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                Load the latest configuration from the backend server, discarding any local changes.
+                {{ translate.instant("customization.developer.actionDescriptions.loadConfig") }}
               </p>
               <cms-button
                 (pressed)="loadNewestConfig()"
@@ -81,7 +81,7 @@
             <div class="flex-1">
               <h4 class="font-bold text-gray-900 dark:text-white mb-1">{{ translate.instant("customization.developer.actions.saveConfig") }}</h4>
               <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                Save the current configuration to the backend server.
+                {{ translate.instant("customization.developer.actionDescriptions.saveConfig") }}
               </p>
               <cms-button
                 (pressed)="saveCurrentConfig()"
@@ -104,7 +104,7 @@
             <div class="flex-1">
               <h4 class="font-bold text-red-900 dark:text-red-200 mb-1">{{ translate.instant("customization.developer.actions.resetDefaults") }}</h4>
               <p class="text-xs text-red-700 dark:text-red-300 mb-4">
-                <strong>Warning:</strong> This will permanently reset all configuration to default values. This action cannot be undone.
+                <strong>{{ translate.instant("common.warning") }}:</strong> {{ translate.instant("customization.developer.actionDescriptions.resetDefaults") }}
               </p>
               <cms-button
                 (pressed)="showResetConfirmation()"
@@ -112,7 +112,7 @@
                 color="danger"
                 iconName="alert-triangle"
               >
-                <span>Reset Configuration</span>
+                <span>{{ translate.instant("customization.developer.actions.resetDefaults") }}</span>
               </cms-button>
             </div>
           </div>
@@ -129,7 +129,7 @@
           </div>
           <div>
             <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.developer.status.title") }}</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Current configuration state.</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">{{ translate.instant("customization.developer.status.description") }}</p>
           </div>
         </div>
 
@@ -141,7 +141,7 @@
                 {{ translate.instant("customization.developer.status.theme") }}
               </span>
               <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium" [class]="theme() ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'">
-                {{ theme() ? 'Configured' : 'Not Set' }}
+                {{ theme() ? translate.instant('customization.developer.status.configured') : translate.instant('customization.developer.status.notConfigured') }}
               </span>
             </div>
             <div class="flex items-center justify-between p-4 hover:bg-white dark:hover:bg-gray-800 transition-colors">
@@ -150,7 +150,7 @@
                 {{ translate.instant("customization.developer.status.typography") }}
               </span>
               <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium" [class]="typography() ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'">
-                {{ typography() ? 'Configured' : 'Not Set' }}
+                {{ typography() ? translate.instant('customization.developer.status.configured') : translate.instant('customization.developer.status.notConfigured') }}
               </span>
             </div>
             <div class="flex items-center justify-between p-4 hover:bg-white dark:hover:bg-gray-800 transition-colors">
@@ -159,7 +159,7 @@
                 {{ translate.instant("customization.developer.status.layout") }}
               </span>
               <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium" [class]="layout() ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'">
-                {{ layout() ? 'Configured' : 'Not Set' }}
+                {{ layout() ? translate.instant('customization.developer.status.configured') : translate.instant('customization.developer.status.notConfigured') }}
               </span>
             </div>
             <div class="flex items-center justify-between p-4 hover:bg-white dark:hover:bg-gray-800 transition-colors">
@@ -168,7 +168,7 @@
                 {{ translate.instant("customization.developer.status.unsavedChanges") }}
               </span>
               <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium" [class]="hasUnsavedChanges() ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' : 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'">
-                {{ hasUnsavedChanges() ? 'Yes' : 'No' }}
+                {{ hasUnsavedChanges() ? translate.instant('customization.developer.status.yes') : translate.instant('customization.developer.status.no') }}
               </span>
             </div>
           </div>
@@ -182,8 +182,8 @@
             <cms-icon name="arrow-right-arrow-left" [style]="'solid'"  class="h-6 w-6 text-white"></cms-icon>
           </div>
           <div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.developer.importExport") || "Import/Export" }}</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Transfer configurations.</p>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ translate.instant("customization.developer.importExport") }}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">{{ translate.instant("customization.developer.importExportDesc") }}</p>
           </div>
         </div>
 
@@ -196,8 +196,8 @@
             <div class="mb-3 p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-full text-indigo-600 dark:text-indigo-400 group-hover/btn:scale-110 transition-transform">
               <cms-icon name="file-down" class="w-6 h-6" />
             </div>
-            <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">Export JSON</h4>
-            <p class="text-xs text-gray-500 dark:text-gray-400">Download backup</p>
+            <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">{{ translate.instant("customization.developer.exportJson") }}</h4>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ translate.instant("customization.developer.downloadBackup") }}</p>
           </button>
 
           <!-- Import -->
@@ -211,8 +211,8 @@
             <div class="mb-3 p-3 bg-purple-100 dark:bg-purple-900/30 rounded-full text-purple-600 dark:text-purple-400 group-hover/btn:scale-110 transition-transform">
               <cms-icon name="file-up" class="w-6 h-6" />
             </div>
-            <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">Import JSON</h4>
-            <p class="text-xs text-gray-500 dark:text-gray-400">Restore from file</p>
+            <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">{{ translate.instant("customization.developer.importJson") }}</h4>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ translate.instant("customization.developer.restoreFromFile") }}</p>
           </label>
         </div>
       </div>
@@ -227,13 +227,13 @@
       </div>
     </div>
     <div>
-      <h4 class="font-bold text-blue-900 dark:text-blue-200 mb-2">Developer Tips</h4>
+      <h4 class="font-bold text-blue-900 dark:text-blue-200 mb-2">{{ translate.instant("customization.developer.tips.title") }}</h4>
       <ul class="text-sm text-blue-800 dark:text-blue-300 space-y-1.5 list-disc list-inside marker:text-blue-400">
-        <li>Use "Load from Server" to discard local changes and sync with the backend</li>
-        <li>Use "Save to Server" to persist your current configuration</li>
-        <li>Export configuration before making major changes to create a backup</li>
-        <li>Import configuration to quickly apply settings from another environment</li>
-        <li>Reset to defaults will load server defaults if available, or use built-in defaults</li>
+        <li>{{ translate.instant("customization.developer.tips.load") }}</li>
+        <li>{{ translate.instant("customization.developer.tips.save") }}</li>
+        <li>{{ translate.instant("customization.developer.tips.export") }}</li>
+        <li>{{ translate.instant("customization.developer.tips.import") }}</li>
+        <li>{{ translate.instant("customization.developer.tips.reset") }}</li>
       </ul>
     </div>
   </div>
@@ -250,17 +250,17 @@
           </div>
         </div>
         <div class="flex-1">
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Confirm Reset</h3>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{{ translate.instant("customization.developer.confirmReset.title") }}</h3>
           <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">
-            Are you sure you want to reset all configuration to defaults? This action cannot be undone and will:
+            {{ translate.instant("customization.developer.confirmReset.message") }}
           </p>
           <div class="bg-red-50 dark:bg-red-900/10 rounded-lg p-3 mb-6 border border-red-100 dark:border-red-900/30">
             <ul class="text-xs text-red-800 dark:text-red-300 list-disc list-inside space-y-1">
-              <li>Remove all theme customizations</li>
-              <li>Remove all typography settings</li>
-              <li>Remove all layout configurations</li>
-              <li>Clear local storage cache</li>
-              <li>Load server defaults</li>
+              <li>{{ translate.instant("customization.developer.confirmReset.impact.theme") }}</li>
+              <li>{{ translate.instant("customization.developer.confirmReset.impact.typography") }}</li>
+              <li>{{ translate.instant("customization.developer.confirmReset.impact.layout") }}</li>
+              <li>{{ translate.instant("customization.developer.confirmReset.impact.cache") }}</li>
+              <li>{{ translate.instant("customization.developer.confirmReset.impact.defaults") }}</li>
             </ul>
           </div>
           <div class="flex gap-3 justify-end">
@@ -268,13 +268,13 @@
               (pressed)="cancelReset()"
               color="secondary"
             >
-              Cancel
+              {{ translate.instant("customization.developer.confirmReset.cancel") }}
             </cms-button>
             <cms-button
               (pressed)="confirmReset()"
               color="danger"
             >
-              Yes, Reset Configuration
+              {{ translate.instant("customization.developer.confirmReset.confirm") }}
             </cms-button>
           </div>
         </div>
