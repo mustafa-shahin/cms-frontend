@@ -42,7 +42,12 @@
     } @else {
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         @for (image of images; track image.id) {
-          <div class="group relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden aspect-square shadow-sm hover:shadow-md transition-all duration-200">
+          <div 
+            class="group relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden aspect-square shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+            (click)="openPreview(image)"
+            (keydown.enter)="openPreview(image)"
+            tabindex="0"
+          >
             <!-- Image Thumbnail -->
             <img 
               [src]="getImageUrl(image)" 
@@ -68,14 +73,14 @@
                     <cms-icon name="download" size="xs" class="text-white"></cms-icon>
                   </button>
                   <button
-                    (click)="onEdit(image)"
+                    (click)="onEdit(image); $event.stopPropagation()"
                     class="p-1.5 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
                     [title]="translate.instant('common.edit')"
                   >
                     <cms-icon name="edit" size="xs" class="text-white"></cms-icon>
                   </button>
                   <button
-                    (click)="onDelete(image)"
+                    (click)="onDelete(image); $event.stopPropagation()"
                     class="p-1.5 bg-red-500/80 hover:bg-red-600 rounded-lg transition-colors"
                     [title]="translate.instant('common.delete')"
                   >
@@ -117,4 +122,39 @@
       (saved)="onImageSaved()"
     ></cms-image-form>
   }
+</cms-dialog>
+
+<!-- Image Preview Modal -->
+<cms-dialog
+  [isOpen]="isPreviewOpen"
+  [title]="previewImage?.originalName || ''"
+  [size]="'xl'"
+  (dismiss)="closePreview()"
+>
+  @if (isPreviewOpen && previewImage) {
+    <div class="flex flex-col items-center justify-center p-2 bg-gray-50 dark:bg-gray-900/50 rounded-lg min-h-[300px]">
+      <img 
+        [src]="getImageUrl(previewImage)" 
+        [alt]="previewImage.altText || previewImage.originalName"
+        class="max-w-full max-h-[70vh] object-contain shadow-md rounded-sm"
+      />
+      <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+        {{ previewImage.width }}×{{ previewImage.height }} • {{ formatFileSize(previewImage.size) }}
+      </div>
+    </div>
+  }
+
+  <ng-container footer>
+    <cms-button 
+      [label]="translate.instant('common.download')" 
+      iconName="download" 
+      color="primary"
+      (pressed)="previewImage && onDownload(previewImage)"
+    ></cms-button>
+    <cms-button 
+      [label]="translate.instant('common.close')" 
+      color="secondary"
+      (pressed)="closePreview()"
+    ></cms-button>
+  </ng-container>
 </cms-dialog>

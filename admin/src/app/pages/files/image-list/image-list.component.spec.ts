@@ -249,6 +249,26 @@ describe('ImageListComponent', () => {
     });
   });
 
+  describe('Preview Operation', () => {
+    it('should open preview', () => {
+      const image = mockImages[0];
+      component.openPreview(image);
+      
+      expect(component.previewImage).toBe(image);
+      expect(component.isPreviewOpen).toBe(true);
+    });
+
+    it('should close preview', () => {
+      component.previewImage = mockImages[0];
+      component.isPreviewOpen = true;
+
+      component.closePreview();
+
+      expect(component.previewImage).toBeNull();
+      expect(component.isPreviewOpen).toBe(false);
+    });
+  });
+
   describe('Helpers', () => {
     it('should get image url from imageUrls map', () => {
       // The component stores blob URLs in imageUrls Map

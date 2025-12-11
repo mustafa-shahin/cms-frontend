@@ -48,6 +48,11 @@ export class ImageListComponent implements OnInit, OnDestroy {
 
   isModalOpen = false;
   selectedImage: ImageListDto | null = null;
+  
+  // Preview Mode State
+  isPreviewOpen = false;
+  previewImage: ImageListDto | null = null;
+
   Math = Math;
 
   // Map to store blob URLs for images
@@ -174,5 +179,15 @@ export class ImageListComponent implements OnInit, OnDestroy {
         this.toaster.error(this.translate.instant('fileManagement.errorDownloadingImage'));
       }
     });
+  }
+
+  openPreview(image: ImageListDto): void {
+    this.previewImage = image;
+    this.isPreviewOpen = true;
+  }
+
+  closePreview(): void {
+    this.isPreviewOpen = false;
+    this.previewImage = null;
   }
 }

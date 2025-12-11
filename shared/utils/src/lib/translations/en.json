@@ -38,7 +38,8 @@
     "comingSoon": "Coming Soon",
     "previous": "Previous",
     "next": "Next",
-    "download": "Download"
+    "download": "Download",
+    "close": "close"
   },
   "auth": {
     "loginTitle": "Sign In",
